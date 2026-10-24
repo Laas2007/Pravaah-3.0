@@ -19,7 +19,7 @@ export default function DroughtCard({ idx, asOf }) {
   if (!d.in_season) {
     return (
       <div className="ps-card" data-tour="drought">
-        <h2>🌵 {tr('Kharif drought early warning', 'ಮುಂಗಾರು ಬರ ಮುನ್ನೆಚ್ಚರಿಕೆ')}</h2>
+        <h2>{tr('Kharif drought early warning', 'ಮುಂಗಾರು ಬರ ಮುನ್ನೆಚ್ಚರಿಕೆ')}</h2>
         <div className="ps-note">{tr('Runs from 1 July to 30 September, during the kharif season. Pick a date in that window (e.g. "1 Aug 2023").',
           'ಮುಂಗಾರು ಋತುವಿನಲ್ಲಿ 1 ಜುಲೈ – 30 ಸೆಪ್ಟೆಂಬರ್ ನಡುವೆ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ. ಆ ಅವಧಿಯ ದಿನಾಂಕ ಆಯ್ಕೆಮಾಡಿ.')}</div>
       </div>
@@ -31,7 +31,7 @@ export default function DroughtCard({ idx, asOf }) {
   return (
     <div className="ps-card" data-tour="drought">
       <div className="ps-card-head">
-        <div><h2>🌵 {tr('Kharif drought early warning', 'ಮುಂಗಾರು ಬರ ಮುನ್ನೆಚ್ಚರಿಕೆ')}</h2>
+        <div><h2>{tr('Kharif drought early warning', 'ಮುಂಗಾರು ಬರ ಮುನ್ನೆಚ್ಚರಿಕೆ')}</h2>
           <div className="muted small">{tr(`M1 · forecast of how the season ends, from data up to ${d.as_of}`, `M1 · ${d.as_of} ರವರೆಗಿನ ದತ್ತಾಂಶದಿಂದ ಋತುವಿನ ಅಂತ್ಯದ ಮುನ್ಸೂಚನೆ`)}</div></div>
         <span className="ps-badge" style={{ background: DROUGHT_COLOR[t.level] }}>{tr(...DROUGHT_TEXT[t.level])}</span>
       </div>
@@ -50,9 +50,9 @@ export default function DroughtCard({ idx, asOf }) {
           <li>{tr(`Longest dry spell since 15 June: ${t.longest_dry_spell} days (trigger: 21+ days).`, `15 ಜೂನ್‌ನಿಂದ ದೀರ್ಘ ಒಣ ಅವಧಿ: ${t.longest_dry_spell} ದಿನ (ಮಾನದಂಡ: 21+).`)}</li>
           <li>{tr(`Soil-moisture adequacy for crops: ${Math.round(t.mai * 100)}% (Drought Manual: 75% or less is deficient).`,
             `ಬೆಳೆಗಳಿಗೆ ಮಣ್ಣಿನ ತೇವಾಂಶ ಸಮರ್ಪಕತೆ: ${Math.round(t.mai * 100)}% (75% ಅಥವಾ ಕಡಿಮೆ = ಕೊರತೆ).`)}</li>
-          <li>{t.level === 'likely' ? tr('Trigger met and the model is at least 50% confident → drought likely.', 'ಮಾನದಂಡ ಪೂರೈಸಿದೆ ಮತ್ತು ಮಾದರಿ ≥ 50% ಖಚಿತ → ಬರ ಸಾಧ್ಯತೆ ಹೆಚ್ಚು.')
-            : t.level === 'watch' ? tr('Trigger met but the model is under 50% confident → drought watch.', 'ಮಾನದಂಡ ಪೂರೈಸಿದೆ, ಮಾದರಿ < 50% → ಬರ ಎಚ್ಚರಿಕೆ.')
-              : tr('Trigger not met → no alert yet.', 'ಮಾನದಂಡ ಪೂರೈಸಿಲ್ಲ → ಎಚ್ಚರಿಕೆ ಇಲ್ಲ.')}</li>
+          <li>{t.level === 'likely' ? tr('Trigger met and the model is at least 50% confident, so drought is likely.', 'ಮಾನದಂಡ ಪೂರೈಸಿದೆ ಮತ್ತು ಮಾದರಿ ≥ 50% ಖಚಿತ: ಬರ ಸಾಧ್ಯತೆ ಹೆಚ್ಚು.')
+            : t.level === 'watch' ? tr('Trigger met but the model is under 50% confident, so this is a drought watch.', 'ಮಾನದಂಡ ಪೂರೈಸಿದೆ, ಮಾದರಿ < 50%: ಬರ ಎಚ್ಚರಿಕೆ.')
+              : tr('Trigger not met, so no alert yet.', 'ಮಾನದಂಡ ಪೂರೈಸಿಲ್ಲ: ಎಚ್ಚರಿಕೆ ಇಲ್ಲ.')}</li>
         </ul>
       </div>
       <h3>{tr('What raises the drought chance (change in probability)', 'ಬರ ಸಾಧ್ಯತೆ ಹೆಚ್ಚಿಸುವ ಅಂಶಗಳು')}</h3>
@@ -67,8 +67,8 @@ export default function DroughtCard({ idx, asOf }) {
       </div>
       <div className="ps-note" style={{ marginTop: 10 }}>
         {off
-          ? tr(`🏛️ Official: declared ${off.level} drought on ${off.phase} (as "${off.official_name}").`, `🏛️ ಅಧಿಕೃತ: ${off.phase} ರಂದು ${off.level === 'severe' ? 'ತೀವ್ರ' : 'ಸಾಮಾನ್ಯ'} ಬರ ಘೋಷಣೆ.`)
-          : tr('🏛️ No official declaration known for this taluk this year (only some years’ lists are public).', '🏛️ ಈ ವರ್ಷ ಈ ತಾಲೂಕಿಗೆ ಅಧಿಕೃತ ಘೋಷಣೆ ತಿಳಿದಿಲ್ಲ.')}
+          ? tr(`Official: declared ${off.level} drought on ${off.phase} (as "${off.official_name}").`, `ಅಧಿಕೃತ: ${off.phase} ರಂದು ${off.level === 'severe' ? 'ತೀವ್ರ' : 'ಸಾಮಾನ್ಯ'} ಬರ ಘೋಷಣೆ.`)
+          : tr('No official declaration known for this taluk this year (only some years’ lists are public).', 'ಈ ವರ್ಷ ಈ ತಾಲೂಕಿಗೆ ಅಧಿಕೃತ ಘೋಷಣೆ ತಿಳಿದಿಲ್ಲ.')}
       </div>
       <div className="muted small" style={{ marginTop: 6 }}>{tr('The official declaration also uses crop-loss surveys, which this model does not see; it cannot tell severe from moderate.',
         'ಅಧಿಕೃತ ಘೋಷಣೆ ಬೆಳೆ ನಷ್ಟ ಸಮೀಕ್ಷೆಯನ್ನೂ ಬಳಸುತ್ತದೆ; ಈ ಮಾದರಿ ತೀವ್ರ ಮತ್ತು ಸಾಮಾನ್ಯ ಬರವನ್ನು ಪ್ರತ್ಯೇಕಿಸದು.')}</div>

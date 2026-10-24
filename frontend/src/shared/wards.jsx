@@ -4,6 +4,7 @@ import { RISK_COLOR } from '../i18n'
 import { useTr } from './lang'
 import { RiskBadge } from './ui'
 import { wardReasons } from './explain'
+import Icon from './Icon'
 
 // Bengaluru's 243 BBMP wards (ward-level model, backend/model.py) as an overlay for the Karnataka map.
 let wardGeoP
@@ -35,7 +36,7 @@ export function WardCard({ ward, asOf, onClose }) {
       <div className="ps-card-head">
         <div><h2>{ward.name}</h2><div className="muted small">{tr(`Bengaluru ward ${ward.ward_no} · ward-level model`, `ಬೆಂಗಳೂರು ವಾರ್ಡ್ ${ward.ward_no} · ವಾರ್ಡ್ ಮಟ್ಟದ ಮಾದರಿ`)}</div></div>
         <RiskBadge risk={ward.risk} />
-        {onClose && <button className="ps-x" onClick={onClose} aria-label="Close">✕</button>}
+        {onClose && <button className="ps-x" onClick={onClose} aria-label="Close"><Icon name="close" size={18} /></button>}
       </div>
       <div className={`ps-forecast tone-${ward.risk}`}>
         <div className="ps-forecast-big">{dt(ward.days_mid)}</div>
@@ -50,8 +51,8 @@ export function WardCard({ ward, asOf, onClose }) {
         <ul>{wardReasons(ward, tr).map((r, i) => <li key={i}>{r}</li>)}</ul>
       </div>
       <Link className="ps-hero-link" to={`/urban/bengaluru?ward=${encodeURIComponent(ward.name)}&as_of=${asOf}&view=area${lang}`}>
-        <span>🔎</span><div><b>{tr('Open full ward view', 'ಪೂರ್ಣ ವಾರ್ಡ್ ವಿವರ ತೆರೆಯಿರಿ')}</b>
-          <div className="small">{tr('why, actions, history, interventions, chatbot', 'ಏಕೆ, ಕ್ರಮಗಳು, ಇತಿಹಾಸ, ಪರಿಹಾರ ಯೋಜನೆ, ಚಾಟ್‌ಬಾಟ್')}</div></div><span>→</span>
+        <span></span><div><b>{tr('Open full ward view', 'ಪೂರ್ಣ ವಾರ್ಡ್ ವಿವರ ತೆರೆಯಿರಿ')}</b>
+          <div className="small">{tr('why, actions, history, interventions, chatbot', 'ಏಕೆ, ಕ್ರಮಗಳು, ಇತಿಹಾಸ, ಪರಿಹಾರ ಯೋಜನೆ, ಚಾಟ್‌ಬಾಟ್')}</div></div><Icon name="arrow" size={18} />
       </Link>
     </div>
   )

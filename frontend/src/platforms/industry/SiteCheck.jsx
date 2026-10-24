@@ -5,6 +5,7 @@ import { useLoad } from '../../shared/hooks'
 import { useTr } from '../../shared/lang'
 import { ErrorBox, Loading, Stat } from '../../shared/ui'
 import { industryApi } from './api'
+import Icon from '../../shared/Icon'
 import './industry.css'
 
 // Example KIADB industrial areas (approximate centres) to try the check quickly
@@ -19,7 +20,7 @@ export const SITE_EXAMPLES = [
 export const VERDICT = {
   feasible: { color: '#0ca30c', text: ['Feasible', 'ಕಾರ್ಯಸಾಧ್ಯ'] },
   conditional: { color: '#fab219', text: ['Feasible with conditions', 'ಷರತ್ತುಗಳೊಂದಿಗೆ ಕಾರ್ಯಸಾಧ್ಯ'] },
-  risky: { color: '#ec6b1c', text: ['Risky', 'ಅಪಾಯಕಾರಿ'] },
+  risky: { color: '#d9661f', text: ['Risky', 'ಅಪಾಯಕಾರಿ'] },
   not_recommended: { color: '#d03b3b', text: ['Not recommended', 'ಶಿಫಾರಸು ಮಾಡುವುದಿಲ್ಲ'] },
 }
 const CAT = {
@@ -70,7 +71,7 @@ export default function SiteCheck({ asOf, picking, setPicking }) {
 
   return (
     <div className="ps-card industry-site" data-tour="site">
-      <h2>🏭 {tr('Can a factory get its water here?', 'ಇಲ್ಲಿ ಕಾರ್ಖಾನೆಗೆ ನೀರು ಸಿಗುತ್ತದೆಯೇ?')}</h2>
+      <h2>{tr('Can a factory get its water here?', 'ಇಲ್ಲಿ ಕಾರ್ಖಾನೆಗೆ ನೀರು ಸಿಗುತ್ತದೆಯೇ?')}</h2>
       <div className="muted small">{tr('Pick a location anywhere in Karnataka and enter the factory\'s daily water need. You get a verdict with every statistic behind it.',
         'ಕರ್ನಾಟಕದಲ್ಲಿ ಸ್ಥಳ ಆಯ್ಕೆಮಾಡಿ ಮತ್ತು ಕಾರ್ಖಾನೆಯ ದೈನಂದಿನ ನೀರಿನ ಅಗತ್ಯ ನಮೂದಿಸಿ. ತೀರ್ಮಾನ ಮತ್ತು ಎಲ್ಲಾ ಅಂಕಿಅಂಶಗಳು ಸಿಗುತ್ತವೆ.')}</div>
       <form className="industry-form" onSubmit={submit}>
@@ -79,7 +80,7 @@ export default function SiteCheck({ asOf, picking, setPicking }) {
             <input value={lat} onChange={(e) => setLat(e.target.value)} placeholder={tr('latitude', 'ಅಕ್ಷಾಂಶ')} inputMode="decimal" />
             <input value={lon} onChange={(e) => setLon(e.target.value)} placeholder={tr('longitude', 'ರೇಖಾಂಶ')} inputMode="decimal" />
             <button type="button" className={`industry-pick ${picking ? 'on' : ''}`} onClick={() => setPicking(!picking)}>
-              📍 {picking ? tr('Click the map…', 'ನಕ್ಷೆ ಕ್ಲಿಕ್ ಮಾಡಿ…') : tr('Pick on map', 'ನಕ್ಷೆಯಲ್ಲಿ ಆಯ್ಕೆ')}</button>
+              {picking ? tr('Click the map…', 'ನಕ್ಷೆ ಕ್ಲಿಕ್ ಮಾಡಿ…') : tr('Pick on map', 'ನಕ್ಷೆಯಲ್ಲಿ ಆಯ್ಕೆ')}</button>
           </div>
           <div className="industry-chips">
             {SITE_EXAMPLES.map((x) => (
@@ -130,9 +131,9 @@ function Report({ d, onClear }) {
           <div className="muted small">{tr(`${dm.kld.toLocaleString()} kL/day: ${Math.round(dm.groundwater_share * 100)}% groundwater${dm.groundwater_share_default ? ' (district typical)' : ''}, ${Math.round((1 - dm.groundwater_share) * 100)}% surface · as of ${d.as_of}`,
             `${dm.kld.toLocaleString()} kL/ದಿನ: ${Math.round(dm.groundwater_share * 100)}% ಅಂತರ್ಜಲ · ${d.as_of}`)}</div>
         </div>
-        <button className="industry-close" onClick={onClear} title={tr('Clear', 'ತೆರವು')}>✕</button>
+        <button className="industry-close" onClick={onClear} aria-label={tr('Clear', 'ತೆರವು')}><Icon name="close" size={18} /></button>
       </div>
-      {d.gates.map((x) => <div key={x} className="ps-note industry-gate">⛔ {x}</div>)}
+      {d.gates.map((x) => <div key={x} className="ps-note industry-gate">{x}</div>)}
 
       <h3>{tr('Why this verdict?', 'ಈ ತೀರ್ಮಾನ ಏಕೆ?')}</h3>
       <div className="ps-why">
@@ -150,7 +151,7 @@ function Report({ d, onClear }) {
       <div className="muted small">{tr(`Score = weighted average (groundwater items weigh the groundwater share, reservoir the surface share, rain 0.5). ≥70 feasible · 45–69 with conditions · 25–44 risky · <25 not recommended. Expected days with a supply shortfall in the next 6 months for this mix: ${d.shortfall_days_6m}.`,
         `ಅಂಕ = ತೂಕದ ಸರಾಸರಿ. ≥70 ಕಾರ್ಯಸಾಧ್ಯ · 45–69 ಷರತ್ತು · 25–44 ಅಪಾಯ · <25 ಶಿಫಾರಸು ಇಲ್ಲ. ಮುಂದಿನ 6 ತಿಂಗಳಲ್ಲಿ ಕೊರತೆಯ ದಿನಗಳು: ${d.shortfall_days_6m}.`)}</div>
 
-      <h3>💧 {tr('Groundwater', 'ಅಂತರ್ಜಲ')}</h3>
+      <h3>{tr('Groundwater', 'ಅಂತರ್ಜಲ')}</h3>
       <div className="ps-stats">
         {o && <Stat label={tr('Official status (CGWB 2023)', 'ಅಧಿಕೃತ ಸ್ಥಿತಿ (CGWB 2023)')} value={tr(...CAT[o.category])}
           tone={o.category === 'safe' ? '' : 'bad'} sub={tr(`${o.stage_pct}% of extractable water already pumped`, `ಹೊರತೆಗೆಯಬಹುದಾದ ನೀರಿನ ${o.stage_pct}% ಈಗಾಗಲೇ ಬಳಕೆ`)} />}
@@ -170,7 +171,7 @@ function Report({ d, onClear }) {
       {g.footprint_km2 != null && dm.groundwater_kld > 0 && <div className="muted small">{tr(`The groundwater part (${dm.groundwater_kld.toLocaleString()} kL/day) equals all the extractable recharge of ${g.footprint_km2} km² of this taluk (${d.taluk_area_km2} km² in total).`,
         `ಅಂತರ್ಜಲ ಪಾಲು ಈ ತಾಲೂಕಿನ ${g.footprint_km2} ಕಿಮೀ² ಮರುಪೂರಣಕ್ಕೆ ಸಮ.`)}</div>}
 
-      <h3>🏞️ {tr('Surface water', 'ಮೇಲ್ಮೈ ನೀರು')}</h3>
+      <h3>{tr('Surface water', 'ಮೇಲ್ಮೈ ನೀರು')}</h3>
       {s ? (
         <div className="ps-stats">
           <Stat label={tr('Reservoir system', 'ಜಲಾಶಯ ವ್ಯವಸ್ಥೆ')} value={s.system} sub={s.dams.join(', ')} />
@@ -183,7 +184,7 @@ function Report({ d, onClear }) {
       ) : <div className="ps-note">{tr('No modelled reservoir system serves this district: surface water would come from tanks, a KIADB scheme or tankers.',
         'ಈ ಜಿಲ್ಲೆಗೆ ಮಾದರಿ ಜಲಾಶಯ ವ್ಯವಸ್ಥೆ ಇಲ್ಲ: ಕೆರೆಗಳು, KIADB ಯೋಜನೆ ಅಥವಾ ಟ್ಯಾಂಕರ್‌ಗಳು.')} {tr(`Minor-irrigation tanks in the taluk: ${d.context.tanks_in_taluk} (${d.context.tank_storage_mcm ?? 0} million m³).`, `ತಾಲೂಕಿನ ಕೆರೆಗಳು: ${d.context.tanks_in_taluk}.`)}</div>}
 
-      <h3>🌧️ {tr('Rain & climate', 'ಮಳೆ ಮತ್ತು ಹವಾಮಾನ')}</h3>
+      <h3>{tr('Rain & climate', 'ಮಳೆ ಮತ್ತು ಹವಾಮಾನ')}</h3>
       <div className="ps-stats">
         <Stat label={tr('Normal yearly rain', 'ವಾಡಿಕೆ ವಾರ್ಷಿಕ ಮಳೆ')} value={r.normal_mm} unit="mm" sub={tr(`${r.normal_years}, varies ±${r.variability_pct}%`, `${r.normal_years}, ±${r.variability_pct}%`)} />
         <Stat label={tr('Last 12 months', 'ಕಳೆದ 12 ತಿಂಗಳು')} value={r.last_12m_mm} unit="mm" tone={r.last_12m_dev_pct <= -20 ? 'bad' : ''}
@@ -194,7 +195,7 @@ function Report({ d, onClear }) {
           sub={tr(`hottest day ${r.tmax_12m_c} °C (cooling-water loss)`, `ಅತಿ ಬಿಸಿ ದಿನ ${r.tmax_12m_c} °C`)} />
       </div>
 
-      <h3>♻️ {tr('Cutting the fresh-water need', 'ತಾಜಾ ನೀರಿನ ಅಗತ್ಯ ಕಡಿತ')}</h3>
+      <h3>{tr('Cutting the fresh-water need', 'ತಾಜಾ ನೀರಿನ ಅಗತ್ಯ ಕಡಿತ')}</h3>
       <div className="ps-stats">
         <Stat label={tr('Recycle 70% of wastewater', 'ತ್ಯಾಜ್ಯನೀರಿನ 70% ಮರುಬಳಕೆ')} value={`−${d.offsets.reuse_kld.toLocaleString()}`} unit="kL/day" />
         {d.offsets.rainwater_kld != null && <Stat label={tr('Rainwater harvesting', 'ಮಳೆನೀರು ಕೊಯ್ಲು')} value={`−${d.offsets.rainwater_kld.toLocaleString()}`} unit="kL/day" sub={tr('yearly average', 'ವಾರ್ಷಿಕ ಸರಾಸರಿ')} />}
@@ -203,7 +204,7 @@ function Report({ d, onClear }) {
           sub={tr(`${d.context.kiadb_areas_in_district} industrial areas (estimated use)`, `${d.context.kiadb_areas_in_district} ಕೈಗಾರಿಕಾ ಪ್ರದೇಶಗಳು`)} />
       </div>
 
-      <h3>✅ {tr('What to do', 'ಏನು ಮಾಡಬೇಕು')}</h3>
+      <h3>{tr('What to do', 'ಏನು ಮಾಡಬೇಕು')}</h3>
       <ul className="industry-recs">{d.recommendations.map((x) => <li key={x}>{x}</li>)}</ul>
       <div className="muted small">{tr(`Real data: ${d.sources.real.join(', ')}. Estimated: ${d.sources.estimated.join(', ')}. The score is a transparent rule set (there are no public records of factory water failures to train on). It is a screening check, not a permit: groundwater use needs CGWA/KGWA permission and surface water a WRD/KIADB allocation.`,
         `ನೈಜ ದತ್ತಾಂಶ: ${d.sources.real.join(', ')}. ಅಂದಾಜು: ${d.sources.estimated.join(', ')}. ಇದು ಪ್ರಾಥಮಿಕ ಪರಿಶೀಲನೆ, ಅನುಮತಿ ಅಲ್ಲ.`)}</div>

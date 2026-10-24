@@ -3,6 +3,7 @@ import { api } from './api'
 import { GroundwaterChart } from './charts'
 import { WhyList } from './CitizenView'
 import { RISK_COLOR, RISK_ICON, rangeText } from './i18n'
+import Icon from './shared/Icon'
 
 const ZERO = { extra_piped: 0, rwh_boost: 0, demand_cut: 0, tanker_mld: 0 }
 const show = (x) => (x.days_mid === 0 ? 'In shortage now' : x.days_low > 365 ? 'Safe for 1 yr+' : `${x.days_low}–${x.days_high > 365 ? '365+' : x.days_high} days`)
@@ -39,7 +40,7 @@ function Ranking({ wards, selected, onSelect }) {
             <tr key={w.idx} className={w.idx === selected ? 'sel' : ''} onClick={() => onSelect(w.idx)}>
               <td className="muted">{i + 1}</td>
               <td><span className="dot" style={{ background: RISK_COLOR[w.risk] }} />{w.name}</td>
-              <td>{w.days_mid === 0 ? <b style={{ color: RISK_COLOR.critical }}>now</b> : rangeText(w) ? `${rangeText(w)} d` : '—'}</td>
+              <td>{w.days_mid === 0 ? <b style={{ color: RISK_COLOR.critical }}>now</b> : rangeText(w) ? `${rangeText(w)} d` : '–'}</td>
               <td className="num">{w.groundwater_pct}%</td>
               <td className="num">{w.inputs.cauvery_coverage_pct}%</td>
             </tr>
@@ -63,7 +64,6 @@ function Planner({ detail, asOf, preset }) {
 
   const slider = (k, icon, label, max, step, fmt) => (
     <label className="slider" key={k}>
-      <span className="sl-icon">{icon}</span>
       <span className="sl-label">{label}</span>
       <input type="range" min={0} max={max} step={step} value={iv[k]} onChange={(e) => setIv({ ...iv, [k]: +e.target.value })} />
       <b>{fmt(iv[k])}</b>
@@ -73,17 +73,17 @@ function Planner({ detail, asOf, preset }) {
   return (
     <div className="planner" data-tour="planner">
       <p className="muted small">Move the levers. The model re-runs all 30 rainfall scenarios for <b>{detail.name}</b>.</p>
-      {slider('extra_piped', '🚰', 'Extend Cauvery pipe coverage', 0.6, 0.05, (v) => `+${Math.round(v * 100)}%`)}
-      {slider('rwh_boost', '🪣', 'Rainwater harvesting & recharge wells', 2, 0.1, (v) => `+${Math.round(v * 100)}%`)}
-      {slider('demand_cut', '🔧', 'Cut demand (aerators, STP reuse, rationing)', 0.4, 0.05, (v) => (v ? `−${Math.round(v * 100)}%` : "0%"))}
-      {slider('tanker_mld', '🚚', 'Tanker water brought in', 5, 0.25, (v) => `${v} MLD`)}
+      {slider('extra_piped', '', 'Extend Cauvery pipe coverage', 0.6, 0.05, (v) => `+${Math.round(v * 100)}%`)}
+      {slider('rwh_boost', '', 'Rainwater harvesting & recharge wells', 2, 0.1, (v) => `+${Math.round(v * 100)}%`)}
+      {slider('demand_cut', '', 'Cut demand (aerators, STP reuse, rationing)', 0.4, 0.05, (v) => (v ? `−${Math.round(v * 100)}%` : "0%"))}
+      {slider('tanker_mld', '', 'Tanker water brought in', 5, 0.25, (v) => `${v} MLD`)}
       <div className="compare">
         <div className="cmp-box">
           <div className="cmp-label">Today's path</div>
           <div className="cmp-value" style={{ color: RISK_COLOR[detail.risk] }}>{show(detail)}</div>
           <div className="cmp-risk">{RISK_ICON[detail.risk]} {detail.risk}</div>
         </div>
-        <div className="cmp-arrow">→</div>
+        <div className="cmp-arrow"><Icon name="arrow" size={22} /></div>
         <div className={`cmp-box ${after ? 'on' : ''}`}>
           <div className="cmp-label">With interventions</div>
           {after ? (
@@ -111,7 +111,7 @@ export default function OfficialView({ wards, detail, onSelect, asOf, meta, t, t
         ))}
       </div>
       <div className="subtabs">
-        {[['rank', '📊 Rankings'], ['ward', '🔍 Deep dive'], ['plan', '🧪 Planner']].map(([k, l]) => (
+        {[['rank', 'Rankings'], ['ward', 'Deep dive'], ['plan', 'Planner']].map(([k, l]) => (
           <button key={k} className={tab === k ? 'on' : ''} onClick={() => setTab(k)}>{l}</button>
         ))}
       </div>
@@ -142,7 +142,7 @@ export default function OfficialView({ wards, detail, onSelect, asOf, meta, t, t
               <tr><td>Ward area</td><td>{detail.inputs.area_km2} km²</td><td><span className="tag real">real · BBMP</span></td></tr>
             </tbody>
           </table>
-          <button className="ask-btn" onClick={() => setTab('plan')}>🧪 Plan interventions for {detail.name} →</button>
+          <button className="ask-btn" onClick={() => setTab('plan')}>Plan interventions for {detail.name}</button>
         </div>
       )}
       {tab === 'plan' && detail && <Planner detail={detail} asOf={asOf} preset={preset} />}

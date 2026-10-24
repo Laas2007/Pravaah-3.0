@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { req } from '../api'
 import { useTr } from './lang'
+import Icon from './Icon'
 
 const post = (path, body) => req(path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
 
@@ -42,7 +43,7 @@ export default function PlatformChat({ platform, asOf, taluk, ward }) {
   if (!open) {
     return (
       <button className="chat-fab" onClick={() => setOpen(true)} data-tour="chat">
-        <span className="fab-icon">💬</span>
+        <span className="fab-icon"><Icon name="chat" size={18} /></span>
         <span><b>{tr('Ask JalaMitra', 'ಜಲಮಿತ್ರನನ್ನು ಕೇಳಿ')}</b><small>English · ಕನ್ನಡ</small></span>
       </button>
     )
@@ -50,7 +51,7 @@ export default function PlatformChat({ platform, asOf, taluk, ward }) {
   return (
     <div className="chat" data-tour="chat">
       <div className="chat-head">
-        <div className="bot-avatar">💧</div>
+        <div className="bot-avatar"><Icon name="drop" size={18} /></div>
         <div>
           <b>JalaMitra</b>
           <div className="small">{place ? place.name : tr('pick a taluk or ward', 'ತಾಲೂಕು ಅಥವಾ ವಾರ್ಡ್ ಆಯ್ಕೆಮಾಡಿ')} · {tr.lang === 'kn' ? 'ಕನ್ನಡ' : 'English'}</div>
@@ -68,7 +69,7 @@ export default function PlatformChat({ platform, asOf, taluk, ward }) {
       <form className="chat-input" onSubmit={(e) => { e.preventDefault(); send(input) }}>
         <input value={input} onChange={(e) => setInput(e.target.value)} disabled={!place}
           placeholder={tr('Ask why, or what you can do…', 'ಏಕೆ ಅಥವಾ ಏನು ಮಾಡಬಹುದು ಎಂದು ಕೇಳಿ…')} />
-        <button type="submit" disabled={!place || busy}>➤</button>
+        <button type="submit" disabled={!place || busy} aria-label="Send"><Icon name="send" size={18} /></button>
       </form>
     </div>
   )

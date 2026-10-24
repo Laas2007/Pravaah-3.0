@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { fmtDate } from './i18n'
+import Icon from './shared/Icon'
 
 const iso = (d) => d.toISOString().slice(0, 10)
 
@@ -34,7 +35,7 @@ export default function Timeline({ asOf, setAsOf, meta, lang }) {
   return (
     <div className="timeline" data-tour="timeline">
       <button className="play" onClick={() => setPlaying(!playing)} aria-label={playing ? 'Pause' : 'Play'}>
-        {playing ? '❚❚' : '▶'}
+        <Icon name={playing ? 'pause' : 'play'} size={18} />
       </button>
       <div className="tl-date">
         <div className="tl-label">{lang === 'kn' ? 'ಮುನ್ಸೂಚನೆ ದಿನಾಂಕ' : 'Forecast as of'}</div>
@@ -47,7 +48,7 @@ export default function Timeline({ asOf, setAsOf, meta, lang }) {
           {years.map((y) => <span key={y} style={{ left: pos(`${y}-01-01`) }}>{y}</span>)}
         </div>
         <button className="tl-crisis" style={{ left: pos(crisis) }} onClick={() => setAsOf('2023-12-01')} title="Jump to just before the 2024 crisis">
-          ⚠ {lang === 'kn' ? '2024 ಬಿಕ್ಕಟ್ಟು' : '2024 crisis'}
+          {lang === 'kn' ? '2024 ಬಿಕ್ಕಟ್ಟು' : '2024 crisis'}
         </button>
       </div>
       <button className="tl-today" onClick={() => setAsOf(meta.data_until)}>{lang === 'kn' ? 'ಇಂದು' : 'Latest'}</button>

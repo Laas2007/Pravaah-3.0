@@ -4,6 +4,7 @@ import { useLoad } from './hooks'
 import { DRIVER_TEXT, useTr } from './lang'
 import TimeMachine from './TimeMachine'
 import { talukHeadline, talukReasons } from './explain'
+import Icon from './Icon'
 import { ErrorBox, Loading, RiskBadge, Stat, m, pct } from './ui'
 
 /** Real-data summary + M2 groundwater forecast (+ Time Machine) for one taluk. Reused by all platforms. */
@@ -20,7 +21,7 @@ export default function TalukDetail({ idx, asOf, onClose, color = '#2a78d6' }) {
         <div className="ps-card-head">
           <div><h2>{t.name}</h2><div className="muted small">{tr(`${t.district} district`, `${t.district} ಜಿಲ್ಲೆ`)} · {t.area_km2} km²</div></div>
           <RiskBadge risk={t.risk} />
-          {onClose && <button className="ps-x" onClick={onClose} aria-label="Close">✕</button>}
+          {onClose && <button className="ps-x" onClick={onClose} aria-label="Close"><Icon name="close" size={18} /></button>}
         </div>
 
         {fc ? <Forecast fc={fc} risk={t.risk} hist={t.groundwater_history} color={color} /> : (

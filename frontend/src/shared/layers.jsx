@@ -20,42 +20,44 @@ export function interp(stops, t) {
 }
 
 const pctTxt = (v) => (v == null ? '–' : `${v > 0 ? '+' : ''}${Math.round(v)}%`)
-const mTxt = (v) => (v == null ? '–' : `${v > 0 ? '+' : ''}${v.toFixed(1)} m`)
+const gwTxt = (r) => (r.gw_anom_m == null ? '–'
+  : `${Math.abs(r.gw_anom_m).toFixed(1)} m ${r.gw_anom_m > 0 ? 'deeper' : 'shallower'} than normal (${r.gw_month})`)
 
 // value(row) -> 0..1 (dark = high), fmt(row) -> tooltip value, ticks: colour-bar labels top -> bottom
 export const LAYER_DEFS = {
-  risk: { icon: '🚦', name: ['Risk zones', 'ಅಪಾಯ ವಲಯ'] },
+  risk: { name: ['Risk zones', 'ಅಪಾಯ ವಲಯ'] },
   heat: {
-    icon: '🔥', name: ['Heatmap', 'ಹೀಟ್‌ಮ್ಯಾಪ್'], ramp: RAMP.heat,
+    name: ['Heatmap', 'ಹೀಟ್‌ಮ್ಯಾಪ್'], ramp: RAMP.heat,
     title: ['Water Scarcity Index', 'ನೀರಿನ ಕೊರತೆ ಸೂಚ್ಯಂಕ'], axis: ['Scarcity (0 = safe, 100 = at stress now)', 'ಕೊರತೆ (0 = ಸುರಕ್ಷಿತ, 100 = ಈಗ ಒತ್ತಡ)'],
     ticks: ['100', '75', '50', '25', '0'], value: (r) => r.stress, fmt: (r) => (r.stress == null ? '–' : Math.round(r.stress * 100)),
   },
   groundwater: {
-    icon: '💧', name: ['Groundwater', 'ಅಂತರ್ಜಲ'], ramp: RAMP.water,
+    name: ['Groundwater', 'ಅಂತರ್ಜಲ'], ramp: RAMP.water,
     title: ['Groundwater vs normal (wells)', 'ಅಂತರ್ಜಲ vs ವಾಡಿಕೆ (ಬಾವಿಗಳು)'], axis: ['Water table vs normal (dark = more water)', 'ನೀರಿನ ಮಟ್ಟ vs ವಾಡಿಕೆ (ಗಾಢ = ಹೆಚ್ಚು ನೀರು)'],
     ticks: ['6 m higher', '3 m', 'normal', '3 m', '6 m lower'],
-    value: (r) => (r.gw_anom_m == null ? null : clip((6 - r.gw_anom_m) / 12)), fmt: (r) => mTxt(r.gw_anom_m),
+    value: (r) => (r.gw_anom_m == null ? null : clip((6 - r.gw_anom_m) / 12)),
+    fmt: (r) => gwTxt(r), month: 'gw_month',
   },
   rain12: {
-    icon: '🌧️', name: ['Rain 12 months', '12 ತಿಂ. ಮಳೆ'], ramp: RAMP.diverging,
+    name: ['Rain 12 months', '12 ತಿಂ. ಮಳೆ'], ramp: RAMP.diverging,
     title: ['Rain, last 12 months vs normal (IMD)', 'ಕಳೆದ 12 ತಿಂಗಳ ಮಳೆ vs ವಾಡಿಕೆ (IMD)'], axis: ['% vs normal', 'ವಾಡಿಕೆಗಿಂತ %'],
     ticks: ['+60%', '+30%', 'normal', '−30%', '−60%'],
     value: (r) => (r.rain_365d_dev_pct == null ? null : clip((r.rain_365d_dev_pct + 60) / 120)), fmt: (r) => pctTxt(r.rain_365d_dev_pct),
   },
   rain3: {
-    icon: '🌦️', name: ['Rain 3 months', '3 ತಿಂ. ಮಳೆ'], ramp: RAMP.diverging,
+    name: ['Rain 3 months', '3 ತಿಂ. ಮಳೆ'], ramp: RAMP.diverging,
     title: ['Rain, last 3 months vs normal (IMD)', 'ಕಳೆದ 3 ತಿಂಗಳ ಮಳೆ vs ವಾಡಿಕೆ (IMD)'], axis: ['% vs normal', 'ವಾಡಿಕೆಗಿಂತ %'],
     ticks: ['+60%', '+30%', 'normal', '−30%', '−60%'],
     value: (r) => (r.rain_90d_dev_pct == null ? null : clip((r.rain_90d_dev_pct + 60) / 120)), fmt: (r) => pctTxt(r.rain_90d_dev_pct),
   },
   waterbal: {
-    icon: '⚖️', name: ['Season water balance', 'ಋತುವಿನ ನೀರಿನ ಸಮತೋಲನ'], ramp: RAMP.diverging,
+    name: ['Season water balance', 'ಋತುವಿನ ನೀರಿನ ಸಮತೋಲನ'], ramp: RAMP.diverging,
     title: ['Season water balance: rain − crop water demand (ET0)', 'ಋತುವಿನ ನೀರಿನ ಸಮತೋಲನ: ಮಳೆ − ಬೆಳೆ ನೀರಿನ ಬೇಡಿಕೆ'], axis: ['mm since season start', 'ಋತು ಆರಂಭದಿಂದ ಮಿ.ಮೀ.'],
     ticks: ['+400', '+200', '0', '−200', '−400'],
     value: (r) => (r.season_wb_mm == null ? null : clip((r.season_wb_mm + 400) / 800)), fmt: (r) => (r.season_wb_mm == null ? '–' : `${Math.round(r.season_wb_mm)} mm`),
   },
   drought: {
-    icon: '🌵', name: ['Kharif drought (M1)', 'ಮುಂಗಾರು ಬರ (M1)'],
+    name: ['Kharif drought (M1)', 'ಮುಂಗಾರು ಬರ (M1)'],
     title: ['Kharif drought early warning (M1)', 'ಮುಂಗಾರು ಬರ ಮುನ್ನೆಚ್ಚರಿಕೆ (M1)'],
     cat: (r) => r.drought_level || 'off',
     colors: { likely: '#d03b3b', watch: '#fab219', low: '#0ca30c', off: '#d5dbe3' },
@@ -66,7 +68,7 @@ export const LAYER_DEFS = {
     fmt: (r) => (r.drought_p == null ? '–' : `${Math.round(r.drought_p * 100)}%`),
   },
   m7: {
-    icon: '🏭', name: ['Industrial risk', 'ಕೈಗಾರಿಕಾ ಅಪಾಯ'], ramp: RAMP.industry,
+    name: ['Industrial risk', 'ಕೈಗಾರಿಕಾ ಅಪಾಯ'], ramp: RAMP.industry,
     title: ['Industrial output at risk, next 6 months (M7)', 'ಮುಂದಿನ 6 ತಿಂಗಳ ಕೈಗಾರಿಕಾ ಉತ್ಪಾದನೆ ಅಪಾಯ (M7)'], axis: ['% of output at risk (district)', 'ಅಪಾಯದ ಉತ್ಪಾದನೆ % (ಜಿಲ್ಲೆ)'],
     ticks: ['100%', '75%', '50%', '25%', '0%'],
     value: (r) => (r.m7 == null ? null : clip(r.m7 / 100)), fmt: (r) => (r.m7 == null ? '–' : `${r.m7}%`),
@@ -160,11 +162,14 @@ export function useLayerMap({ layers, fallback, rows, wards }) {
     <div className="layer-switch" data-tour="layers">
       {layers.map((k) => (
         <button key={k} className={layer === k ? 'on' : ''} onClick={() => setLayer(k)}>
-          <span>{LAYER_DEFS[k].icon}</span>{tr(...LAYER_DEFS[k].name)}
+          {tr(...LAYER_DEFS[k].name)}
         </button>
       ))}
     </div>
   )
-  const title = index || cat ? <div className="map-title">{tr(...def.title)}</div> : null
+  // layers built on monthly well readings say which month the map shows (the latest month most wells have reported)
+  const months = def.month ? byIdx.map((r) => r && r[def.month]).filter(Boolean) : []
+  const month = months.length ? Object.entries(months.reduce((c, m) => ({ ...c, [m]: (c[m] || 0) + 1 }), {})).sort((a, b) => b[1] - a[1])[0][0] : null
+  const title = index || cat ? <div className="map-title">{tr(...def.title)}{month && <span className="map-title-sub">{tr(` · readings from ${month}`, ` · ${month} ಮಾಪನಗಳು`)}</span>}</div> : null
   return { layer, index, colorOf, labelOf, legend, switcher, title, wardColor, counts }
 }

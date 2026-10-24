@@ -1,8 +1,9 @@
-// 🏙️ Urban Population. TODO list: backend/usecases/urban.py
+// Urban Population. TODO list: backend/usecases/urban.py
 // The full Bengaluru ward model lives in ./BengaluruApp.jsx (route /urban/bengaluru).
 import { Link } from 'react-router-dom'
 import { Area, CartesianGrid, ComposedChart, Line, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import { RISK_COLOR } from '../../i18n'
+import Icon from '../../shared/Icon'
 import KarnatakaMap from '../../shared/KarnatakaMap'
 import PlatformShell from '../../shared/PlatformShell'
 import PlatformChat from '../../shared/PlatformChat'
@@ -47,11 +48,11 @@ export default function UrbanPlatform() {
   return (
     <PlatformShell which="urban" asOf={asOf} setAsOf={setAsOf} meta={meta} map={map}>
       <Link to={`/urban/bengaluru?as_of=${asOf || ''}${lang}`} className="ps-hero-link">
-        <span>🏙️</span>
+        <span></span>
         <div><b>{tr('Bengaluru ward-level model', 'ಬೆಂಗಳೂರು ವಾರ್ಡ್ ಮಟ್ಟದ ಮಾದರಿ')}</b>
           <div className="small">{tr('243 wards · days-until-shortage · why · interventions · 2024 Time Machine · EN/ಕನ್ನಡ chatbot',
             '243 ವಾರ್ಡ್‌ಗಳು · ಕೊರತೆಗೆ ದಿನಗಳು · ಕಾರಣ · ಪರಿಹಾರ · 2024 ಟೈಮ್ ಮೆಷಿನ್ · ಚಾಟ್‌ಬಾಟ್')}</div></div>
-        <span>→</span>
+        <Icon name="arrow" size={18} />
       </Link>
       {wsel != null && wards && <WardCard ward={wards.wards[wsel]} asOf={wards.as_of} onClose={() => setWard(null)} />}
       {sel != null && <TalukDetail idx={sel} asOf={asOf} color={COLOR} onClose={() => setSel(null)} />}
@@ -92,7 +93,7 @@ function WardSummary({ wards, onSelect }) {
   return (
     <div data-tour="wards">
       <StateSummary kicker={tr('Bengaluru · 243 wards', 'ಬೆಂಗಳೂರು · 243 ವಾರ್ಡ್‌ಗಳು')} asOf={wards.as_of} items={items}
-        text={tr(<>wards are expected to run short of water <b>within 90 days</b> (ward-level water balance on IMD rain). Use "🔎 Bengaluru wards" on the map to zoom in.</>,
+        text={tr(<>wards are expected to run short of water <b>within 90 days</b> (ward-level water balance on IMD rain). Use "Bengaluru wards" on the map to zoom in.</>,
           <>ವಾರ್ಡ್‌ಗಳಲ್ಲಿ <b>90 ದಿನಗಳೊಳಗೆ</b> ನೀರಿನ ಕೊರತೆ ನಿರೀಕ್ಷೆ (IMD ಮಳೆಯ ಮೇಲೆ ವಾರ್ಡ್ ಮಟ್ಟದ ಜಲ ಸಮತೋಲನ).</>)}
         urgentTitle={tr('Most urgent wards', 'ಅತ್ಯಂತ ತುರ್ತು ವಾರ್ಡ್‌ಗಳು')} onPick={(x) => onSelect(x.idx)} />
     </div>

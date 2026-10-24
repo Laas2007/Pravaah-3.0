@@ -71,7 +71,7 @@ export const T = {
 }
 
 export const RISK_COLOR = { low: '#0ca30c', medium: '#fab219', high: '#ec835a', critical: '#d03b3b' }
-export const RISK_ICON = { low: '●', medium: '▲', high: '◆', critical: '✖' }
+export const RISK_ICON = { low: '●', medium: '▲', high: '◆', critical: '■' }
 export const RISK_ORDER = ['critical', 'high', 'medium', 'low']
 
 export function addDays(iso, n) {

@@ -1,4 +1,4 @@
-// 🌾 Agriculture & Farmers. TODO list: backend/usecases/agri.py
+// Agriculture & Farmers. TODO list: backend/usecases/agri.py
 import { core } from '../../api'
 import KarnatakaMap from '../../shared/KarnatakaMap'
 import TalukDetail from '../../shared/TalukDetail'
@@ -43,10 +43,10 @@ export default function AgriPlatform() {
       {sel == null
         ? <>
           {ind && <StateSummary kicker={tr('Karnataka · farm taluks', 'ಕರ್ನಾಟಕ · ಕೃಷಿ ತಾಲೂಕುಗಳು')} asOf={asOf} items={talukItems(byIdx, tr)}
-            text={tr(<>taluks where groundwater is <b>likely to reach stress within 6 months</b> (critical or high), from the ML forecast on 2,698 wells</>,
-              <>ತಾಲೂಕುಗಳಲ್ಲಿ <b>6 ತಿಂಗಳೊಳಗೆ ಅಂತರ್ಜಲ ಒತ್ತಡ ಸಾಧ್ಯತೆ</b> (ಗಂಭೀರ ಅಥವಾ ಹೆಚ್ಚು), 2,698 ಬಾವಿಗಳ ML ಮುನ್ಸೂಚನೆ</>)}
+            text={tr(<>taluks where groundwater is <b>likely to reach stress within 6 months</b> (critical or high), from the ML forecast on 2,664 wells</>,
+              <>ತಾಲೂಕುಗಳಲ್ಲಿ <b>6 ತಿಂಗಳೊಳಗೆ ಅಂತರ್ಜಲ ಒತ್ತಡ ಸಾಧ್ಯತೆ</b> (ಗಂಭೀರ ಅಥವಾ ಹೆಚ್ಚು), 2,664 ಬಾವಿಗಳ ML ಮುನ್ಸೂಚನೆ</>)}
             urgentTitle={tr('Most urgent taluks', 'ಅತ್ಯಂತ ತುರ್ತು ತಾಲೂಕುಗಳು')} onPick={(x) => setSel(x.idx)} />}
-          <div className="ps-empty">👆 {tr('Click your taluk on the map to see season rainfall, groundwater forecast and crop advice.',
+          <div className="ps-empty">{tr('Click your taluk on the map to see season rainfall, groundwater forecast and crop advice.',
             'ಋತುವಿನ ಮಳೆ, ಅಂತರ್ಜಲ ಮುನ್ಸೂಚನೆ ಮತ್ತು ಬೆಳೆ ಸಲಹೆಗಾಗಿ ನಕ್ಷೆಯಲ್ಲಿ ನಿಮ್ಮ ತಾಲೂಕು ಕ್ಲಿಕ್ ಮಾಡಿ.')}</div>
           {asOf && <TimeMachine asOf={asOf} color={COLOR} />}
         </>

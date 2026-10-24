@@ -1,18 +1,13 @@
 import { useState } from 'react'
+import Icon from './shared/Icon'
 import { RISK_COLOR, RISK_ICON, addDays, fmtDate, rangeText } from './i18n'
-
-export const DRIVER_ICON = {
-  rain_deficit: '🌧️', borewell_dependence: '🛠️', population_density: '🏘️',
-  commercial_load: '🏢', cauvery_deficit: '🏞️', paved_surface: '🧱',
-}
-const ACTION_ICONS = ['🪣', '🕳️', '🚰', '♻️', '🔧', '📞']
 
 export function WardSearch({ wards, onSelect, t }) {
   const [q, setQ] = useState('')
   const matches = q.length < 2 ? [] : wards.filter((w) => w.name.toLowerCase().includes(q.toLowerCase())).slice(0, 6)
   return (
     <div className="search">
-      <span className="search-icon">🔎</span>
+      <span className="search-icon"><Icon name="search" size={18} /></span>
       <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={t.searchPh} aria-label={t.findArea} />
       {matches.length > 0 && (
         <ul className="search-results">
@@ -41,7 +36,7 @@ function Gauge({ pct, label }) {
           strokeDasharray={`${(pct / 100) * c} ${c}`} />
         <text x="60" y="58" textAnchor="middle" fontSize="20" fontWeight="700" fill="#0b2545">{Math.round(pct)}%</text>
       </svg>
-      <div className="gauge-label">💧 {label}</div>
+      <div className="gauge-label">{label}</div>
     </div>
   )
 }
@@ -60,10 +55,10 @@ export function Countdown({ ward, t, lang, riskLabels }) {
           <>
             <div className="cd-label">{t.shortageIn}</div>
             <div className="cd-big">{r}<span>{t.days}</span></div>
-            <div className="cd-date">📅 {t.around} {fmtDate(addDays(ward.as_of, ward.days_low), lang)}{ward.days_high <= 365 ? ` – ${fmtDate(addDays(ward.as_of, ward.days_high), lang)}` : ''}</div>
+            <div className="cd-date">{t.around} {fmtDate(addDays(ward.as_of, ward.days_low), lang)}{ward.days_high <= 365 ? ` – ${fmtDate(addDays(ward.as_of, ward.days_high), lang)}` : ''}</div>
           </>
         ) : (
-          <div className="cd-big ok">✅ {t.noShortage}</div>
+          <div className="cd-big ok">{t.noShortage}</div>
         )}
       </div>
       <Gauge pct={ward.groundwater_pct} label={t.groundwater} />
@@ -80,7 +75,6 @@ export function WhyList({ drivers, labels, t, lang }) {
     <div className="why" data-tour="why">
       {items.map((d, i) => (
         <div key={d.key} className={`why-item ${d.prevents ? 'main' : ''}`}>
-          <div className="why-icon">{DRIVER_ICON[d.key]}</div>
           <div className="why-body">
             <div className="why-label">{labels[d.key]?.[lang] ?? d.label}</div>
             <div className="why-bar"><div style={{ width: `${(Math.min(d.v, 365) / max) * 100}%` }} /></div>
@@ -101,7 +95,7 @@ export default function CitizenView({ wards, detail, onSelect, t, lang, meta, op
       <WardSearch wards={wards} onSelect={onSelect} t={t} />
       {!detail ? (
         <div className="empty">
-          <div className="empty-icon">📍</div>
+          <div className="empty-icon"><Icon name="pin" size={36} stroke={1.5} /></div>
           <p>{t.clickMap}</p>
           <div className="quick-picks">
             {['Whitefield', 'Mahadevapura', 'Puttenahalli - Sarakki Lake', 'Malleswaram'].map((n) => {
@@ -122,11 +116,11 @@ export default function CitizenView({ wards, detail, onSelect, t, lang, meta, op
           <WhyList drivers={detail.drivers} labels={meta.driver_labels} t={t} lang={lang} />
           <h3>{t.whatToDo}</h3>
           <div className="actions">
-            {detail.actions.map((a, i) => (
-              <div key={a.en} className="action"><span>{ACTION_ICONS[i % ACTION_ICONS.length]}</span>{a[lang]}</div>
+            {detail.actions.map((a) => (
+              <div key={a.en} className="action">{a[lang]}</div>
             ))}
           </div>
-          <button className="ask-btn" onClick={openChat}>💬 {t.askAbout(detail.name)}</button>
+          <button className="ask-btn" onClick={openChat}>{t.askAbout(detail.name)}</button>
         </>
       )}
     </div>

@@ -86,11 +86,14 @@ def groundwater():
         "depth": pd.to_numeric(d["Ground Water Level"], errors="coerce"),
     }).dropna()
     n0 = len(d)
+    # NWDP stores "not measured yet" as -0.05 (about 150-290 wells a month since 2024, nearly every well from Jul 2026)
+    # and a few rows as exactly 0. Neither is a reading: a depth <= 0 would mean water at or above ground level.
+    placeholder = d.depth <= 0
+    d = d[~placeholder]
+    print(f"  {int(placeholder.sum())} placeholder readings (<= 0 m) dropped")
     d = d[d.month >= pd.Period(START_MONTH, "M")]
     d = d.groupby(["well", "month"], as_index=False).agg(
         depth=("depth", "median"), lat=("lat", "first"), lon=("lon", "first"), district=("district", "first"))
-    # Negative depth = water above ground (artesian / flooded well): treat as 0.
-    d["depth"] = d.depth.clip(lower=0)
     # Per-well outliers (typos like 597 m): drop readings far outside the well's own range.
     med = d.groupby("well").depth.transform("median")
     mad = d.groupby("well").depth.transform(lambda s: (s - s.median()).abs().median()).clip(lower=0.5)

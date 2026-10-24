@@ -38,8 +38,8 @@
   "label_counts": {
     "2015": [
       112,
-      96,
-      19
+      94,
+      21
     ],
     "2016": [
       120,
@@ -92,9 +92,9 @@
       0
     ],
     "2026": [
-      41,
-      173,
-      13
+      40,
+      170,
+      17
     ]
   },
   "official_sources": {
@@ -108,45 +108,45 @@
         "auc_rain_deficit": 0.794
       },
       "07-15": {
-        "auc_model": 0.764,
+        "auc_model": 0.763,
         "auc_rain_deficit": 0.816
       },
       "08-01": {
-        "auc_model": 0.704,
+        "auc_model": 0.7,
         "auc_rain_deficit": 0.797
       },
       "08-15": {
-        "auc_model": 0.903,
+        "auc_model": 0.901,
         "auc_rain_deficit": 0.899
       },
       "09-01": {
-        "auc_model": 0.941,
+        "auc_model": 0.942,
         "auc_rain_deficit": 0.939
       },
       "09-15": {
-        "auc_model": 0.965,
+        "auc_model": 0.966,
         "auc_rain_deficit": 0.953
       }
     },
     "B_train_2015_2025_test_2026": {
       "07-01": {
-        "auc_model": 0.795,
-        "auc_rain_deficit": 0.791,
+        "auc_model": 0.794,
+        "auc_rain_deficit": 0.789,
         "official_listed_22": {
-          "likely": 0,
-          "watch": 12,
+          "likely": 1,
+          "watch": 11,
           "low": 10
         },
         "statewide": {
-          "likely": 6,
-          "watch": 124,
+          "likely": 5,
+          "watch": 125,
           "low": 97
         },
-        "labels_drought_taluks": 186
+        "labels_drought_taluks": 187
       },
       "07-15": {
-        "auc_model": 0.765,
-        "auc_rain_deficit": 0.763,
+        "auc_model": 0.764,
+        "auc_rain_deficit": 0.767,
         "official_listed_22": {
           "likely": 8,
           "watch": 9,
@@ -157,67 +157,67 @@
           "watch": 83,
           "low": 85
         },
-        "labels_drought_taluks": 186
+        "labels_drought_taluks": 187
       },
       "08-01": {
-        "auc_model": 0.795,
-        "auc_rain_deficit": 0.745,
+        "auc_model": 0.789,
+        "auc_rain_deficit": 0.747,
         "official_listed_22": {
           "likely": 5,
           "watch": 14,
           "low": 3
         },
         "statewide": {
-          "likely": 59,
-          "watch": 109,
+          "likely": 69,
+          "watch": 99,
           "low": 59
         },
-        "labels_drought_taluks": 186
+        "labels_drought_taluks": 187
       },
       "08-15": {
-        "auc_model": 0.701,
-        "auc_rain_deficit": 0.684,
+        "auc_model": 0.707,
+        "auc_rain_deficit": 0.699,
         "official_listed_22": {
-          "likely": 1,
-          "watch": 7,
+          "likely": 2,
+          "watch": 6,
           "low": 14
         },
         "statewide": {
-          "likely": 37,
-          "watch": 79,
+          "likely": 46,
+          "watch": 70,
           "low": 111
         },
-        "labels_drought_taluks": 186
+        "labels_drought_taluks": 187
       },
       "09-01": {
-        "auc_model": 0.789,
-        "auc_rain_deficit": 0.75,
+        "auc_model": 0.804,
+        "auc_rain_deficit": 0.765,
         "official_listed_22": {
           "likely": 8,
           "watch": 9,
           "low": 5
         },
         "statewide": {
-          "likely": 93,
-          "watch": 78,
+          "likely": 102,
+          "watch": 69,
           "low": 56
         },
-        "labels_drought_taluks": 186
+        "labels_drought_taluks": 187
       },
       "09-15": {
-        "auc_model": 0.875,
-        "auc_rain_deficit": 0.758,
+        "auc_model": 0.874,
+        "auc_rain_deficit": 0.768,
         "official_listed_22": {
           "likely": 20,
           "watch": 2,
           "low": 0
         },
         "statewide": {
-          "likely": 192,
-          "watch": 19,
+          "likely": 203,
+          "watch": 8,
           "low": 16
         },
-        "labels_drought_taluks": 186
+        "labels_drought_taluks": 187
       }
     },
     "C_official_2023_order_model_without_2023": {
@@ -237,7 +237,7 @@
           "watch": 1,
           "low": 27
         },
-        "auc_severe_vs_moderate": 0.577
+        "auc_severe_vs_moderate": 0.573
       },
       "08-15": {
         "declared_severe": {
@@ -255,12 +255,12 @@
           "watch": 0,
           "low": 18
         },
-        "auc_severe_vs_moderate": 0.386
+        "auc_severe_vs_moderate": 0.385
       },
       "09-01": {
         "declared_severe": {
-          "likely": 131,
-          "watch": 4,
+          "likely": 132,
+          "watch": 3,
           "low": 30
         },
         "declared_moderate": {
@@ -273,7 +273,7 @@
           "watch": 0,
           "low": 9
         },
-        "auc_severe_vs_moderate": 0.477
+        "auc_severe_vs_moderate": 0.465
       }
     }
   },

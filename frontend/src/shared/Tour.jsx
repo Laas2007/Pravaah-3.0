@@ -14,8 +14,8 @@ export const STEPS = [
   {
     path: '/agri', q: { as_of: '2023-11-01', taluk: '210' }, focus: 'forecast',
     title: ['ML forecast, with a range and a reason', 'ವ್ಯಾಪ್ತಿ ಮತ್ತು ಕಾರಣ ಸಹಿತ ML ಮುನ್ಸೂಚನೆ'],
-    text: ['Learned from 2,698 real monitoring wells, the model forecasts groundwater 6 months ahead, gives a likely range, and explains which factors push it down.',
-      '2,698 ನೈಜ ಮೇಲ್ವಿಚಾರಣಾ ಬಾವಿಗಳಿಂದ ಕಲಿತ ಮಾದರಿ, 6 ತಿಂಗಳ ಮುಂಚಿತ ಅಂತರ್ಜಲ ಮುನ್ಸೂಚನೆ, ಸಂಭಾವ್ಯ ವ್ಯಾಪ್ತಿ ಮತ್ತು ಕಾರಣಗಳನ್ನು ನೀಡುತ್ತದೆ.'],
+    text: ['Learned from 2,664 real monitoring wells, the model forecasts groundwater 6 months ahead, gives a likely range, and explains which factors push it down.',
+      '2,664 ನೈಜ ಮೇಲ್ವಿಚಾರಣಾ ಬಾವಿಗಳಿಂದ ಕಲಿತ ಮಾದರಿ, 6 ತಿಂಗಳ ಮುಂಚಿತ ಅಂತರ್ಜಲ ಮುನ್ಸೂಚನೆ, ಸಂಭಾವ್ಯ ವ್ಯಾಪ್ತಿ ಮತ್ತು ಕಾರಣಗಳನ್ನು ನೀಡುತ್ತದೆ.'],
   },
   {
     path: '/agri', q: { as_of: '2023-11-01', taluk: '210' }, focus: 'timemachine',
@@ -96,8 +96,8 @@ export default function Tour({ step, setStep }) {
           <button className="ghost" onClick={() => setStep(null)}>{tr('Exit', 'ನಿರ್ಗಮಿಸಿ')}</button>
           {step > 0 && <button className="ghost" onClick={() => setStep(step - 1)}>{tr('Back', 'ಹಿಂದೆ')}</button>}
           {step < STEPS.length - 1
-            ? <button className="primary" onClick={() => setStep(step + 1)}>{tr('Next →', 'ಮುಂದೆ →')}</button>
-            : <button className="primary" onClick={() => setStep(null)}>{tr('Explore yourself ✓', 'ನೀವೇ ಅನ್ವೇಷಿಸಿ ✓')}</button>}
+            ? <button className="primary" onClick={() => setStep(step + 1)}>{tr('Next', 'ಮುಂದೆ')}</button>
+            : <button className="primary" onClick={() => setStep(null)}>{tr('Finish tour', 'ಪ್ರವಾಸ ಮುಗಿಸಿ')}</button>}
         </div>
       </div>
     </div>

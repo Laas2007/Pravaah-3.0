@@ -394,6 +394,26 @@ python train/fetch_nwdp.py && python train/clean_nwdp.py
       low-storage chance, rain normal / last 12 months / variability, M1 drought years, ET0 and peak heat, KIADB demand,
       tanks, reuse and rain-harvesting offsets, recommendations. Over-exploited + mostly groundwater caps the verdict at
       "risky". Kolar (Narasapura) Mar 2024: risky (161 % extracted, 0 MLD left); Mysuru: feasible with 30 % groundwater.
+- [x] 2026-10-25 — **Design pass: remove the "vibe-coded" look.** All emoji removed from the UI and chatbot replies
+      (SVG icons in `shared/Icon.jsx` for logo, nav, play, close, send); gradients flattened, pills → ≤ 8px radius,
+      pulse/glow/slide/hover-lift animations removed, IBM Plex Sans, flat dark header with a platform-colour rule,
+      outlined/solid rectangular buttons. Landing rewritten with specific copy and corrected facts (2,698 wells, 34
+      reservoirs; it said 2,701 / 35). `DataTag` (real / estimated / simulated) replaces coloured-dot emoji. Favicon files
+      in `frontend/public/` (SVG + 32px + apple-touch), description + theme-color meta. Rules added to AGENTS.md.
+      Still to do before launch: connect a custom domain (Vercel project settings + DNS).
+- [x] 2026-10-25 — **Groundwater data fix + retrain.** NWDP stores "not measured" as -0.05 m (150-290 wells a month
+      since 2024, nearly all wells from Jul 2026); `clean_nwdp.py` clipped it to 0 m, so the 2026 map showed water at
+      ground level. Now dropped (14,802 readings; 34 placeholder-only wells, so 2,664 wells). `Groundwater.usable_month`
+      skips trailing months most taluks haven't reported yet (Jul-Sep 2026 -> Jun 2026) for the map, M2 origin, history
+      and site check; the groundwater layer shows the reading month. Retrained M2 (6-month taluk error 1.75 m vs 1.94 m
+      no-change, 90 % inside 10-90 % range), precompute + backtest, M1 (2026: 19/22 by 1 Aug, 22/22 by 15 Sep;
+      2023: 135/165 severe by 1 Sep, unchanged), Bengaluru check. Kolar's -25 to -39 m anomalies are real (recovery
+      after 2021-22 rain + K.C. Valley recharge).
+- [x] 2026-10-25 — **JalaMitra on Google Gemini (free tier).** `chat.py`: Gemini generateContent via stdlib HTTP,
+      models tried in order (`GEMINI_MODELS`, default 3.6 Flash, 3.5 / 3.1 Flash-Lite; busy/over-limit skipped), Kannada
+      rules (Kannada script, understands romanised Kannada), number rules; built-in EN/KN engine as fallback. Key in
+      git-ignored `backend/.env` (`backend/.env.example` template). Colour scheme pass (platform-tinted header, panels,
+      summary cards). README rewritten; FEATURES.md added.
 - [x] Real drought declarations (M1 labels) — official 2023 + partial 2026
 - [x] M1 drought classifier + 2023 backtest
 - [x] M2 taluk groundwater forecast (see above)

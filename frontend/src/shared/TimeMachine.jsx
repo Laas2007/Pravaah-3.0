@@ -3,7 +3,7 @@ import { req } from '../api'
 import { useLoad } from './hooks'
 import { useTr } from './lang'
 
-/** ⏪ Time Machine: the forecast made on asOf vs what the wells actually showed afterwards (statewide; + one taluk). */
+/** Time Machine: the forecast made on asOf vs what the wells actually showed afterwards (statewide; + one taluk). */
 export default function TimeMachine({ asOf, idx, color = '#2a78d6' }) {
   const tr = useTr()
   const { data: b } = useLoad(() => req(`/api/core/backtest?as_of=${asOf}${idx != null ? `&idx=${idx}` : ''}`), [asOf, idx])
@@ -11,7 +11,7 @@ export default function TimeMachine({ asOf, idx, color = '#2a78d6' }) {
   if (!b.available) {
     return (
       <div className="ps-card ps-tm" data-tour="timemachine">
-        <h2>⏪ {tr('Time Machine', 'ಟೈಮ್ ಮೆಷಿನ್')}</h2>
+        <h2>{tr('Time Machine', 'ಟೈಮ್ ಮೆಷಿನ್')}</h2>
         <div className="muted small">{tr('Pick an earlier date to compare the forecast with what really happened.',
           'ಮುನ್ಸೂಚನೆಯನ್ನು ನಿಜವಾಗಿ ನಡೆದುದರೊಂದಿಗೆ ಹೋಲಿಸಲು ಹಿಂದಿನ ದಿನಾಂಕ ಆಯ್ಕೆಮಾಡಿ.')}</div>
       </div>
@@ -25,7 +25,7 @@ export default function TimeMachine({ asOf, idx, color = '#2a78d6' }) {
   return (
     <div className="ps-card ps-tm" data-tour="timemachine">
       <div className="ps-card-head">
-        <div><h2>⏪ {tr('Time Machine: forecast vs what happened', 'ಟೈಮ್ ಮೆಷಿನ್: ಮುನ್ಸೂಚನೆ vs ನಿಜವಾಗಿ ನಡೆದದ್ದು')}</h2>
+        <div><h2>{tr('Time Machine: forecast vs what happened', 'ಟೈಮ್ ಮೆಷಿನ್: ಮುನ್ಸೂಚನೆ vs ನಿಜವಾಗಿ ನಡೆದದ್ದು')}</h2>
           <div className="muted small">{tr(`Forecast made from ${b.origin_month} readings, checked against the wells up to ${last.month}`,
             `${b.origin_month} ರ ದತ್ತಾಂಶದಿಂದ ಮುನ್ಸೂಚನೆ, ${last.month} ರವರೆಗಿನ ಬಾವಿ ದತ್ತಾಂಶದೊಂದಿಗೆ ಪರಿಶೀಲನೆ`)}</div></div>
         <span className={`ps-tm-mode ${oos ? 'oos' : ''}`}>{oos ? tr('never saw these years', 'ಈ ವರ್ಷಗಳನ್ನು ನೋಡದ ಮಾದರಿ') : tr('in-sample', 'ತರಬೇತಿ ಅವಧಿ')}</span>

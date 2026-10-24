@@ -75,10 +75,10 @@ export function wardReasons(w, tr) {
         `ಹಿಂದಿನ ವರ್ಷಗಳ 30 ಮಳೆ ಮತ್ತು ಬೇಡಿಕೆ ಸನ್ನಿವೇಶಗಳೊಂದಿಗೆ ವಾರ್ಡ್‌ನ ನೀರಿನ ಸಮತೋಲನ: ಮಧ್ಯದ ಸನ್ನಿವೇಶ ${d(w.days_mid)} ರಲ್ಲಿ 30% ತಲುಪುತ್ತದೆ; ಅರ್ಧದಷ್ಟು ${d(w.days_low)} ಮತ್ತು ${d(w.days_high)} ನಡುವೆ.`),
   ]
   const rule = {
-    critical: tr('Shortage now or within 30 days → critical.', 'ಈಗ ಅಥವಾ 30 ದಿನಗಳೊಳಗೆ ಕೊರತೆ → ಗಂಭೀರ.'),
-    high: tr('Shortage expected within 31–90 days → high.', '31–90 ದಿನಗಳಲ್ಲಿ ಕೊರತೆ → ಹೆಚ್ಚು.'),
-    medium: tr('Shortage expected within 91–180 days → medium.', '91–180 ದಿನಗಳಲ್ಲಿ ಕೊರತೆ → ಮಧ್ಯಮ.'),
-    low: tr('No shortage expected within 180 days → low.', '180 ದಿನಗಳೊಳಗೆ ಕೊರತೆ ನಿರೀಕ್ಷೆ ಇಲ್ಲ → ಕಡಿಮೆ.'),
+    critical: tr('Shortage now or within 30 days, so critical.', 'ಈಗ ಅಥವಾ 30 ದಿನಗಳೊಳಗೆ ಕೊರತೆ: ಗಂಭೀರ.'),
+    high: tr('Shortage expected within 31–90 days, so high.', '31–90 ದಿನಗಳಲ್ಲಿ ಕೊರತೆ: ಹೆಚ್ಚು.'),
+    medium: tr('Shortage expected within 91–180 days, so medium.', '91–180 ದಿನಗಳಲ್ಲಿ ಕೊರತೆ: ಮಧ್ಯಮ.'),
+    low: tr('No shortage expected within 180 days, so low.', '180 ದಿನಗಳೊಳಗೆ ಕೊರತೆ ನಿರೀಕ್ಷೆ ಇಲ್ಲ: ಕಡಿಮೆ.'),
   }[w.risk]
   if (rule) out.push(rule)
   out.push(tr('For the factors behind it (rain deficit, borewell dependence, density, IT load …), open the full ward view.',

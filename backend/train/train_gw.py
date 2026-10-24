@@ -181,7 +181,7 @@ def main():
     card = {
         "model": "M2 groundwater forecast: well-level quantile gradient boosting + past-years rain ensemble",
         "version": "m2-wells-v2", "trained": dt.date.today().isoformat(), "sklearn": sklearn.__version__,
-        "label": "Change in depth to water over 1-6 months at 2,698 NWDP monitoring wells (real readings)",
+        "label": "Change in depth to water over 1-6 months at 2,664 NWDP monitoring wells (real readings)",
         "features": gm.FEATURES, "quantiles": list(gm.QUANTILES), "rows": int(len(y)),
         "train_rows_used": int(len(alli)), "origins": [str(min(orig)), str(max(orig))],
         "stress_definition": "taluk median well anomaly >= taluk's own 90th percentile of 2014-2021 (>= 1 m deeper than normal)",

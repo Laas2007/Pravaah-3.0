@@ -24,9 +24,9 @@ function Story({ bw, bt, detail }) {
         <div className="lead-text">days of early warning<br /><span>before the crisis peaked (Mar 2024)</span></div>
       </div>
       <div className="story-steps">
-        <div><span className="ss-date">{fmtDate(bw.flag_date)}</span><span>🚨 Model flags <b>{bw.name}</b> as high risk: shortage in <b>{bw.flag_pred_days[0]}–{bw.flag_pred_days[1]} days</b></span></div>
-        {bw.sim_onset && <div><span className="ss-date">{fmtDate(bw.sim_onset)}</span><span>💧 Groundwater crosses the shortage line</span></div>}
-        {ref && <div><span className="ss-date">Early Mar 2024</span><span>📰 Crisis peaks: borewells run dry, tanker shortages</span></div>}
+        <div><span className="ss-date">{fmtDate(bw.flag_date)}</span><span>Model flags <b>{bw.name}</b> as high risk: shortage in <b>{bw.flag_pred_days[0]}–{bw.flag_pred_days[1]} days</b></span></div>
+        {bw.sim_onset && <div><span className="ss-date">{fmtDate(bw.sim_onset)}</span><span>Groundwater crosses the shortage line</span></div>}
+        {ref && <div><span className="ss-date">Early Mar 2024</span><span>Crisis peaks: borewells run dry, tanker shortages</span></div>}
       </div>
       {detail && detail.idx === bw.idx && detail.timeseries.actual_after.length > 0 && (
         <>
@@ -45,7 +45,7 @@ export default function BacktestView({ selected, onSelect, asOf, setAsOf, detail
     if (selected == null && wardsByName.Whitefield != null) onSelect(wardsByName.Whitefield)
   }, [selected, wardsByName, onSelect])
 
-  if (!bt) return <div className="panel-inner"><p className="muted">⏳ Re-running the model for every week of Sep 2023 – Apr 2024 (first time only, ~10 s)…</p></div>
+  if (!bt) return <div className="panel-inner"><p className="muted">Re-running the model for every week of Sep 2023 – Apr 2024 (first time only, ~10 s)…</p></div>
 
   const data = bt.dates.map((d, i) => ({ date: d, n: bt.high_or_critical_count[i] }))
   const bw = bt.wards.find((w) => w.idx === selected)
@@ -54,7 +54,7 @@ export default function BacktestView({ selected, onSelect, asOf, setAsOf, detail
   return (
     <div className="panel-inner">
       <div className="tm-head">
-        <div className="tm-kicker">⏪ Time Machine</div>
+        <div className="tm-kicker">Time Machine</div>
         <h2>Would we have seen the 2024 crisis coming?</h2>
         <p className="muted small">
           We rewind to past dates and run the model using <b>only data that existed on that day</b>. Its future-rain
@@ -64,7 +64,7 @@ export default function BacktestView({ selected, onSelect, asOf, setAsOf, detail
           <button className="primary" onClick={() => setAsOf('2023-12-01')}>Rewind to 1 Dec 2023</button>
           <button className="ghost" onClick={() => setAsOf('2024-03-01')}>Jump to the crisis</button>
         </div>
-        <p className="muted small">Tip: press ▶ on the timeline under the map to watch the risk spread week by week.</p>
+        <p className="muted small">Tip: press on the timeline under the map to watch the risk spread week by week.</p>
       </div>
 
       <div className="row-between">

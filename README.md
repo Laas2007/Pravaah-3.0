@@ -1,78 +1,173 @@
-# Pravaah – ward-level water scarcity prediction (Bengaluru)
+# Pravaah: water scarcity forecasts for Karnataka
 
-SDG 6 (Clean Water & Sanitation). Predicts, for each of Bengaluru's 243 BBMP wards, **in how many days
-(as a range) a water shortage is expected, and why**. The app has a risk map, a citizen view, an official
-view with an intervention planner, a 2024-crisis backtest, and an English/Kannada chatbot.
+Pravaah forecasts how many days each of Karnataka's **227 taluks** and Bengaluru's **243 wards** have before
+groundwater reaches stress, and explains why. It is built on public government records (rain gauges, monitoring
+wells, reservoirs) and serves three groups through separate platforms: **farmers**, **urban residents** and
+**industry**. The whole site works in **English and Kannada**. Every number is labelled real, estimated or simulated,
+and every model shows how it scored on years it never saw.
 
-## Run it
+SDG 6 (Clean Water and Sanitation). A short feature summary is in [FEATURES.md](FEATURES.md).
+
+---
+
+## Features
+
+### Agriculture and Farmers (`/agri`)
+- **Taluk risk map** with six layers: risk zones, kharif drought alert (M1), water scarcity heatmap, rain in the last
+  3 months, season water balance (rain minus evaporation), groundwater vs normal (with the month of the readings).
+- **Groundwater forecast per taluk (M2):** days until stress as a likely value and a dry-year / wet-year range, a
+  6-month chart against the stress line, and a plain-language "Why this number?" box with the main drivers.
+- **Kharif drought early warning (M1):** drought likely / watch / no alert from 1 July to 30 September, the chance the
+  season ends in drought, the Drought Manual trigger evidence (rain deficit, dry spell, soil moisture) and whether the
+  taluk was officially declared.
+- **Crop advisor (M3):** crops for the current season ranked by water need and rainfed yield loss (typical and dry
+  year), an irrigation schedule and a sowing-date planner.
+- **State summary:** how many taluks are likely to reach stress within 6 months and the most urgent ones.
+
+### Urban Population (`/urban`, `/urban/bengaluru`)
+- **Ward-level Bengaluru inside the state map:** zoom in to all 243 wards with their own forecast and reasons.
+- **Cauvery supply outlook (M4):** combined storage of KRS, Kabini, Harangi and Hemavathy with a 6-month forecast range.
+- **Demand and tankers (M5, estimated):** city and ward demand, piped vs borewell share, wards that will need tankers.
+- **Leak detection (M6):** night-flow rule plus anomaly detection on meter readings; demo on synthetic meters, CSV upload.
+- **Full Bengaluru app** (`/urban/bengaluru`): city overview, "My Area" in plain words, an officials view with
+  rankings and an intervention planner (rainwater harvesting, recharge, leak repair, Cauvery connections), and the
+  Time Machine for the 2024 crisis.
+
+### Industries and Businesses (`/industry`)
+- **Factory site check:** pick any point in Karnataka (map click or coordinates) and enter the daily water need. You
+  get a verdict (feasible / feasible with conditions / risky / not recommended), a 0-100 score with the reason for each
+  part, and the statistics behind it:
+  - official groundwater status from the CGWB 2023 assessment, share already pumped and water still available;
+  - M2 forecast for the taluk and monitoring wells within 10 km (depth, 3-year trend, 10-year change);
+  - reservoir system serving the district, current storage and chance of low storage (M4);
+  - normal rain, last 12 months, year-to-year variability, past drought years, evaporation and peak heat;
+  - savings from recycling and rainwater harvesting, other industrial demand nearby, and what to do next.
+- **District disruption risk (M7):** share of industrial output at risk in the next 6 months per district, water at
+  risk and reuse potential, from KIADB industrial land, M2 and M4.
+
+### On every platform
+- **Kannada / English** switch for the whole site, including the chatbot.
+- **JalaMitra chatbot:** an AI assistant (Google Gemini, free tier) that answers questions about the selected taluk or
+  ward using its forecast numbers, in English or Kannada, and understands Kannada typed in English letters. When no
+  key is set or the free limit is reached, a built-in engine answers from the same data.
+- **Time Machine:** pick any past date; the forecast uses only data available on that date, then compares it with what
+  the wells actually showed.
+- **Timeline with play button**, story dates (2023 drought, March 2024 crisis, 2022 wet year) and a **guided tour**.
+- **Model card** with every model's test result, and shareable links (`?as_of=`, `?taluk=`, `?layer=`, `?lang=kn`).
+
+---
+
+## Models
+
+| Model | What it predicts | Method | How it was tested |
+|---|---|---|---|
+| **M1** kharif drought | Drought likely / watch / no alert per taluk | Drought Manual-style labels from real data + monotonic gradient boosting | Against the official 2023 drought order and the 2026 list |
+| **M2** groundwater | Days until each taluk reaches its stress level, with a range | Well-level quantile gradient boosting, future rain replayed from past years | Trained to 2021, scored on 2022-26 against real wells |
+| **M3** crop water | Crop water stress, rainfed yield loss, irrigation need | FAO-56 soil water balance + FAO-33 yield response | Against real 2024-25 district yields (DES) |
+| **M4** reservoirs | Dam storage up to 6 months ahead | Quantile gradient boosting with catchment rain | Trained to 2021, scored on 2022+ |
+| **M5** urban demand | Demand, supply gap, tanker need | Physically based estimate | No metered data exists (labelled estimated) |
+| **M6** leaks | Leaks and abnormal use on meters | Night-minimum rule + Isolation Forest | Synthetic meters with planted leaks |
+| **M7** industry | Industrial output at risk per district | Transparent score from KIADB land, M2, M4 | No public disruption records exist |
+| **Bengaluru wards** | Days to shortage for each ward | Daily groundwater balance per ward, 30 rain scenarios | Compared with real wells in and near the city |
+
+Explanations are counterfactual: each driver is reset to normal and the forecast re-run, so "1.0 m deeper because of
+low rain" means exactly that. No forecast uses data from after its as-of date.
+
+## Data
+
+| Data | Status | Source |
+|---|---|---|
+| Daily rain 2014 to today | real | IMD 0.25° gauge grid (quality-checked); ERA5 after IMD's last published year |
+| Evaporation (ET0), temperature | real (reanalysis) | ERA5 via Open-Meteo |
+| Groundwater, 2,664 wells, monthly | real | NWDP (Karnataka Ground Water Directorate); placeholder values removed |
+| Reservoir storage, 34 dams, daily | real | NWDP / Karnataka Water Resources Dept |
+| Minor-irrigation tanks | real | NWDP |
+| Groundwater extraction per taluk | real | CGWB + KGWD Dynamic Ground Water Resources 2023 |
+| Drought declarations | real | Govt. of Karnataka order of 13 Sept 2023 (via NGT filing), later 2023 and 2026 lists from news |
+| Industrial land per district | real | KIADB |
+| Crop yields 2024-25 | real | Directorate of Economics and Statistics |
+| Boundaries | real | LGD taluks / districts; BBMP wards (datameet) |
+| Urban demand, pipe coverage, industrial water norms | estimated | Census-based and planning norms |
+| Daily ward groundwater between readings, leak test meters | simulated | Model output / synthetic test data |
+
+---
+
+## Run it locally
 
 ```bash
-# 1. backend (Python 3.11+)
+# backend (Python 3.11+; the team uses 3.14)
 cd backend
 python -m venv .venv
-.venv\Scripts\activate            # macOS/Linux: source .venv/bin/activate
-pip install -r requirements.txt
-python fetch_data.py               # optional: refresh rainfall data (already included)
-uvicorn main:app --port 8000
+.venv\Scripts\activate             # macOS/Linux: source .venv/bin/activate
+pip install -r requirements.txt     # requirements-train.txt to retrain models
+uvicorn main:app --port 8000        # http://localhost:8000 serves the API and the built site
 
-# 2. open http://localhost:8000   (serves the built frontend)
+# frontend development (optional)
+cd frontend
+npm install
+npm run dev                         # http://localhost:5173, proxies /api to :8000
+npm run build                       # so :8000 serves the new version
 ```
 
-For frontend development, run `cd frontend && npm install && npm run dev` and open http://localhost:5173.
-After changing the frontend, rebuild it with `npm run build` so `:8000` serves the new version.
+Before every push: `backend\.venv\Scripts\python scripts\check.py` must print `PASS`.
 
-**AI chatbot:** set `ANTHROPIC_API_KEY` before starting uvicorn (model: Claude Haiku 4.5; change it with
-`CHAT_MODEL`). Without a key, a built-in engine answers in EN/KN from the ward's own prediction.
+### Turn on the AI chatbot (free)
+1. Get a free key at [Google AI Studio](https://aistudio.google.com/apikey) (no card needed).
+2. Copy `backend/.env.example` to `backend/.env` and paste the key after `GEMINI_API_KEY=`.
+3. Restart the server. `.env` is git-ignored: never commit it or paste the key anywhere public.
 
-**Demo links:**
-- Guided tour of all features: `http://localhost:8000/?tour=0` (or click **▶ Take the tour**)
-- Heatmap during the 2024 crisis: `http://localhost:8000/?layer=heat&as_of=2024-03-01`
-- Citizen: `http://localhost:8000/?view=area&ward=Whitefield&as_of=2024-01-01` (add `&lang=kn` for Kannada)
-- Official: `http://localhost:8000/?view=official&ward=Whitefield&as_of=2024-01-01`
-- Time Machine: `http://localhost:8000/?view=backtest&ward=Whitefield&as_of=2023-12-01&layer=heat`
+Optional: `GEMINI_MODELS` sets the models to try in order. On the free tier Google may use chat text to improve its
+products, so users should not type personal information.
 
-## How the model works (explainable by design)
-
-Each ward has a groundwater store, updated daily:
-
+### Retrain the models
+```bash
+cd backend
+python train/fetch_karnataka.py all        # boundaries, IMD rain, ERA5
+python train/fetch_nwdp.py && python train/clean_nwdp.py
+python train/clean_gwra.py                 # CGWB groundwater assessment
+python train/clean_drought_official.py     # official drought lists
+python train/train_gw.py && python train/precompute_gw.py && python train/precompute_backtest.py
+python train/train_drought.py
+python train/train_reservoir.py
+python train/validate_crops.py && python train/validate_bengaluru.py
 ```
-groundwater += rain recharge − borewell draw + pipe-leak seepage + lateral inflow from the regional aquifer
-borewell draw = demand − Cauvery piped supply
-```
 
-- **Shortage** = groundwater falls below 30% of usable storage (borewells start failing).
-- **Forecast range**: the model is re-run from today once for every past rainfall year × 3 demand
-  scenarios (≈30 runs). The range shown is the 25th–75th percentile of "days until shortage".
-- **Why**: each driver (rain deficit, borewell dependence, density, commercial load, Cauvery catchment
-  deficit, paved surfaces) is reset to the city-typical value and the forecast is re-run. The change in
-  days is that driver's contribution (counterfactual attribution, no black box).
-- **Backtest**: the model only sees data available on the as-of date, and future-rain scenarios only use
-  earlier years.
-
-## Data: what's real and what's estimated
-
-| Input | Status | Source |
-|---|---|---|
-| Ward boundaries (243) | real | BBMP via datameet/Municipal_Spatial_Data |
-| Daily rainfall 2014–now, 16 grid points over the city | real | IMD 0.25° gauge-based grid (QC-filled), `backend/train/build_bengaluru_rain.py`; ERA5 only after IMD's last published year |
-| Cauvery catchment rainfall (Kodagu→KRS, Wayanad→Kabini) | real | IMD gauge grid (as above) |
-| Stage V Cauvery commissioning (Oct 2024) | real event | public announcements |
-| Ward population | estimated | 2011 census ÷ 243 (delimitation basis) × distance-based growth |
-| Cauvery pipe coverage per ward | estimated | higher in the core, lower in the 110 villages merged in 2007 |
-| IT/industrial load | estimated | named wards (Whitefield, Peenya, Bellandur…) |
-| Groundwater level | simulated | calibrated so ~2–5% of wards are short in normal years and ~30–37% in Mar–Apr 2024 |
-
-**Next steps (24-hour build):** plug in CGWB/KSNDMC well levels to calibrate each ward, BWSSB supply data,
-KSNDMC hobli rainfall, and the KRS/Kabini reservoir storage series.
-
-**Before the pitch:** cite a specific news article for the reference date "early March 2024 crisis peak"
-used in the backtest (`CRISIS_2024` in `backend/main.py`).
+## Demo links
+- Agriculture in the 2023 drought, drought layer: `/agri?as_of=2023-09-01&taluk=210&layer=drought`
+- Groundwater layer at the 2024 crisis: `/agri?as_of=2024-03-01&layer=groundwater`
+- Factory site check in Kolar: `/industry?as_of=2024-03-01&site=13.14,78.05&kld=2000`
+- Bengaluru wards: `/urban?zoom=blr&as_of=2024-03-01`
+- Bengaluru app, guided tour: `/urban/bengaluru?tour=0`
+- Any page in Kannada: add `&lang=kn`
 
 ## Deploy on Vercel
+The repo is set up for Vercel: the React site is static and the FastAPI backend runs as a Python function
+(`api/index.py`, configured in `vercel.json`).
+1. On vercel.com: **Add New, Project, Import** this repo, keep the root directory `/`, and deploy.
+2. Under **Settings, Environment Variables**, add `GEMINI_API_KEY` for the chatbot, then redeploy.
+3. Before launch: connect the custom domain under **Settings, Domains**.
 
-The repo is ready for Vercel: the React app is served as a static site and the FastAPI model runs as a
-Python serverless function (`api/index.py`, configured in `vercel.json`).
+## Project layout
+```
+backend/
+  main.py            FastAPI app (Bengaluru ward model + platform routers)
+  chat.py            JalaMitra (Gemini / built-in EN-KN answers)
+  core/              shared data, M1 drought, M2 groundwater, M4 reservoirs, /api/core
+  usecases/          agri (M3), urban (M5, M6), industry (M7, site check)
+  train/             data cleaning and training scripts
+  models/            trained models and model cards
+  data/              cleaned data (raw downloads are not committed)
+frontend/src/
+  platforms/         agri, urban, industry pages
+  shared/            map, layers, shell, chatbot, Time Machine, tour, icons
+api/index.py         Vercel entry point
+scripts/check.py     end-to-end check run before every push
+```
 
-1. On vercel.com: **Add New → Project → Import** this GitHub repo. Keep the root directory as `/`
-   (the build settings come from `vercel.json`) and click **Deploy**.
-2. Optional: under **Settings → Environment Variables** add `ANTHROPIC_API_KEY` to switch the chatbot to Claude, then redeploy.
+Team rules for people and AI agents working on this repo: [AGENTS.md](AGENTS.md). Plan and progress log: [PLAN.md](PLAN.md).
+
+## Limits we state openly
+- Urban demand, pipe coverage and industrial water norms are estimates; leak detection is tested on synthetic meters.
+- M1 cannot separate severe from moderate drought (the official decision also uses crop-loss surveys it cannot see).
+- The newest well readings arrive over several months, so the map uses the latest month most wells have reported.
+- Forecasts are screening tools, not permits or official declarations.

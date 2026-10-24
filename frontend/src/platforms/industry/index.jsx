@@ -1,4 +1,4 @@
-// 🏭 Industries & Businesses. TODO list: backend/usecases/industry.py
+// Industries & Businesses. TODO list: backend/usecases/industry.py
 import KarnatakaMap from '../../shared/KarnatakaMap'
 import PlatformShell from '../../shared/PlatformShell'
 import PlatformChat from '../../shared/PlatformChat'
@@ -41,14 +41,14 @@ export default function IndustryPlatform() {
     <KarnatakaMap selected={sel} onSelect={setSel} colorOf={lm.colorOf} labelOf={lm.labelOf} indexMode={lm.index}
       onPoint={picking ? pick : undefined}
       points={site ? [{ key: 'site', lat: site.lat, lon: site.lon, color: '#0b2545', radius: 10, label: tr('Factory site', 'ಕಾರ್ಖಾನೆ ಸ್ಥಳ') }] : []}
-      ui={<>{lm.switcher}{lm.title}{lm.legend}{picking && <div className="map-title" style={{ top: 'auto', bottom: 70 }}>📍 {tr('Click anywhere in Karnataka to place the factory', 'ಕಾರ್ಖಾನೆ ಸ್ಥಳಕ್ಕಾಗಿ ನಕ್ಷೆ ಕ್ಲಿಕ್ ಮಾಡಿ')}</div>}</>}
+      ui={<>{lm.switcher}{lm.title}{lm.legend}{picking && <div className="map-title" style={{ top: 'auto', bottom: 70 }}>{tr('Click anywhere in Karnataka to place the factory', 'ಕಾರ್ಖಾನೆ ಸ್ಥಳಕ್ಕಾಗಿ ನಕ್ಷೆ ಕ್ಲಿಕ್ ಮಾಡಿ')}</div>}</>}
       overlay={wardOverlay(wardGeo, wards, wsel, setWard, lm.wardColor)} />
   )
 
   return (
     <PlatformShell which="industry" asOf={asOf} setAsOf={setAsOf} meta={meta} map={map}>
       {sel == null && wsel == null && <SiteCheck asOf={asOf} picking={picking} setPicking={setPicking} />}
-      <div className="ps-empty">📍 {tr('Map colour = industrial water-disruption risk per district. Click any taluk, or any Bengaluru ward (zoom in), for a site-level water report.',
+      <div className="ps-empty">{tr('Map colour = industrial water-disruption risk per district. Click any taluk, or any Bengaluru ward (zoom in), for a site-level water report.',
         'ನಕ್ಷೆಯ ಬಣ್ಣ = ಜಿಲ್ಲೆಯ ಕೈಗಾರಿಕಾ ನೀರಿನ ಅಡಚಣೆ ಅಪಾಯ. ಸ್ಥಳ ವರದಿಗಾಗಿ ತಾಲೂಕು ಅಥವಾ ಬೆಂಗಳೂರು ವಾರ್ಡ್ ಕ್ಲಿಕ್ ಮಾಡಿ.')}</div>
       {wsel != null && wards && <WardCard ward={wards.wards[wsel]} asOf={wards.as_of} onClose={() => setWard(null)} />}
       {sel != null && <TalukDetail idx={sel} asOf={asOf} color={COLOR} onClose={() => setSel(null)} />}
@@ -73,9 +73,9 @@ function Disruption({ data, onSelect }) {
   const a = data.assumptions
   return (
     <div className="ps-card" data-tour="m7">
-      <h2>🏭 {tr('Industrial water-disruption risk (next 6 months)', 'ಕೈಗಾರಿಕಾ ನೀರಿನ ಅಡಚಣೆ ಅಪಾಯ (ಮುಂದಿನ 6 ತಿಂಗಳು)')}</h2>
-      <div className="muted small">{tr('KIADB industrial land per district (real) × water-use norm (estimated) → demand; groundwater forecast (M2) and reservoir forecast (M4) → share of the next 6 months with a shortfall.',
-        'ಜಿಲ್ಲೆಯ KIADB ಕೈಗಾರಿಕಾ ಭೂಮಿ (ನೈಜ) × ನೀರಿನ ಬಳಕೆ ಮಾನದಂಡ (ಅಂದಾಜು) → ಬೇಡಿಕೆ; ಅಂತರ್ಜಲ (M2) ಮತ್ತು ಜಲಾಶಯ (M4) ಮುನ್ಸೂಚನೆ → ಮುಂದಿನ 6 ತಿಂಗಳ ಕೊರತೆಯ ಪಾಲು.')}</div>
+      <h2>{tr('Industrial water-disruption risk (next 6 months)', 'ಕೈಗಾರಿಕಾ ನೀರಿನ ಅಡಚಣೆ ಅಪಾಯ (ಮುಂದಿನ 6 ತಿಂಗಳು)')}</h2>
+      <div className="muted small">{tr('KIADB industrial land per district (real) times a water-use norm (estimated) gives demand. The groundwater forecast (M2) and reservoir forecast (M4) give the share of the next 6 months with a shortfall.',
+        'ಜಿಲ್ಲೆಯ KIADB ಕೈಗಾರಿಕಾ ಭೂಮಿ (ನೈಜ) × ನೀರಿನ ಬಳಕೆ ಮಾನದಂಡ (ಅಂದಾಜು) = ಬೇಡಿಕೆ; ಅಂತರ್ಜಲ (M2) ಮತ್ತು ಜಲಾಶಯ (M4) ಮುನ್ಸೂಚನೆಯಿಂದ ಮುಂದಿನ 6 ತಿಂಗಳ ಕೊರತೆಯ ಪಾಲು.')}</div>
       <div className="ps-stats">
         <Stat label={tr('KIADB industrial water demand', 'KIADB ಕೈಗಾರಿಕಾ ನೀರಿನ ಬೇಡಿಕೆ')} value={t.demand_mld} unit="MLD"
           sub={tr(`${Math.round(t.developed_acres).toLocaleString()} acres developed`, `${Math.round(t.developed_acres).toLocaleString()} ಎಕರೆ ಅಭಿವೃದ್ಧಿ`)} />

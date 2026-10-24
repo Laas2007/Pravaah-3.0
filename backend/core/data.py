@@ -67,8 +67,9 @@ class Groundwater:
     def latest(self, as_of: str, idx: int | None = None, max_age: int = 6):
         """Most recent monthly value from a month that had fully ended before as_of (at most max_age months old).
 
-        Readings are stamped with their month (01-MM), so the as_of month itself may not be known yet: no look-ahead."""
-        last = last_complete_month(as_of)
+        Readings are stamped with their month (01-MM), so the as_of month itself may not be known yet: no look-ahead.
+        Months that only a few taluks have reported yet are skipped (see usable_month)."""
+        last = self.usable_month(last_complete_month(as_of))
         m = self.months.index(last) if last in self.months else (len(self.months) - 1 if last > self.months[-1] else -1)
         if m < 0:
             nan = np.full(self.depth.shape[1], np.nan, dtype=np.float32)
@@ -82,6 +83,23 @@ class Groundwater:
         if idx is not None:
             return depth[idx], anom[idx], month[idx]
         return depth, anom, month
+
+
+    def usable_month(self, last: str, share: float = 0.5, max_back: int = 3) -> str:
+        """Latest month <= last that most taluks have reported: readings arrive over several months, so a month with
+        fewer than `share` x the usual number of reporting taluks (median of the 12 months before) is skipped."""
+        if last not in self.months:
+            last = self.months[-1] if last > self.months[-1] else last
+            if last not in self.months:
+                return last
+        k = self.months.index(last)
+        rep = (self.wells > 0).sum(axis=1)
+        for _ in range(max_back):
+            usual = np.median(rep[max(0, k - 12):k]) if k >= 3 else 0
+            if k == 0 or rep[k] >= share * usual:
+                break
+            k -= 1
+        return self.months[k]
 
 
 def last_complete_month(as_of: str) -> str:

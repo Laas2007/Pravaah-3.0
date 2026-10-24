@@ -10,12 +10,13 @@ import BacktestView from '../../BacktestView'
 import Chat from '../../Chat'
 import Tour from '../../Tour'
 import { Link } from 'react-router-dom'
+import Icon from '../../shared/Icon'
 
 const NAV = [
-  { key: 'overview', icon: '🏙️', en: 'Overview', kn: 'ಸಾರಾಂಶ' },
-  { key: 'area', icon: '📍', en: 'My Area', kn: 'ನನ್ನ ಪ್ರದೇಶ' },
-  { key: 'official', icon: '🏛️', en: 'Officials', kn: 'ಅಧಿಕಾರಿಗಳು' },
-  { key: 'backtest', icon: '⏪', en: 'Time Machine', kn: 'ಟೈಮ್ ಮೆಷಿನ್' },
+  { key: 'overview', en: 'Overview', kn: 'ಸಾರಾಂಶ' },
+  { key: 'area', en: 'My Area', kn: 'ನನ್ನ ಪ್ರದೇಶ' },
+  { key: 'official', en: 'Officials', kn: 'ಅಧಿಕಾರಿಗಳು' },
+  { key: 'backtest', en: 'Time Machine', kn: 'ಟೈಮ್ ಮೆಷಿನ್' },
 ]
 
 export default function BengaluruApp() {
@@ -91,8 +92,8 @@ export default function BengaluruApp() {
     if (v === 'backtest' && (asOf < '2023-09-01' || asOf > '2024-04-30')) setAsOf('2023-12-01')
   }
 
-  if (error) return <div className="fatal">⚠️ Could not reach the API: {error}<br />Start the backend: <code>cd backend &amp;&amp; uvicorn main:app --port 8000</code></div>
-  if (!meta || !asOf) return <div className="fatal splash"><div className="drop">💧</div>Pravaah</div>
+  if (error) return <div className="fatal">Could not reach the API: {error}<br />Start the backend: <code>cd backend &amp;&amp; uvicorn main:app --port 8000</code></div>
+  if (!meta || !asOf) return <div className="fatal splash"><div className="drop"><Icon name="drop" size={48} stroke={1.6} /></div>Pravaah</div>
 
   const shownDetail = detail && detail.idx === selected ? detail : null
 
@@ -100,7 +101,7 @@ export default function BengaluruApp() {
     <div className={`app lang-${lang} ${tourStep != null ? 'touring' : ''}`}>
       <header>
         <Link to="/urban" className="brand" style={{ color: 'inherit', textDecoration: 'none' }} title="Back to Urban">
-          <div className="logo">💧</div>
+          <div className="logo"><Icon name="drop" size={20} stroke={2} /></div>
           <div>
             <div className="name">Pravaah</div>
             <div className="tag">{t.tagline}</div>
@@ -109,27 +110,27 @@ export default function BengaluruApp() {
         <nav className="nav">
           {NAV.map((n) => (
             <button key={n.key} className={view === n.key ? 'on' : ''} onClick={() => goTo(n.key)}>
-              <span>{n.icon}</span>{n[lang]}
+              {n[lang]}
             </button>
           ))}
         </nav>
         <div className="head-right">
           <button className="lang-btn" onClick={() => setLang(lang === 'en' ? 'kn' : 'en')}
             aria-label={lang === 'en' ? 'Switch language to Kannada' : 'Switch language to English'}>
-            <span className="globe">🌐</span>
+            <span className="globe"><Icon name="globe" size={18} /></span>
             <span className="lang-text">
               <small>{lang === 'en' ? 'Language · ಭಾಷೆ' : 'ಭಾಷೆ · Language'}</small>
               <b>{lang === 'en' ? 'ಕನ್ನಡದಲ್ಲಿ ನೋಡಿ' : 'View in English'}</b>
             </span>
           </button>
-          <button className="tour-btn" onClick={() => setTourStep(0)}>▶ {lang === 'kn' ? 'ಪ್ರವಾಸ' : 'Take the tour'}</button>
+          <button className="tour-btn" onClick={() => setTourStep(0)}>{lang === 'kn' ? 'ಪ್ರವಾಸ' : 'Take the tour'}</button>
         </div>
       </header>
       <main>
         <section className="map-col">
           <MapView geo={geo} wards={wards} selected={selected} onSelect={onSelect} riskLabels={meta.risk_labels}
             lang={lang} layer={layer} setLayer={setLayer} />
-          {loading && <div className="map-loading">⏳ {t.loading}</div>}
+          {loading && <div className="map-loading">{t.loading}</div>}
           {tourStep != null && <Tour step={tourStep} setStep={setTourStep} apply={applyTourState} />}
           <Timeline asOf={asOf} setAsOf={setAsOf} meta={meta} lang={lang} />
         </section>
@@ -140,7 +141,7 @@ export default function BengaluruApp() {
             tab={officialTab} setTab={setOfficialTab} preset={preset} />}
           {view === 'backtest' && <BacktestView selected={selected} onSelect={onSelect} asOf={asOf} setAsOf={setAsOf} detail={shownDetail} wardsByName={wardsByName} />}
           <div className="data-note">
-            🟢 Real: rainfall (IMD rain gauges), ward boundaries · 🟠 Estimated: demand, pipe coverage · 🔵 Simulated: groundwater (checked against 30 real wells)
+            Real: rainfall (IMD rain gauges), ward boundaries · Estimated: demand, pipe coverage · Simulated: groundwater (checked against 30 real wells)
           </div>
         </aside>
       </main>

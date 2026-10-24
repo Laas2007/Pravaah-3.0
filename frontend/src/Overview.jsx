@@ -2,14 +2,14 @@ import { RISK_COLOR, RISK_ICON, RISK_ORDER, fmtDate, rangeText } from './i18n'
 
 const STEPS = {
   en: [
-    ['🌧️', 'Real data in', 'Daily rainfall (IMD rain gauges, 2014–today), Cauvery catchment rain, 243 BBMP ward boundaries'],
-    ['⚖️', 'Water balance per ward', 'Recharge − borewell draw + pipe seepage, simulated every day for every ward'],
-    ['📅', 'Forecast + reasons', '30 rainfall scenarios → a days-to-shortage range, and why it is happening'],
+    ['', 'Real data in', 'Daily rainfall (IMD rain gauges, 2014–today), Cauvery catchment rain, 243 BBMP ward boundaries'],
+    ['', 'Water balance per ward', 'Recharge − borewell draw + pipe seepage, simulated every day for every ward'],
+    ['', 'Forecast + reasons', '30 rainfall scenarios give a days-to-shortage range, and why it is happening'],
   ],
   kn: [
-    ['🌧️', 'ನೈಜ ದತ್ತಾಂಶ', 'ದೈನಂದಿನ ಮಳೆ (IMD ಮಳೆ ಮಾಪಕಗಳು, 2014–ಇಂದು), ಕಾವೇರಿ ಜಲಾನಯನ ಮಳೆ, 243 BBMP ವಾರ್ಡ್ ಗಡಿಗಳು'],
-    ['⚖️', 'ಪ್ರತಿ ವಾರ್ಡ್ ಜಲ ಸಮತೋಲನ', 'ಮರುಪೂರಣ − ಕೊಳವೆಬಾವಿ ಬಳಕೆ + ಪೈಪ್ ಸೋರಿಕೆ, ಪ್ರತಿದಿನ ಲೆಕ್ಕಾಚಾರ'],
-    ['📅', 'ಮುನ್ಸೂಚನೆ + ಕಾರಣಗಳು', '30 ಮಳೆ ಸನ್ನಿವೇಶಗಳು → ಕೊರತೆಗೆ ದಿನಗಳ ಶ್ರೇಣಿ ಮತ್ತು ಕಾರಣ'],
+    ['', 'ನೈಜ ದತ್ತಾಂಶ', 'ದೈನಂದಿನ ಮಳೆ (IMD ಮಳೆ ಮಾಪಕಗಳು, 2014–ಇಂದು), ಕಾವೇರಿ ಜಲಾನಯನ ಮಳೆ, 243 BBMP ವಾರ್ಡ್ ಗಡಿಗಳು'],
+    ['', 'ಪ್ರತಿ ವಾರ್ಡ್ ಜಲ ಸಮತೋಲನ', 'ಮರುಪೂರಣ − ಕೊಳವೆಬಾವಿ ಬಳಕೆ + ಪೈಪ್ ಸೋರಿಕೆ, ಪ್ರತಿದಿನ ಲೆಕ್ಕಾಚಾರ'],
+    ['', 'ಮುನ್ಸೂಚನೆ + ಕಾರಣಗಳು', '30 ಮಳೆ ಸನ್ನಿವೇಶಗಳಿಂದ ಕೊರತೆಗೆ ದಿನಗಳ ಶ್ರೇಣಿ ಮತ್ತು ಕಾರಣ'],
   ],
 }
 
@@ -26,7 +26,7 @@ export default function Overview({ wards, asOf, meta, lang, onSelect, goTo }) {
         <div className="hero-kicker">{kn ? 'ಬೆಂಗಳೂರು · ' : 'Bengaluru · as of '}{fmtDate(asOf, lang)}</div>
         <div className="hero-number">{atRisk.length}<span>/{wards.length}</span></div>
         <div className="hero-text">
-          {kn ? <>ವಾರ್ಡ್‌ಗಳಲ್ಲಿ <b>90 ದಿನಗಳೊಳಗೆ</b> ನೀರಿನ ಕೊರತೆ ನಿರೀಕ್ಷೆ — ಸುಮಾರು <b>{(people / 1e5).toFixed(1)} ಲಕ್ಷ</b> ಜನರು</>
+          {kn ? <>ವಾರ್ಡ್‌ಗಳಲ್ಲಿ <b>90 ದಿನಗಳೊಳಗೆ</b> ನೀರಿನ ಕೊರತೆ ನಿರೀಕ್ಷೆ, ಸುಮಾರು <b>{(people / 1e5).toFixed(1)} ಲಕ್ಷ</b> ಜನರು</>
             : <>wards are expected to run short of water <b>within 90 days</b>, affecting about <b>{(people / 1e5).toFixed(1)} lakh</b> people</>}
         </div>
         <div className="dist-bar" role="img" aria-label="Wards by risk level">
@@ -56,18 +56,18 @@ export default function Overview({ wards, asOf, meta, lang, onSelect, goTo }) {
 
       <h3>{kn ? 'ಇದು ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ' : 'How it works'}</h3>
       <div className="how">
-        {STEPS[lang].map(([icon, title, text], i) => (
+        {STEPS[lang].map(([, title, text], i) => (
           <div key={title} className="how-step">
-            <div className="how-icon">{icon}</div>
-            <div><b>{i + 1}. {title}</b><p>{text}</p></div>
+            <div className="how-icon">{i + 1}</div>
+            <div><b>{title}</b><p>{text}</p></div>
           </div>
         ))}
       </div>
 
       <div className="feature-grid">
-        <button onClick={() => goTo('area')}><span>📍</span><b>{kn ? 'ನನ್ನ ಪ್ರದೇಶ' : 'My Area'}</b><small>{kn ? 'ಸರಳ ಭಾಷೆಯಲ್ಲಿ ಅಪಾಯ' : 'Risk in plain words'}</small></button>
-        <button onClick={() => goTo('official')}><span>🏛️</span><b>{kn ? 'ಅಧಿಕಾರಿಗಳು' : 'Officials'}</b><small>{kn ? 'ಶ್ರೇಣಿ, ಯೋಜನೆ' : 'Rankings & planning'}</small></button>
-        <button onClick={() => goTo('backtest')}><span>⏪</span><b>{kn ? 'ಟೈಮ್ ಮೆಷಿನ್' : 'Time Machine'}</b><small>{kn ? '2024 ಬಿಕ್ಕಟ್ಟು ಪರೀಕ್ಷೆ' : 'Tested on the 2024 crisis'}</small></button>
+        <button onClick={() => goTo('area')}><b>{kn ? 'ನನ್ನ ಪ್ರದೇಶ' : 'My Area'}</b><small>{kn ? 'ಸರಳ ಭಾಷೆಯಲ್ಲಿ ಅಪಾಯ' : 'Risk in plain words'}</small></button>
+        <button onClick={() => goTo('official')}><b>{kn ? 'ಅಧಿಕಾರಿಗಳು' : 'Officials'}</b><small>{kn ? 'ಶ್ರೇಣಿ, ಯೋಜನೆ' : 'Rankings & planning'}</small></button>
+        <button onClick={() => goTo('backtest')}><b>{kn ? 'ಟೈಮ್ ಮೆಷಿನ್' : 'Time Machine'}</b><small>{kn ? '2024 ಬಿಕ್ಕಟ್ಟು ಪರೀಕ್ಷೆ' : 'Tested on the 2024 crisis'}</small></button>
       </div>
     </div>
   )

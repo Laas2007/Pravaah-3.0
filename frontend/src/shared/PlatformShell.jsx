@@ -4,6 +4,7 @@ import { PLATFORMS, platform } from './platforms'
 import { RISK_COLOR, RISK_ORDER, fmtDate } from '../i18n'
 import { PRESET_KN, RISK_TEXT, useLang, useTr } from './lang'
 import Tour, { useTourStep } from './Tour'
+import Icon from './Icon'
 
 /** Common frame for every platform: header (platform switcher, language, tour), date bar + timeline, map + panel. */
 export default function PlatformShell({ which, asOf, setAsOf, meta, map, children }) {
@@ -16,19 +17,19 @@ export default function PlatformShell({ which, asOf, setAsOf, meta, map, childre
     <div className={`ps lang-${tr.lang}`} style={{ '--pc': p.color }}>
       <div className="ps-header">
         <Link to={`/${qs}`} className="ps-brand">
-          <span className="ps-logo">💧</span>
+          <span className="ps-logo"><Icon name="drop" size={20} stroke={2} /></span>
           <span><b>Pravaah</b><small>{tr('Karnataka', 'ಕರ್ನಾಟಕ')}</small></span>
         </Link>
-        <div className="ps-title"><span>{p.icon}</span>{tr(p.en, p.kn)}</div>
+        <div className="ps-title">{tr(p.en, p.kn)}</div>
         <nav className="ps-nav">
           {PLATFORMS.map((x) => (
             <NavLink key={x.key} to={`${x.path}${qs}`} title={tr(x.en, x.kn)} className={({ isActive }) => (isActive ? 'on' : '')}>
-              {x.icon}
+              <Icon name={x.icon} size={18} /><span>{tr(x.en, x.kn).split(' ')[0].replace(/[,&]/g, '')}</span>
             </NavLink>
           ))}
         </nav>
         <LangButton />
-        <button className="ps-tour-btn" onClick={() => setStep(0)}>▶ {tr('Tour', 'ಪ್ರವಾಸ')}</button>
+        <button className="ps-tour-btn" onClick={() => setStep(0)}>{tr('Guided tour', 'ಮಾರ್ಗದರ್ಶಿ ಪ್ರವಾಸ')}</button>
       </div>
       {setAsOf && <DateBar asOf={asOf} setAsOf={setAsOf} meta={meta} />}
       <div className="ps-main">
@@ -45,7 +46,7 @@ export function LangButton({ light }) {
   return (
     <button className={`ps-lang ${light ? 'light' : ''}`} data-tour="lang" onClick={() => setLang(lang === 'en' ? 'kn' : 'en')}
       aria-label={lang === 'en' ? 'Switch language to Kannada' : 'Switch language to English'}>
-      🌐 {lang === 'en' ? 'ಕನ್ನಡ' : 'English'}
+      <Icon name="globe" size={16} /> {lang === 'en' ? 'ಕನ್ನಡ' : 'English'}
     </button>
   )
 }
@@ -78,7 +79,7 @@ export function DateBar({ asOf, setAsOf, meta }) {
   const pos = (y) => `${(Math.max(dates.findIndex((x) => x >= `${y}-01-01`), 0) / (dates.length - 1)) * 100}%`
   return (
     <div className="ps-datebar" data-tour="datebar">
-      <label>📅 {tr('As of', 'ದಿನಾಂಕ')}
+      <label>{tr('As of', 'ದಿನಾಂಕ')}
         <input type="date" value={asOf} min={meta.min_as_of} max={meta.climate_until}
           onChange={(e) => e.target.value && setAsOf(e.target.value)} />
       </label>
@@ -90,7 +91,7 @@ export function DateBar({ asOf, setAsOf, meta }) {
         ))}
       </div>
       <div className="ps-timeline">
-        <button className="ps-play" onClick={() => setPlaying(!playing)} aria-label={playing ? 'Pause' : 'Play'}>{playing ? '❚❚' : '▶'}</button>
+        <button className="ps-play" onClick={() => setPlaying(!playing)} aria-label={playing ? 'Pause' : 'Play'}><Icon name={playing ? 'pause' : 'play'} size={16} /></button>
         <div className="ps-track">
           <input type="range" min={0} max={dates.length - 1} value={idx} aria-label="Forecast date"
             onChange={(e) => { setPlaying(false); setAsOf(dates[+e.target.value]) }} />

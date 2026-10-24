@@ -18,7 +18,7 @@ export function DemandCard({ asOf, onWard }) {
   const b = d.bengaluru
   return (
     <div className="ps-card" data-tour="demand">
-      <h2>🚰 {tr('Bengaluru water demand & tankers', 'ಬೆಂಗಳೂರು ನೀರಿನ ಬೇಡಿಕೆ ಮತ್ತು ಟ್ಯಾಂಕರ್‌ಗಳು')}</h2>
+      <h2>{tr('Bengaluru water demand & tankers', 'ಬೆಂಗಳೂರು ನೀರಿನ ಬೇಡಿಕೆ ಮತ್ತು ಟ್ಯಾಂಕರ್‌ಗಳು')}</h2>
       <div className="muted small">{tr('Estimated from ward population (135 L/person/day), commercial load, Cauvery pipe coverage and supply reliability; next months adjust for seasonal heat.',
         'ವಾರ್ಡ್ ಜನಸಂಖ್ಯೆ (135 ಲೀ/ವ್ಯಕ್ತಿ/ದಿನ), ವಾಣಿಜ್ಯ ಬಳಕೆ, ಕಾವೇರಿ ಸಂಪರ್ಕ ಮತ್ತು ಪೂರೈಕೆ ವಿಶ್ವಾಸಾರ್ಹತೆಯಿಂದ ಅಂದಾಜು; ಮುಂದಿನ ತಿಂಗಳುಗಳಿಗೆ ಬಿಸಿಲಿನ ಹೊಂದಾಣಿಕೆ.')}</div>
       <div className="ps-stats">
@@ -87,8 +87,8 @@ export function LeakCard() {
   const ex = d.examples.find((x) => x.leak)
   return (
     <div className="ps-card" data-tour="leaks">
-      <h2>🔧 {tr('Leak & abnormal-use detection', 'ಸೋರಿಕೆ ಮತ್ತು ಅಸಾಮಾನ್ಯ ಬಳಕೆ ಪತ್ತೆ')}</h2>
-      <div className="ps-mock">🧪 <b>{tr('Synthetic test data', 'ಕೃತಕ ಪರೀಕ್ಷಾ ದತ್ತಾಂಶ')}</b> · {tr(`No public household meter data exists, so the detector is tested on ${d.meters} simulated meters (${d.days} days, hourly) with ${d.planted_leaks} planted leaks and night-time sump filling.`,
+      <h2>{tr('Leak & abnormal-use detection', 'ಸೋರಿಕೆ ಮತ್ತು ಅಸಾಮಾನ್ಯ ಬಳಕೆ ಪತ್ತೆ')}</h2>
+      <div className="ps-mock"><b>{tr('Synthetic test data', 'ಕೃತಕ ಪರೀಕ್ಷಾ ದತ್ತಾಂಶ')}</b> · {tr(`No public household meter data exists, so the detector is tested on ${d.meters} simulated meters (${d.days} days, hourly) with ${d.planted_leaks} planted leaks and night-time sump filling.`,
         `ಸಾರ್ವಜನಿಕ ಮೀಟರ್ ದತ್ತಾಂಶ ಇಲ್ಲ; ${d.meters} ಕೃತಕ ಮೀಟರ್‌ಗಳ ಮೇಲೆ (${d.planted_leaks} ಸೋರಿಕೆಗಳು) ಪರೀಕ್ಷೆ.`)}</div>
       <div className="ps-stats">
         <Stat label={tr('Leaks found', 'ಪತ್ತೆಯಾದ ಸೋರಿಕೆ')} value={`${d.leaks.correct}/${d.planted_leaks}`}
@@ -121,12 +121,12 @@ export function LeakCard() {
         <button className="ps-link-btn" onClick={sample}>{tr('Download a sample CSV', 'ಮಾದರಿ CSV ಡೌನ್‌ಲೋಡ್')}</button>
       </div>
       <div className="muted small">{tr('CSV columns: timestamp (YYYY-MM-DD HH:MM), litres (per hour).', 'CSV ಕಾಲಮ್‌ಗಳು: timestamp, litres (ಗಂಟೆಗೆ).')}</div>
-      {err && <div className="ps-error">⚠️ {err}</div>}
+      {err && <div className="ps-error">{err}</div>}
       {mine && (
         <div className={`ps-note ${mine.leak_suspected ? 'bad' : ''}`}>
           {mine.leak_suspected
-            ? tr(`⚠️ Possible leak from ${mine.leak_from}. ${mine.advice}`, `⚠️ ${mine.leak_from} ರಿಂದ ಸೋರಿಕೆ ಸಾಧ್ಯತೆ. ಶೌಚಾಲಯ, ಟ್ಯಾಂಕ್ ಫ್ಲೋಟ್ ವಾಲ್ವ್, ನಲ್ಲಿಗಳನ್ನು ಪರಿಶೀಲಿಸಿ.`)
-            : tr(`✅ No leak pattern in ${mine.days} days of readings.`, `✅ ${mine.days} ದಿನಗಳ ದತ್ತಾಂಶದಲ್ಲಿ ಸೋರಿಕೆ ಮಾದರಿ ಇಲ್ಲ.`)}
+            ? tr(`Possible leak from ${mine.leak_from}. ${mine.advice}`, `${mine.leak_from} ರಿಂದ ಸೋರಿಕೆ ಸಾಧ್ಯತೆ. ಶೌಚಾಲಯ, ಟ್ಯಾಂಕ್ ಫ್ಲೋಟ್ ವಾಲ್ವ್, ನಲ್ಲಿಗಳನ್ನು ಪರಿಶೀಲಿಸಿ.`)
+            : tr(`No leak pattern in ${mine.days} days of readings.`, `${mine.days} ದಿನಗಳ ದತ್ತಾಂಶದಲ್ಲಿ ಸೋರಿಕೆ ಮಾದರಿ ಇಲ್ಲ.`)}
         </div>
       )}
     </div>

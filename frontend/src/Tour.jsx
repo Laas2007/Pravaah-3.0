@@ -28,7 +28,7 @@ export const TOUR = [
   },
   {
     title: 'Time Machine: the 2024 crisis',
-    text: 'Rewound to 1 Dec 2023 using only data that existed then, the model flagged Whitefield about 90 days before the crisis peaked. Press ▶ on the timeline to watch it spread.',
+    text: 'Rewound to 1 Dec 2023 using only data that existed then, the model flagged Whitefield about 90 days before the crisis peaked. Press on the timeline to watch it spread.',
     state: { view: 'backtest', asOf: '2023-12-01', ward: 'Whitefield', layer: 'heat' },
     focus: 'story',
   },
@@ -73,8 +73,8 @@ export default function Tour({ step, setStep, apply }) {
           <button className="ghost" onClick={() => setStep(null)}>Exit</button>
           {step > 0 && <button className="ghost" onClick={() => setStep(step - 1)}>Back</button>}
           {step < TOUR.length - 1
-            ? <button className="primary" onClick={() => setStep(step + 1)}>Next →</button>
-            : <button className="primary" onClick={() => setStep(null)}>Explore yourself ✓</button>}
+            ? <button className="primary" onClick={() => setStep(step + 1)}>Next</button>
+            : <button className="primary" onClick={() => setStep(null)}>Finish tour</button>}
         </div>
       </div>
     </div>

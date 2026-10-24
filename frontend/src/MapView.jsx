@@ -4,10 +4,10 @@ import 'leaflet/dist/leaflet.css'
 import { RISK_COLOR, RISK_ICON, RISK_ORDER, rangeText } from './i18n'
 
 export const LAYERS = [
-  { key: 'risk', icon: '🚦', en: 'Risk zones', kn: 'ಅಪಾಯ ವಲಯ' },
-  { key: 'heat', icon: '🔥', en: 'Heatmap', kn: 'ಹೀಟ್‌ಮ್ಯಾಪ್' },
-  { key: 'groundwater', icon: '💧', en: 'Groundwater', kn: 'ಅಂತರ್ಜಲ' },
-  { key: 'borewell', icon: '🛠️', en: 'Borewell dependence', kn: 'ಕೊಳವೆಬಾವಿ ಅವಲಂಬನೆ' },
+  { key: 'risk', en: 'Risk zones', kn: 'ಅಪಾಯ ವಲಯ' },
+  { key: 'heat', en: 'Heatmap', kn: 'ಹೀಟ್‌ಮ್ಯಾಪ್' },
+  { key: 'groundwater', en: 'Groundwater', kn: 'ಅಂತರ್ಜಲ' },
+  { key: 'borewell', en: 'Borewell dependence', kn: 'ಕೊಳವೆಬಾವಿ ಅವಲಂಬನೆ' },
 ]
 
 export const stress = (w) => (w.days_mid === 0 ? 1 : Math.max(0, Math.min(1, 1 - w.days_mid / 365)))
@@ -136,7 +136,7 @@ export default function MapView({ geo, wards, selected, onSelect, riskLabels, la
       const idxLine = index ? `<div class="tt-idx">${INDEX_INFO[layer].title[lang]}: <b>${Math.round(VALUE[layer](w) * 100)}</b></div>` : ''
       l.setTooltipContent(
         `<div class="tt"><b>${w.name}</b>${idxLine}<div><span class="tt-dot" style="background:${RISK_COLOR[w.risk]}"></span>${label} · ${when}</div>` +
-        `<div class="tt-sub">💧 ${w.groundwater_pct}% groundwater · 🛠️ ${Math.round(100 - w.inputs.cauvery_coverage_pct)}% borewell</div></div>`
+        `<div class="tt-sub">${w.groundwater_pct}% groundwater · ${Math.round(100 - w.inputs.cauvery_coverage_pct)}% borewell</div></div>`
       )
       if (l.feature.properties.idx === selected) l.bringToFront()
     })
@@ -171,7 +171,7 @@ export default function MapView({ geo, wards, selected, onSelect, riskLabels, la
       <div className="layer-switch" data-tour="layers">
         {LAYERS.map((l) => (
           <button key={l.key} className={layer === l.key ? 'on' : ''} onClick={() => setLayer(l.key)}>
-            <span>{l.icon}</span>{l[lang]}
+            {l[lang]}
           </button>
         ))}
       </div>

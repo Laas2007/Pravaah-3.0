@@ -1,7 +1,7 @@
 """M2 — groundwater forecast (owner: P1). Trained by train/train_gw.py, served through core.risk.taluk_risk.
 
 What it learns (REAL labels): how much each monitored well's depth to water changes over the next 1-6 months, from
-2,698 NWDP wells (gw_well_monthly.npz), given the well's current state, recent rain/heat in its taluk and the rain
+2,664 NWDP wells (gw_well_monthly.npz), given the well's current state, recent rain/heat in its taluk and the rain
 that falls during the forecast window.
 
 How it forecasts without knowing future rain: the window's rain is replayed from every earlier year on record (the
@@ -28,7 +28,7 @@ from pathlib import Path
 
 import numpy as np
 
-from .data import KA, climate, regions
+from .data import KA, climate, groundwater, regions
 
 MODELS = Path(__file__).resolve().parent.parent / "models"
 MODEL_FILE = MODELS / "gw_m2.joblib"
@@ -171,10 +171,10 @@ def card() -> dict | None:
 
 
 def _origin(as_of: str):
-    """Last complete month before as_of (no look-ahead) as a groundwater month index."""
+    """Last complete, mostly reported month before as_of (no look-ahead) as a groundwater month index."""
     a = arrays()
     d = dt.date.fromisoformat(as_of)
-    prev = (d.replace(day=1) - dt.timedelta(days=1)).strftime("%Y-%m")
+    prev = groundwater().usable_month((d.replace(day=1) - dt.timedelta(days=1)).strftime("%Y-%m"))   # skip half-reported months
     months = a["months"]
     k = a["mi"].get(prev, len(months) - 1 if prev > months[-1] else 0)
     return k, d

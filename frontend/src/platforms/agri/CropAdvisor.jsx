@@ -9,10 +9,10 @@ import { agriApi } from './api'
 
 const COLOR = platform('agri').color
 const VERDICT = {
-  'good rainfed': ['✅', 'ಮಳೆಯಾಶ್ರಿತಕ್ಕೆ ಸೂಕ್ತ'],
-  'ok rainfed, risky in a dry year': ['🟡', 'ಮಳೆಯಾಶ್ರಿತ ಸಾಧ್ಯ, ಒಣ ವರ್ಷದಲ್ಲಿ ಅಪಾಯ'],
-  'needs irrigation': ['💧', 'ನೀರಾವರಿ ಬೇಕು'],
-  'avoid without assured irrigation': ['⛔', 'ಖಚಿತ ನೀರಾವರಿ ಇಲ್ಲದೆ ಬೇಡ'],
+  'good rainfed': ['#0ca30c', 'ಮಳೆಯಾಶ್ರಿತಕ್ಕೆ ಸೂಕ್ತ'],
+  'ok rainfed, risky in a dry year': ['#fab219', 'ಮಳೆಯಾಶ್ರಿತ ಸಾಧ್ಯ, ಒಣ ವರ್ಷದಲ್ಲಿ ಅಪಾಯ'],
+  'needs irrigation': ['#2a78d6', 'ನೀರಾವರಿ ಬೇಕು'],
+  'avoid without assured irrigation': ['#d03b3b', 'ಖಚಿತ ನೀರಾವರಿ ಇಲ್ಲದೆ ಬೇಡ'],
 }
 const SEASON_KN = { kharif: 'ಮುಂಗಾರು', rabi: 'ಹಿಂಗಾರು', summer: 'ಬೇಸಿಗೆ' }
 
@@ -25,7 +25,7 @@ export default function CropAdvisor({ idx, asOf }) {
   const crop = pick && o.crops.some((c) => c.crop === pick) ? pick : o.crops[0]?.crop
   return (
     <div className="ps-card" data-tour="crops">
-      <h2>🌱 {tr('Which crop this season?', 'ಈ ಋತುವಿಗೆ ಯಾವ ಬೆಳೆ?')}</h2>
+      <h2>{tr('Which crop this season?', 'ಈ ಋತುವಿಗೆ ಯಾವ ಬೆಳೆ?')}</h2>
       <div className="muted small">
         {tr(`${o.season} season, sowing around ${o.sowing_date}. Ranked by rainfed yield risk from a FAO-56 crop water balance on real IMD rain and ERA5 evaporation; the rest of the season replays the past ${o.scenarios} years' rain.`,
           `${SEASON_KN[o.season] || o.season} ಋತು, ಬಿತ್ತನೆ ಸುಮಾರು ${o.sowing_date}. ನೈಜ IMD ಮಳೆ ಮತ್ತು ERA5 ಆವಿಯಾಗುವಿಕೆಯ ಮೇಲೆ FAO-56 ಬೆಳೆ ನೀರಿನ ಸಮತೋಲನದಿಂದ ಮಳೆಯಾಶ್ರಿತ ಇಳುವರಿ ಅಪಾಯದ ಶ್ರೇಣಿ; ಉಳಿದ ಋತುವಿಗೆ ಹಿಂದಿನ ${o.scenarios} ವರ್ಷಗಳ ಮಳೆ.`)}
@@ -36,10 +36,10 @@ export default function CropAdvisor({ idx, asOf }) {
         <tbody>
           {o.crops.map((c) => {
             const l = c.yield_loss_rainfed_pct
-            const v = VERDICT[c.verdict] || ['', c.verdict]
+            const v = VERDICT[c.verdict] || ['#7a8699', c.verdict]
             return (
               <tr key={c.crop} onClick={() => setPick(c.crop)} className={c.crop === crop ? 'sel' : ''}>
-                <td><b>{tr(c.crop, c.kn)}</b><div className="muted small">{v[0]} {tr(c.verdict, v[1])}</div></td>
+                <td><b>{tr(c.crop, c.kn)}</b><div className="muted small"><i className="dot" style={{ background: v[0] }} />{tr(c.verdict, v[1])}</div></td>
                 <td>{c.water_need_mm} mm<div className="muted small">{tr(`${c.days} days`, `${c.days} ದಿನ`)}</div></td>
                 <td><b>{Math.round(l.p50)}%</b><div className="muted small">{tr('dry year', 'ಒಣ ವರ್ಷ')} {Math.round(l.p90)}%</div></td>
                 <td>{c.irrigation_need_mm} mm</td>
@@ -62,7 +62,7 @@ function CropPlan({ idx, crop, asOf, kn }) {
   const best = sow?.weeks?.length ? [...sow.weeks].sort((a, b) => a.loss_p50 + a.loss_p90 / 2 - (b.loss_p50 + b.loss_p90 / 2))[0] : null
   return (
     <>
-      <h3>💧 {tr(`Irrigation plan: ${crop}`, `ನೀರಾವರಿ ಯೋಜನೆ: ${kn || crop}`)}</h3>
+      <h3>{tr(`Irrigation plan: ${crop}`, `ನೀರಾವರಿ ಯೋಜನೆ: ${kn || crop}`)}</h3>
       {!irr ? <Loading what="irrigation plan" /> : irr.events.length === 0
         ? <div className="ps-note">{tr('No irrigation needed in a typical year: rain keeps the root zone above the stress limit.', 'ಸಾಮಾನ್ಯ ವರ್ಷದಲ್ಲಿ ನೀರಾವರಿ ಬೇಕಿಲ್ಲ.')}</div>
         : <>
@@ -77,7 +77,7 @@ function CropPlan({ idx, crop, asOf, kn }) {
           <div className="ps-chips">{irr.events.map((e) => <span key={e.date} className={e.date >= asOf ? 'up' : ''}>{e.date} · {e.mm} mm</span>)}</div>
           <div className="muted small">{tr('Typical-rain scenario; apply when the root zone has dried to the crop\'s stress limit.', 'ಸಾಮಾನ್ಯ ಮಳೆಯ ಸನ್ನಿವೇಶ; ಬೇರು ವಲಯ ಒತ್ತಡ ಮಿತಿಗೆ ಒಣಗಿದಾಗ ನೀರು ಹಾಯಿಸಿ.')}</div>
         </>}
-      <h3>📅 {tr('Best sowing week (rainfed)', 'ಉತ್ತಮ ಬಿತ್ತನೆ ವಾರ (ಮಳೆಯಾಶ್ರಿತ)')}</h3>
+      <h3>{tr('Best sowing week (rainfed)', 'ಉತ್ತಮ ಬಿತ್ತನೆ ವಾರ (ಮಳೆಯಾಶ್ರಿತ)')}</h3>
       {!sow ? <Loading what="sowing planner" /> : (
         <>
           <div style={{ height: 150 }}>

@@ -70,6 +70,14 @@ from core.reservoirs import storage_on, combined_series, forecast_storage, CAUVE
 - New CSS goes in your platform folder (`platforms/<x>/<x>.css`, classes prefixed `<x>-`), not in shared CSS.
 - Need a new shared component? Ask P5, or build it inside your platform folder first.
 
+## Design rules (the site must not look AI-generated)
+- No emoji anywhere in the UI or chatbot replies. Icons come from `frontend/src/shared/Icon.jsx` (add a path there if needed).
+- No gradients (except data colour scales in map legends), no pill shapes (radius ≤ 8px), no purple, no glow/pulse/bounce
+  or scroll/cursor animations, no hover lifts.
+- Copy is specific and factual: real numbers from the data only (no invented metrics, testimonials or reviews), no vague
+  hero lines, no em dashes, no "AI-powered" or "Made with AI" labels.
+- Use `<DataTag k="real|estimated|simulated" />` from `shared/ui.jsx` to label where a number comes from.
+
 ## Workflow
 - Branch per person: `p1-core`, `p2-agri`, `p3-urban`, `p4-industry`, `p5-shell`. Small commits.
 - **Pull `main` at least every 2 hours** and at each sync point (h6, h12, h19 in `PLAN.md` §7); rebase/merge, re-run check.

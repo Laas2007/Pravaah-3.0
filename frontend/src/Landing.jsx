@@ -3,17 +3,22 @@ import { core } from './api'
 import { RISK_COLOR, RISK_ORDER } from './i18n'
 import KarnatakaMap from './shared/KarnatakaMap'
 import ModelCard from './shared/ModelCard'
+import Icon from './shared/Icon'
 import { fetchWards, getWardGeo, wardOverlay } from './shared/wards'
 import { LangButton, RiskLegend } from './shared/PlatformShell'
 import { STEPS } from './shared/Tour'
 import { getMeta, useLoad } from './shared/hooks'
 import { RISK_TEXT, useTr } from './shared/lang'
+import { DataTag } from './shared/ui'
 import { PLATFORMS } from './shared/platforms'
 
-const BLURB_KN = {
-  agri: 'ನೀರಿನ ಲಭ್ಯತೆ ಆಧಾರಿತ ಬೆಳೆ ಆಯ್ಕೆ, ಬರ ಮತ್ತು ಬೆಳೆ ನೀರಿನ ಒತ್ತಡ, ನೀರಾವರಿ ವೇಳಾಪಟ್ಟಿ, ಬಿತ್ತನೆ ದಿನಾಂಕ, ಇಳುವರಿ ಅಪಾಯ, ಅಂತರ್ಜಲ ಕುಸಿತ.',
-  urban: 'ವಾರ್ಡ್ ಮತ್ತು ನಗರ ಮಟ್ಟದ ಕೊರತೆ ಮುನ್ಸೂಚನೆ, ಪೂರೈಕೆ ಎಷ್ಟು ದಿನ, ಕಾವೇರಿ ಮುನ್ನೋಟ, ಟ್ಯಾಂಕರ್ ಅಗತ್ಯ, ಮಳೆನೀರು ಸಂಗ್ರಹ, ಸೋರಿಕೆ.',
-  industry: 'ಸ್ಥಳದ ನೀರಿನ ಅಪಾಯ, ಕಾರ್ಯಾಚರಣೆಗೆ ಕೊರತೆ, ಬೇಡಿಕೆ ಮುನ್ಸೂಚನೆ, ಉತ್ಪಾದನೆ ಅಡಚಣೆ, ತ್ಯಾಜ್ಯನೀರು ಮರುಬಳಕೆ.',
+const BLURB = {
+  agri: ['Kharif drought alerts, crop water stress and yield risk, irrigation schedules and sowing dates for every taluk.',
+    'ಪ್ರತಿ ತಾಲೂಕಿಗೆ ಮುಂಗಾರು ಬರ ಎಚ್ಚರಿಕೆ, ಬೆಳೆ ನೀರಿನ ಒತ್ತಡ ಮತ್ತು ಇಳುವರಿ ಅಪಾಯ, ನೀರಾವರಿ ವೇಳಾಪಟ್ಟಿ ಮತ್ತು ಬಿತ್ತನೆ ದಿನಾಂಕಗಳು.'],
+  urban: ['Days to shortage for each of Bengaluru\'s 243 wards and other cities, the Cauvery reservoir outlook and tanker demand.',
+    'ಬೆಂಗಳೂರಿನ 243 ವಾರ್ಡ್‌ಗಳು ಮತ್ತು ಇತರ ನಗರಗಳಿಗೆ ಕೊರತೆಗೆ ಉಳಿದ ದಿನಗಳು, ಕಾವೇರಿ ಜಲಾಶಯ ಮುನ್ನೋಟ ಮತ್ತು ಟ್ಯಾಂಕರ್ ಬೇಡಿಕೆ.'],
+  industry: ['Check whether a new factory site can get its water, and see district disruption risk from groundwater and reservoirs.',
+    'ಹೊಸ ಕಾರ್ಖಾನೆ ಸ್ಥಳಕ್ಕೆ ನೀರು ಸಿಗುತ್ತದೆಯೇ ಎಂದು ಪರಿಶೀಲಿಸಿ; ಅಂತರ್ಜಲ ಮತ್ತು ಜಲಾಶಯಗಳಿಂದ ಜಿಲ್ಲಾ ಅಡಚಣೆ ಅಪಾಯ.'],
 }
 
 export default function Landing() {
@@ -32,52 +37,71 @@ export default function Landing() {
     if (tr.lang === 'kn') p.set('lang', 'kn')
     navigate(`${s.path}?${p}`)
   }
+  const facts = [
+    ['227', tr('taluks forecast', 'ತಾಲೂಕುಗಳ ಮುನ್ಸೂಚನೆ')],
+    ['243', tr('Bengaluru wards', 'ಬೆಂಗಳೂರು ವಾರ್ಡ್‌ಗಳು')],
+    ['2,664', tr('government monitoring wells', 'ಸರ್ಕಾರಿ ಮೇಲ್ವಿಚಾರಣಾ ಬಾವಿಗಳು')],
+    ['34', tr('reservoirs, daily storage', 'ಜಲಾಶಯಗಳು, ದೈನಂದಿನ ಸಂಗ್ರಹ')],
+    [`2014–${meta ? meta.climate_until.slice(0, 4) : '…'}`, tr('daily rain records', 'ದೈನಂದಿನ ಮಳೆ ದಾಖಲೆ')],
+  ]
 
   return (
     <div className={`landing lang-${tr.lang}`}>
-      <div className="landing-hero">
+      <header className="landing-bar">
+        <div className="ps-brand"><span className="ps-logo"><Icon name="drop" size={20} stroke={2} /></span>
+          <span><b>Pravaah</b><small>{tr('Karnataka water forecasts', 'ಕರ್ನಾಟಕ ನೀರಿನ ಮುನ್ಸೂಚನೆ')}</small></span></div>
+        <nav className="landing-links">
+          {PLATFORMS.map((p) => <Link key={p.key} to={`${p.path}${lang}`}>{tr(p.en, p.kn)}</Link>)}
+          <a href="#model">{tr('Accuracy', 'ನಿಖರತೆ')}</a>
+        </nav>
+        <LangButton light />
+      </header>
+      <section className="landing-hero">
         <div className="landing-text">
-          <div className="landing-top">
-            <div className="ps-brand big"><span className="ps-logo">💧</span><span><b>Pravaah</b><small>{tr('Karnataka', 'ಕರ್ನಾಟಕ')}</small></span></div>
-            <LangButton light />
-          </div>
-          <h1>{tr('Water scarcity, predicted early, for everyone who depends on it.', 'ನೀರಿನ ಕೊರತೆ, ಮುಂಚಿತವಾಗಿ ಮುನ್ಸೂಚನೆ, ಅದನ್ನು ಅವಲಂಬಿಸಿರುವ ಎಲ್ಲರಿಗೂ.')}</h1>
-          <p>{tr('One explainable engine for all 227 taluks of Karnataka and every Bengaluru ward, built on real rain-gauge, groundwater-well and reservoir records, with dedicated platforms for farmers, urban residents and industry.',
-            'ಕರ್ನಾಟಕದ ಎಲ್ಲಾ 227 ತಾಲೂಕುಗಳು ಮತ್ತು ಬೆಂಗಳೂರಿನ ಪ್ರತಿ ವಾರ್ಡ್‌ಗೆ ವಿವರಿಸಬಲ್ಲ ಒಂದೇ ಮಾದರಿ: ನೈಜ ಮಳೆ ಮಾಪಕ, ಅಂತರ್ಜಲ ಬಾವಿ ಮತ್ತು ಜಲಾಶಯ ದತ್ತಾಂಶ ಆಧಾರಿತ; ರೈತರು, ನಗರ ನಿವಾಸಿಗಳು ಮತ್ತು ಉದ್ಯಮಗಳಿಗೆ ಪ್ರತ್ಯೇಕ ವೇದಿಕೆಗಳು.')}</p>
-          <div className="landing-facts">
-            <span><b>227</b> {tr('taluks', 'ತಾಲೂಕುಗಳು')}</span><span><b>243</b> {tr('Bengaluru wards', 'ಬೆಂಗಳೂರು ವಾರ್ಡ್‌ಗಳು')}</span>
-            <span><b>2,701</b> {tr('groundwater wells', 'ಅಂತರ್ಜಲ ಬಾವಿಗಳು')}</span><span><b>35</b> {tr('reservoirs', 'ಜಲಾಶಯಗಳು')}</span>
-            <span><b>2014→{meta ? meta.climate_until.slice(0, 4) : '…'}</b> {tr('daily data', 'ದೈನಂದಿನ ದತ್ತಾಂಶ')}</span>
-          </div>
+          <h1>{tr('How long until each taluk in Karnataka runs short of groundwater?', 'ಕರ್ನಾಟಕದ ಪ್ರತಿ ತಾಲೂಕಿನಲ್ಲಿ ಅಂತರ್ಜಲ ಕೊರತೆ ಎಷ್ಟು ದಿನಗಳಲ್ಲಿ?')}</h1>
+          <p>{tr('Pravaah forecasts the days left before groundwater reaches stress in all 227 taluks and every Bengaluru ward, from government well readings, IMD rain gauges and reservoir records. Each forecast shows the reasons behind it and how the model scored on years it never saw.',
+            'ಪ್ರವಾಹ ಎಲ್ಲಾ 227 ತಾಲೂಕುಗಳು ಮತ್ತು ಬೆಂಗಳೂರಿನ ಪ್ರತಿ ವಾರ್ಡ್‌ನಲ್ಲಿ ಅಂತರ್ಜಲ ಒತ್ತಡ ತಲುಪಲು ಉಳಿದ ದಿನಗಳನ್ನು ಸರ್ಕಾರಿ ಬಾವಿ ದಾಖಲೆ, IMD ಮಳೆ ಮಾಪಕ ಮತ್ತು ಜಲಾಶಯ ದತ್ತಾಂಶದಿಂದ ಮುನ್ಸೂಚಿಸುತ್ತದೆ. ಪ್ರತಿ ಮುನ್ಸೂಚನೆ ಕಾರಣಗಳನ್ನು ಮತ್ತು ನೋಡದ ವರ್ಷಗಳಲ್ಲಿ ಮಾದರಿಯ ನಿಖರತೆಯನ್ನು ತೋರಿಸುತ್ತದೆ.')}</p>
+          <dl className="landing-facts">
+            {facts.map(([n, l]) => <div key={l}><dt>{n}</dt><dd>{l}</dd></div>)}
+          </dl>
           {ind && (
             <div className="landing-now">
-              {tr(`Today (${meta.climate_until}):`, `ಇಂದು (${meta.climate_until}):`)}{' '}
-              {RISK_ORDER.map((r) => <span key={r} style={{ color: RISK_COLOR[r] }}><b>{counts[r]}</b> {tr(RISK_TEXT[r].en, RISK_TEXT[r].kn)} </span>)}
-              <small> ({ind.model.startsWith('m2') ? tr('ML groundwater forecast', 'ML ಅಂತರ್ಜಲ ಮುನ್ಸೂಚನೆ') : tr('provisional index', 'ತಾತ್ಕಾಲಿಕ ಸೂಚ್ಯಂಕ')})</small>
+              <div className="landing-now-head">{tr(`Groundwater outlook on ${meta.climate_until}`, `${meta.climate_until} ರ ಅಂತರ್ಜಲ ಮುನ್ನೋಟ`)}</div>
+              <div className="landing-now-row">
+                {RISK_ORDER.map((r) => (
+                  <span key={r}><i style={{ background: RISK_COLOR[r] }} /><b>{counts[r]}</b> {tr(RISK_TEXT[r].en, RISK_TEXT[r].kn)}</span>
+                ))}
+              </div>
+              <small>{ind.model.startsWith('m2') ? tr('Taluks by risk tier, ML forecast from monitoring wells', 'ಅಪಾಯ ಮಟ್ಟದ ಪ್ರಕಾರ ತಾಲೂಕುಗಳು, ಬಾವಿ ದತ್ತಾಂಶದ ML ಮುನ್ಸೂಚನೆ')
+                : tr('Taluks by risk tier, provisional index', 'ಅಪಾಯ ಮಟ್ಟದ ಪ್ರಕಾರ ತಾಲೂಕುಗಳು, ತಾತ್ಕಾಲಿಕ ಸೂಚ್ಯಂಕ')}</small>
             </div>
           )}
-          <button className="landing-tour" onClick={startTour}>▶ {tr('Take the tour: the 2023 drought → 2024 crisis', 'ಪ್ರವಾಸ: 2023 ಬರ → 2024 ಬಿಕ್ಕಟ್ಟು')}</button>
+          <div className="landing-actions">
+            <Link className="btn-primary" to={`/agri${lang}`}>{tr('Open the taluk map', 'ತಾಲೂಕು ನಕ್ಷೆ ತೆರೆಯಿರಿ')}</Link>
+            <button className="btn-secondary" onClick={startTour}>{tr('Guided tour: 2023 drought to 2024 crisis', 'ಮಾರ್ಗದರ್ಶಿ ಪ್ರವಾಸ: 2023 ಬರದಿಂದ 2024 ಬಿಕ್ಕಟ್ಟು')}</button>
+          </div>
         </div>
         <div className="landing-map">
           <KarnatakaMap colorOf={(i) => byIdx[i] && RISK_COLOR[byIdx[i].risk]} legend={<RiskLegend />}
             overlay={wardOverlay(wardGeo, wards, null, null)} />
         </div>
-      </div>
-      <div className="landing-cards">
+      </section>
+      <section className="landing-cards">
         {PLATFORMS.map((p) => (
           <Link key={p.key} to={`${p.path}${lang}`} className="landing-card" style={{ '--pc': p.color }}>
-            <div className="landing-card-icon">{p.icon}</div>
-            <div className="landing-card-title">{tr(p.en, p.kn)}</div>
-            <div className="landing-card-kn">{tr(p.kn, p.en)}</div>
-            <p>{tr(p.blurb, BLURB_KN[p.key])}</p>
-            <span className="landing-card-go">{tr('Open →', 'ತೆರೆಯಿರಿ →')}</span>
+            <div className="landing-card-head"><span className="landing-card-icon"><Icon name={p.icon} size={22} /></span>
+              <div><div className="landing-card-title">{tr(p.en, p.kn)}</div><div className="landing-card-kn">{tr(p.kn, p.en)}</div></div></div>
+            <p>{tr(...BLURB[p.key])}</p>
+            <span className="landing-card-go">{tr('Open', 'ತೆರೆಯಿರಿ')} <Icon name="arrow" size={16} /></span>
           </Link>
         ))}
-      </div>
-      <div className="landing-model"><ModelCard /></div>
+      </section>
+      <section className="landing-model" id="model"><ModelCard /></section>
       <footer className="landing-foot">
-        {tr('🟢 Real: IMD rainfall, NWDP groundwater wells & reservoirs, LGD boundaries · 🟠 Estimated: demand, supply · 🔵 Simulated: daily groundwater between readings',
-          '🟢 ನೈಜ: IMD ಮಳೆ, NWDP ಅಂತರ್ಜಲ ಬಾವಿಗಳು ಮತ್ತು ಜಲಾಶಯಗಳು, LGD ಗಡಿಗಳು · 🟠 ಅಂದಾಜು: ಬೇಡಿಕೆ, ಪೂರೈಕೆ · 🔵 ಅನುಕರಣೆ: ಮಾಪನಗಳ ನಡುವಿನ ದೈನಂದಿನ ಅಂತರ್ಜಲ')}
+        <span><DataTag k="real" />{tr('IMD rainfall, NWDP groundwater wells and reservoirs, CGWB groundwater assessment 2023, LGD boundaries',
+          'IMD ಮಳೆ, NWDP ಅಂತರ್ಜಲ ಬಾವಿಗಳು ಮತ್ತು ಜಲಾಶಯಗಳು, CGWB ಅಂತರ್ಜಲ ಮೌಲ್ಯಮಾಪನ 2023, LGD ಗಡಿಗಳು')}</span>
+        <span><DataTag k="estimated" />{tr('urban demand, industrial water norms', 'ನಗರ ಬೇಡಿಕೆ, ಕೈಗಾರಿಕಾ ನೀರಿನ ಮಾನದಂಡ')}</span>
+        <span><DataTag k="simulated" />{tr('daily ward groundwater between well readings, leak test meters', 'ಬಾವಿ ಮಾಪನಗಳ ನಡುವಿನ ದೈನಂದಿನ ವಾರ್ಡ್ ಅಂತರ್ಜಲ, ಸೋರಿಕೆ ಪರೀಕ್ಷಾ ಮೀಟರ್‌ಗಳು')}</span>
       </footer>
     </div>
   )

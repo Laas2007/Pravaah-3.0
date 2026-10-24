@@ -94,7 +94,7 @@ function ZoomButtons({ below }) {
   return (
     <div className={`ps-zoom ${below ? 'below' : ''}`}>
       <button onClick={() => map.fitBounds(KA_BOUNDS)}>Karnataka</button>
-      <button onClick={() => map.fitBounds(BLR_BOUNDS)}>🔎 Bengaluru wards</button>
+      <button onClick={() => map.fitBounds(BLR_BOUNDS)}>Bengaluru wards</button>
     </div>
   )
 }

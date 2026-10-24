@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { api } from './api'
+import Icon from './shared/Icon'
 
 export default function Chat({ ward, asOf, lang, t, open, setOpen, autoAsk, clearAutoAsk }) {
   const [msgs, setMsgs] = useState([])
@@ -37,7 +38,7 @@ export default function Chat({ ward, asOf, lang, t, open, setOpen, autoAsk, clea
   if (!open) {
     return (
       <button className="chat-fab" onClick={() => setOpen(true)} data-tour="chat">
-        <span className="fab-icon">💬</span>
+        <span className="fab-icon"><Icon name="chat" size={18} /></span>
         <span><b>{t.ask}</b><small>English · ಕನ್ನಡ</small></span>
       </button>
     )
@@ -45,7 +46,7 @@ export default function Chat({ ward, asOf, lang, t, open, setOpen, autoAsk, clea
   return (
     <div className="chat" data-tour="chat">
       <div className="chat-head">
-        <div className="bot-avatar">💧</div>
+        <div className="bot-avatar"><Icon name="drop" size={18} /></div>
         <div>
           <b>JalaMitra</b>
           <div className="small">{ward ? ward.name : t.pickWard} · {lang === 'kn' ? 'ಕನ್ನಡ' : 'English'}</div>
@@ -70,7 +71,7 @@ export default function Chat({ ward, asOf, lang, t, open, setOpen, autoAsk, clea
       </div>
       <form className="chat-input" onSubmit={(e) => { e.preventDefault(); send(input) }}>
         <input value={input} onChange={(e) => setInput(e.target.value)} placeholder={t.chatPh} disabled={!ward} />
-        <button type="submit" disabled={!ward || busy}>➤</button>
+        <button type="submit" disabled={!ward || busy} aria-label="Send"><Icon name="send" size={18} /></button>
       </form>
     </div>
   )

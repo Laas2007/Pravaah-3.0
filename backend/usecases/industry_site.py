@@ -93,7 +93,8 @@ def nearby_wells(lat: float, lon: float, as_of: str) -> dict:
     la, lo, months, depth = _wells()
     d = km(lat, lon, la, lo)
     sel = np.where(d <= WELL_RADIUS_KM)[0]
-    last = last_complete_month(as_of)
+    from core.data import groundwater
+    last = groundwater().usable_month(last_complete_month(as_of))
     k1 = max(i for i, m in enumerate(months) if m <= last)
     out = {"radius_km": WELL_RADIUS_KM, "count": int(sel.size), "nearest_km": round(float(d.min()), 1)}
     if sel.size == 0:

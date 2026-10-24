@@ -62,7 +62,7 @@ def api_districts(as_of: str | None = None):
                        "reuse_potential_mld": tot("reuse_potential_mld"), "developed_acres": tot("developed_acres")},
             "assumptions": {"water_norm_kl_per_ha_day": NORM_KL_PER_HA_DAY, "surface_dependence_served": 0.6,
                             "surface_dependence_unserved": 0.15, "wastewater_share": 0.8, "recyclable_share": 0.7},
-            "sources": {"real": ["KIADB developed land per district", "M2 groundwater forecast (2,698 wells)",
+            "sources": {"real": ["KIADB developed land per district", "M2 groundwater forecast (2,664 wells)",
                                  "M4 reservoir forecast (NWDP dams)"],
                         "estimated": ["water use per hectare", "surface vs groundwater dependence"]}}
 

@@ -204,7 +204,7 @@ def api_taluk(idx: int, as_of: str | None = None):
     score, levels = rk["score"], rk["levels"]
     g = groundwater()
     hist = [{"month": m, "depth": clean(g.depth[k, idx]), "anom": clean(g.anom[k, idx]), "wells": int(g.wells[k, idx])}
-            for k, m in enumerate(g.months) if "2014-01" <= m <= last_complete_month(as_of)]
+            for k, m in enumerate(g.months) if "2014-01" <= m <= g.usable_month(last_complete_month(as_of))]
     return {**t, "as_of": as_of, "model": rk["model"], "risk": levels[idx], "stress": clean(score[idx]),
             "source": rk["source"][idx], "forecast": forecast_for(rk, idx, as_of),
             "indicators": {k: clean(v[idx]) for k, v in ind.items()}, "groundwater_history": hist}

@@ -1,17 +1,91 @@
-"""Ward-aware chatbot (JalaMitra).
+"""Ward- and taluk-aware chatbot (JalaMitra), English and Kannada.
 
-Uses Claude when API credentials are available; otherwise a built-in answer
-engine composes detailed English/Kannada replies from the ward's prediction.
+Order: Google Gemini (free tier, GEMINI_API_KEY) -> Claude (only if ANTHROPIC_API_KEY is set) -> a built-in answer
+engine that composes English/Kannada replies from the prediction. Keys live in .env (git-ignored), never in code.
 """
 import datetime as dt
 import json
 import os
+import urllib.error
+import urllib.request
+from pathlib import Path
 
 import anthropic
 
 from content import DRIVER, RISK, actions_for
 
+
+def _load_env():
+    """Read KEY=value lines from backend/.env or the repo-root .env without overriding real environment variables."""
+    for f in (Path(__file__).parent / ".env", Path(__file__).parent.parent / ".env"):
+        if f.exists():
+            for line in f.read_text(encoding="utf-8").splitlines():
+                k, sep, v = line.strip().partition("=")
+                if sep and k and not k.startswith("#"):
+                    os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
+
+
+_load_env()
 MODEL = os.environ.get("CHAT_MODEL", "claude-haiku-4-5")
+# First model that answers wins (busy or over-limit models are skipped); the Lite models have more generous free limits.
+GEMINI_MODELS = [m.strip() for m in os.environ.get("GEMINI_MODELS", "gemini-3.6-flash,gemini-3.5-flash-lite,gemini-3.1-flash-lite").split(",") if m.strip()]
+GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
+
+KANNADA_RULES = """
+Language rules:
+- If the reply language is Kannada, or the user's last message is written in Kannada script, answer fully in natural,
+  everyday spoken Kannada written in Kannada script (as a Karnataka government helpline would speak), not a word-by-word
+  translation. Keep numbers as digits and keep units and short technical names readable (mm, m, MLD, BWSSB, KIADB).
+- If the user writes Kannada in English letters (for example "neeru yaavaga barutte"), reply in Kannada script.
+- Otherwise reply in English.
+Number rules: round sensibly (metres to one decimal, percentages and mm to whole numbers, e.g. "87% less rain than
+normal", never "-87.04"). A days value of 366 is a code for "not within the next 6 months": say that, never "366 days".
+Never show raw field names or JSON."""
+
+
+def _gemini(system: str, messages: list[dict]) -> str | None:
+    key = os.environ.get("GEMINI_API_KEY")
+    if not key:
+        return None
+    contents = [{"role": "model" if m["role"] == "assistant" else "user", "parts": [{"text": m["content"]}]}
+                for m in messages[-12:]]
+    body = json.dumps({"systemInstruction": {"parts": [{"text": system}]}, "contents": contents,
+                       "generationConfig": {"maxOutputTokens": 4096}}).encode("utf-8")
+    for model in GEMINI_MODELS:
+        req = urllib.request.Request(GEMINI_URL.format(model=model), data=body, method="POST",
+                                     headers={"Content-Type": "application/json", "x-goog-api-key": key})
+        try:
+            with urllib.request.urlopen(req, timeout=25) as r:
+                data = json.loads(r.read().decode("utf-8"))
+        except urllib.error.HTTPError as e:            # 429 free limit, 503 busy, 404 unavailable: try next
+            if e.code in (400, 401, 403):              # bad request or key: another model won't help
+                return None
+            continue
+        except (OSError, ValueError):                 # network error, timeout or unreadable reply
+            continue
+        parts = ((data.get("candidates") or [{}])[0].get("content") or {}).get("parts") or []
+        text = "".join(p.get("text", "") for p in parts if not p.get("thought")).strip()
+        if text:
+            return text
+    return None
+
+
+def _llm(system: str, messages: list[dict]) -> dict | None:
+    """Ask the configured AI service; None when no service is configured or all of them failed."""
+    text = _gemini(system + KANNADA_RULES, messages)
+    if text:
+        return {"text": text, "source": "gemini"}
+    if _has_credentials():
+        try:
+            resp = anthropic.Anthropic().messages.create(
+                model=MODEL, max_tokens=1500, system=system + KANNADA_RULES,
+                messages=[{"role": m["role"], "content": m["content"]} for m in messages[-12:]])
+            text = "".join(b.text for b in resp.content if b.type == "text")
+            if text:
+                return {"text": text, "source": "claude"}
+        except anthropic.APIError:
+            pass
+    return None
 
 SYSTEM = """You are JalaMitra, the assistant inside Pravaah, a water scarcity prediction portal for Bengaluru, Karnataka.
 You answer residents' and officials' questions about why water shortage is expected in their ward and what can be done.
@@ -42,27 +116,11 @@ def _has_credentials():
 
 
 def reply(ward: dict, as_of: str, lang: str, messages: list[dict]) -> dict:
-    question = messages[-1]["content"]
-    if _has_credentials():
-        try:
-            return {"text": _claude(ward, as_of, lang, messages), "source": "claude"}
-        except anthropic.APIError:
-            pass
-    return {"text": Answer(ward, as_of, lang).respond(question), "source": "builtin"}
-
-
-def _claude(ward, as_of, lang, messages):
-    client = anthropic.Anthropic()
     context = {k: ward[k] for k in ("name", "risk", "days_low", "days_mid", "days_high", "groundwater_pct", "inputs", "drivers")}
     context["as_of"] = as_of
-    resp = client.messages.create(
-        model=MODEL,
-        max_tokens=1500,
-        system=SYSTEM.format(language="Kannada (ಕನ್ನಡ)" if lang == "kn" else "English",
-                             ward=json.dumps(context, ensure_ascii=False, indent=1)),
-        messages=[{"role": m["role"], "content": m["content"]} for m in messages[-12:]],
-    )
-    return "".join(b.text for b in resp.content if b.type == "text")
+    system = SYSTEM.format(language="Kannada (ಕನ್ನಡ)" if lang == "kn" else "English",
+                           ward=json.dumps(context, ensure_ascii=False, indent=1))
+    return _llm(system, messages) or {"text": Answer(ward, as_of, lang).respond(messages[-1]["content"]), "source": "builtin"}
 
 
 # ------------------------------------------------------------------ built-in answers
@@ -111,15 +169,15 @@ class Answer:
         w, kn = self.w, self.kn
         risk = RISK[w["risk"]][self.lang]
         if w["days_mid"] == 0:
-            return (f"⚠️ {w['name']} ನಲ್ಲಿ ಈಗಾಗಲೇ ನೀರಿನ ಕೊರತೆ ಇದೆ (ಅಪಾಯ: {risk}). ಅಂತರ್ಜಲ ಮಟ್ಟ ಕೇವಲ {w['groundwater_pct']}% ಇದ್ದು, ಕೊಳವೆಬಾವಿಗಳು ಬತ್ತುತ್ತಿವೆ."
-                    if kn else f"⚠️ {w['name']} is already in water shortage (risk: {risk}). Groundwater is down to {w['groundwater_pct']}% of usable storage, so borewells are failing.")
+            return (f"{w['name']} ನಲ್ಲಿ ಈಗಾಗಲೇ ನೀರಿನ ಕೊರತೆ ಇದೆ (ಅಪಾಯ: {risk}). ಅಂತರ್ಜಲ ಮಟ್ಟ ಕೇವಲ {w['groundwater_pct']}% ಇದ್ದು, ಕೊಳವೆಬಾವಿಗಳು ಬತ್ತುತ್ತಿವೆ."
+                    if kn else f"{w['name']} is already in water shortage (risk: {risk}). Groundwater is down to {w['groundwater_pct']}% of usable storage, so borewells are failing.")
         if w["days_low"] > 365:
-            return (f"✅ {w['name']} ಸದ್ಯಕ್ಕೆ ಸುರಕ್ಷಿತ: ಮುಂದಿನ 12 ತಿಂಗಳಲ್ಲಿ ಕೊರತೆ ನಿರೀಕ್ಷೆ ಇಲ್ಲ (ಅಪಾಯ: {risk}). ಅಂತರ್ಜಲ ಮಟ್ಟ {w['groundwater_pct']}%."
-                    if kn else f"✅ {w['name']} looks safe for now: no shortage is expected in the next 12 months (risk: {risk}). Groundwater is at {w['groundwater_pct']}% of usable storage.")
+            return (f"{w['name']} ಸದ್ಯಕ್ಕೆ ಸುರಕ್ಷಿತ: ಮುಂದಿನ 12 ತಿಂಗಳಲ್ಲಿ ಕೊರತೆ ನಿರೀಕ್ಷೆ ಇಲ್ಲ (ಅಪಾಯ: {risk}). ಅಂತರ್ಜಲ ಮಟ್ಟ {w['groundwater_pct']}%."
+                    if kn else f"{w['name']} looks safe for now: no shortage is expected in the next 12 months (risk: {risk}). Groundwater is at {w['groundwater_pct']}% of usable storage.")
         hi = "365+" if w["days_high"] > 365 else str(w["days_high"])
         end = "" if w["days_high"] > 365 else (f" – {self.date(w['days_high'])}")
-        return (f"📅 {w['name']} ನಲ್ಲಿ ಸುಮಾರು {w['days_low']}–{hi} ದಿನಗಳಲ್ಲಿ ({self.date(w['days_low'])}{end}) ನೀರಿನ ಕೊರತೆ ನಿರೀಕ್ಷಿಸಲಾಗಿದೆ. ಅಪಾಯ ಮಟ್ಟ: {risk}."
-                if kn else f"📅 {w['name']} is expected to run short of water in about {w['days_low']}–{hi} days (around {self.date(w['days_low'])}{end}). Risk level: {risk}.")
+        return (f"{w['name']} ನಲ್ಲಿ ಸುಮಾರು {w['days_low']}–{hi} ದಿನಗಳಲ್ಲಿ ({self.date(w['days_low'])}{end}) ನೀರಿನ ಕೊರತೆ ನಿರೀಕ್ಷಿಸಲಾಗಿದೆ. ಅಪಾಯ ಮಟ್ಟ: {risk}."
+                if kn else f"{w['name']} is expected to run short of water in about {w['days_low']}–{hi} days (around {self.date(w['days_low'])}{end}). Risk level: {risk}.")
 
     def when(self):
         out = [self.headline()]
@@ -141,7 +199,7 @@ class Answer:
         lines = []
         for d in top:
             lines.append("• " + self.explain_driver(d))
-        head = "🔍 ಈ ಕೊರತೆಗೆ ಮುಖ್ಯ ಕಾರಣಗಳು:" if self.kn else "🔍 Why this is happening:"
+        head = "ಈ ಕೊರತೆಗೆ ಮುಖ್ಯ ಕಾರಣಗಳು:" if self.kn else "Why this is happening:"
         tail = (f"\nಒಟ್ಟಾರೆ: ಈ ವಾರ್ಡ್‌ನ ನೀರಿನ ಬೇಡಿಕೆ ದಿನಕ್ಕೆ ಸುಮಾರು {self.i['demand_mld']} ದಶಲಕ್ಷ ಲೀಟರ್ (MLD); ಅದರಲ್ಲಿ ಸುಮಾರು {self.borewell_share()}% ಅಂತರ್ಜಲದಿಂದ ಬರುತ್ತದೆ."
                 if self.kn else f"\nIn short: this ward needs about {self.i['demand_mld']} million litres a day, and roughly {self.borewell_share()}% of it is pumped from the ground.")
         return [head + "\n" + "\n".join(lines) + tail]
@@ -177,44 +235,44 @@ class Answer:
         acts = actions_for(self.w["drivers"], n=4)
         home = "\n".join(f"• {a[self.lang]}" for a in acts)
         if self.kn:
-            return [f"🏠 ಮನೆಯಲ್ಲಿ ನೀವು ಮಾಡಬಹುದಾದವು:\n{home}",
-                    "🏢 ಅಪಾರ್ಟ್‌ಮೆಂಟ್/ಸಮುದಾಯ ಮಟ್ಟದಲ್ಲಿ:\n• ಸಾಮೂಹಿಕ ಮಳೆನೀರು ಸಂಗ್ರಹ ಮತ್ತು ಇಂಗುಬಾವಿಗಳು ನಿರ್ಮಿಸಿ.\n"
+            return [f"ಮನೆಯಲ್ಲಿ ನೀವು ಮಾಡಬಹುದಾದವು:\n{home}",
+                    "ಅಪಾರ್ಟ್‌ಮೆಂಟ್/ಸಮುದಾಯ ಮಟ್ಟದಲ್ಲಿ:\n• ಸಾಮೂಹಿಕ ಮಳೆನೀರು ಸಂಗ್ರಹ ಮತ್ತು ಇಂಗುಬಾವಿಗಳು ನಿರ್ಮಿಸಿ.\n"
                     "• STP ಶುದ್ಧೀಕರಿಸಿದ ನೀರನ್ನು ತೋಟ ಮತ್ತು ಶೌಚಾಲಯಕ್ಕೆ ಬಳಸಿ.\n• ಪ್ರತಿ ಮನೆಗೆ ನೀರಿನ ಮೀಟರ್ ಅಳವಡಿಸಿ, ಬಳಕೆ ಹಂಚಿಕೊಳ್ಳಿ.",
-                    "🏛️ ನಗರ ಮಟ್ಟದಲ್ಲಿ: ಕಾವೇರಿ ಪೈಪ್‌ಲೈನ್ ವಿಸ್ತರಣೆ, ಕೆರೆಗಳ ಪುನರುಜ್ಜೀವನ ಮತ್ತು ಮರುಪೂರಣ ಬಾವಿಗಳು. ಸೋರಿಕೆ ಕಂಡರೆ BWSSB ಸಹಾಯವಾಣಿ 1916 ಗೆ ತಿಳಿಸಿ."]
-        return [f"🏠 What you can do at home:\n{home}",
-                "🏢 What your apartment or community can do:\n• Build shared rainwater harvesting and recharge wells.\n"
+                    "ನಗರ ಮಟ್ಟದಲ್ಲಿ: ಕಾವೇರಿ ಪೈಪ್‌ಲೈನ್ ವಿಸ್ತರಣೆ, ಕೆರೆಗಳ ಪುನರುಜ್ಜೀವನ ಮತ್ತು ಮರುಪೂರಣ ಬಾವಿಗಳು. ಸೋರಿಕೆ ಕಂಡರೆ BWSSB ಸಹಾಯವಾಣಿ 1916 ಗೆ ತಿಳಿಸಿ."]
+        return [f"What you can do at home:\n{home}",
+                "What your apartment or community can do:\n• Build shared rainwater harvesting and recharge wells.\n"
                 "• Reuse STP-treated water for gardens and flushing.\n• Meter each flat so everyone sees and cuts their own use.",
-                "🏛️ What the city can do: extend Cauvery pipelines, revive local lakes and add recharge wells. Report leaks or misuse to the BWSSB helpline 1916."]
+                "What the city can do: extend Cauvery pipelines, revive local lakes and add recharge wells. Report leaks or misuse to the BWSSB helpline 1916."]
 
     def rwh(self):
         litres = round(0.8 * self.i["rain_normal_mm"] * 100 / 1000) * 1000
         if self.kn:
-            return [f"🌧️ ಮಳೆನೀರು ಸಂಗ್ರಹ {self.w['name']} ನಲ್ಲಿ:\n• ಇಲ್ಲಿ ವರ್ಷಕ್ಕೆ ಸರಾಸರಿ {self.i['rain_normal_mm']} ಮಿಮೀ ಮಳೆ ಬೀಳುತ್ತದೆ; 100 ಚ.ಮೀ. ಮೇಲ್ಛಾವಣಿ ವರ್ಷಕ್ಕೆ ಸುಮಾರು {litres:,} ಲೀಟರ್ ಸಂಗ್ರಹಿಸಬಹುದು.\n"
+            return [f"ಮಳೆನೀರು ಸಂಗ್ರಹ {self.w['name']} ನಲ್ಲಿ:\n• ಇಲ್ಲಿ ವರ್ಷಕ್ಕೆ ಸರಾಸರಿ {self.i['rain_normal_mm']} ಮಿಮೀ ಮಳೆ ಬೀಳುತ್ತದೆ; 100 ಚ.ಮೀ. ಮೇಲ್ಛಾವಣಿ ವರ್ಷಕ್ಕೆ ಸುಮಾರು {litres:,} ಲೀಟರ್ ಸಂಗ್ರಹಿಸಬಹುದು.\n"
                     "• ಛಾವಣಿಯ ನೀರನ್ನು ಫಿಲ್ಟರ್ ಮೂಲಕ ಸಂಪ್‌ಗೆ ಹರಿಸಿ; ಹೆಚ್ಚುವರಿ ನೀರನ್ನು ಇಂಗುಗುಂಡಿ ಅಥವಾ ಮರುಪೂರಣ ಬಾವಿಗೆ ಬಿಡಿ.\n"
                     "• ಮಳೆಗಾಲಕ್ಕೆ ಮುನ್ನ ಛಾವಣಿ, ಪೈಪ್ ಮತ್ತು ಫಿಲ್ಟರ್ ಸ್ವಚ್ಛಗೊಳಿಸಿ.\n"
                     "• ಬೆಂಗಳೂರಿನಲ್ಲಿ ಅನೇಕ ನಿವೇಶನಗಳಿಗೆ ಮಳೆನೀರು ಸಂಗ್ರಹ ಕಡ್ಡಾಯ; ವಿವರಗಳಿಗೆ BWSSB ಸಂಪರ್ಕಿಸಿ."]
-        return [f"🌧️ Rainwater harvesting in {self.w['name']}:\n• This area gets about {self.i['rain_normal_mm']} mm of rain in a normal year, so a 100 m² roof can capture roughly {litres:,} litres a year.\n"
+        return [f"Rainwater harvesting in {self.w['name']}:\n• This area gets about {self.i['rain_normal_mm']} mm of rain in a normal year, so a 100 m² roof can capture roughly {litres:,} litres a year.\n"
                 "• Lead roof water through a simple filter into your sump; send the overflow to a recharge pit or recharge well.\n"
                 "• Clean the roof, pipes and filter before each monsoon.\n"
                 "• Rainwater harvesting is mandatory for many plot sizes in Bengaluru; BWSSB can advise on design."]
 
     def tanker(self):
         if self.kn:
-            return ["🚚 ಟ್ಯಾಂಕರ್ ನೀರಿನ ಬಗ್ಗೆ:\n• ಕೊರತೆ ನಿರೀಕ್ಷಿತ ದಿನಾಂಕಕ್ಕೆ ಮುಂಚೆಯೇ ಟ್ಯಾಂಕರ್ ವ್ಯವಸ್ಥೆ ಮಾಡಿ; ಬೇಸಿಗೆಯಲ್ಲಿ ಬೇಡಿಕೆ ಮತ್ತು ಬೆಲೆ ಏರುತ್ತದೆ.\n"
+            return ["ಟ್ಯಾಂಕರ್ ನೀರಿನ ಬಗ್ಗೆ:\n• ಕೊರತೆ ನಿರೀಕ್ಷಿತ ದಿನಾಂಕಕ್ಕೆ ಮುಂಚೆಯೇ ಟ್ಯಾಂಕರ್ ವ್ಯವಸ್ಥೆ ಮಾಡಿ; ಬೇಸಿಗೆಯಲ್ಲಿ ಬೇಡಿಕೆ ಮತ್ತು ಬೆಲೆ ಏರುತ್ತದೆ.\n"
                     "• ನೆರೆಹೊರೆಯವರೊಂದಿಗೆ ಸೇರಿ ಬುಕ್ ಮಾಡಿದರೆ ವೆಚ್ಚ ಕಡಿಮೆ.\n• ಸರ್ಕಾರ ನಿಗದಿಪಡಿಸಿದ ದರಕ್ಕಿಂತ ಹೆಚ್ಚು ಕೇಳಿದರೆ BWSSB 1916 ಗೆ ದೂರು ನೀಡಿ.",
                     self.headline()]
-        return ["🚚 About tanker water:\n• Book before the expected shortage date; demand and prices jump in the dry months.\n"
+        return ["About tanker water:\n• Book before the expected shortage date; demand and prices jump in the dry months.\n"
                 "• Pool bookings with neighbours or your apartment to cut the cost per household.\n"
                 "• If a supplier charges above the government-notified rate, complain to the BWSSB helpline 1916.",
                 self.headline()]
 
     def how(self):
         if self.kn:
-            return ["🧠 ಈ ಮುನ್ಸೂಚನೆ ಹೇಗೆ ಮಾಡಲಾಗುತ್ತದೆ:\n• ನೈಜ ದೈನಂದಿನ ಮಳೆ ದತ್ತಾಂಶ (IMD ಮಳೆ ಮಾಪಕಗಳು, 2014–ಇಂದು) ಮತ್ತು ಕಾವೇರಿ ಜಲಾನಯನ ಮಳೆ.\n"
+            return ["ಈ ಮುನ್ಸೂಚನೆ ಹೇಗೆ ಮಾಡಲಾಗುತ್ತದೆ:\n• ನೈಜ ದೈನಂದಿನ ಮಳೆ ದತ್ತಾಂಶ (IMD ಮಳೆ ಮಾಪಕಗಳು, 2014–ಇಂದು) ಮತ್ತು ಕಾವೇರಿ ಜಲಾನಯನ ಮಳೆ.\n"
                     "• ಪ್ರತಿ ವಾರ್ಡ್‌ಗೆ ಜಲ ಸಮತೋಲನ: ಮಳೆ ಮರುಪೂರಣ − ಕೊಳವೆಬಾವಿ ಬಳಕೆ + ಪೈಪ್ ಸೋರಿಕೆ, ಪ್ರತಿದಿನ.\n"
                     "• 30 ಮಳೆ ಸನ್ನಿವೇಶಗಳಿಂದ ದಿನಗಳ ಶ್ರೇಣಿ; ಪ್ರತಿ ಅಂಶವನ್ನು ತೆಗೆದು ಮತ್ತೆ ಓಡಿಸಿ ಕಾರಣಗಳನ್ನು ಕಂಡುಹಿಡಿಯಲಾಗುತ್ತದೆ.\n"
                     "• 2024 ಬಿಕ್ಕಟ್ಟಿನ ಮೇಲೆ ಪರೀಕ್ಷಿಸಲಾಗಿದೆ. ಬೇಡಿಕೆ ಮತ್ತು ಪೈಪ್ ವ್ಯಾಪ್ತಿ ಅಂದಾಜು ಮೌಲ್ಯಗಳು."]
-        return ["🧠 How this forecast works:\n• Real daily rainfall (IMD rain-gauge grid, 2014–today) plus rain in the Cauvery catchment.\n"
+        return ["How this forecast works:\n• Real daily rainfall (IMD rain-gauge grid, 2014–today) plus rain in the Cauvery catchment.\n"
                 "• A daily water balance for every ward: rain recharge − borewell pumping + pipe seepage.\n"
                 "• 30 rainfall scenarios give the days range; switching each factor off and re-running shows the reasons.\n"
                 "• Tested against the 2024 crisis. Demand and pipe coverage are estimates, clearly labelled in the app."]
@@ -222,9 +280,9 @@ class Answer:
     def ground(self):
         w = self.w
         if self.kn:
-            return [f"💧 {w['name']} ನಲ್ಲಿ ಅಂತರ್ಜಲ ಈಗ ಬಳಸಬಹುದಾದ ಸಂಗ್ರಹದ {w['groundwater_pct']}% ಇದೆ (30% ಕೆಳಗೆ ಹೋದರೆ ಕೊಳವೆಬಾವಿಗಳು ಬತ್ತತೊಡಗುತ್ತವೆ).\n"
+            return [f"{w['name']} ನಲ್ಲಿ ಅಂತರ್ಜಲ ಈಗ ಬಳಸಬಹುದಾದ ಸಂಗ್ರಹದ {w['groundwater_pct']}% ಇದೆ (30% ಕೆಳಗೆ ಹೋದರೆ ಕೊಳವೆಬಾವಿಗಳು ಬತ್ತತೊಡಗುತ್ತವೆ).\n"
                     f"• ಈ ವಾರ್ಡ್‌ನ ಸುಮಾರು {self.borewell_share()}% ನೀರು ಕೊಳವೆಬಾವಿಗಳಿಂದ.\n• ಮಳೆನೀರು ಇಂಗಿಸುವುದು ಮತ್ತು ಕೆರೆಗಳನ್ನು ಉಳಿಸುವುದು ಮಟ್ಟ ಏರಿಸುವ ಉತ್ತಮ ದಾರಿ."]
-        return [f"💧 Groundwater in {w['name']} is at {w['groundwater_pct']}% of usable storage (below 30%, borewells start to fail).\n"
+        return [f"Groundwater in {w['name']} is at {w['groundwater_pct']}% of usable storage (below 30%, borewells start to fail).\n"
                 f"• About {self.borewell_share()}% of this ward's water is pumped from borewells.\n"
                 "• Recharging rainwater and protecting local lakes are the most effective ways to raise the level."]
 
@@ -272,7 +330,7 @@ How to answer:
 - Reply in {language}. Use simple, everyday words. Give a one-line direct answer first, then short sections with "•"
   bullets (roughly 120-200 words). Plain text only, no markdown symbols like ** or #.
 - Ground every claim in the TALUK DATA below and quote its numbers. "days_*" = days until the taluk's groundwater
-  reaches its stress level (its worst-10% level of 2014-2021) from an ML model trained on 2,698 real monitoring wells;
+  reaches its stress level (its worst-10% level of 2014-2021) from an ML model trained on 2,664 real monitoring wells;
   366 means not within the 6-month horizon. Driver "metres" = how much deeper groundwater will be in 3 months because
   of that factor. Rain comes from IMD rain gauges. Do not invent numbers; say the model under-predicts extremes if
   asked about accuracy.
@@ -321,20 +379,11 @@ DRIVER_KN = {"rain_deficit": "ಇತ್ತೀಚಿನ ತಿಂಗಳುಗಳ�
 
 
 def reply_taluk(ctx: dict, as_of: str, lang: str, platform: str, messages: list[dict]) -> dict:
-    if _has_credentials():
-        try:
-            client = anthropic.Anthropic()
-            resp = client.messages.create(
-                model=MODEL, max_tokens=1200,
-                system=SYSTEM_TALUK.format(platform=PLATFORM_NAME.get(platform, platform), name=ctx["name"],
-                                           district=ctx["district"],
-                                           language="Kannada (ಕನ್ನಡ)" if lang == "kn" else "English",
-                                           data=json.dumps({**ctx, "as_of": as_of}, ensure_ascii=False, indent=1)),
-                messages=[{"role": m["role"], "content": m["content"]} for m in messages[-12:]])
-            return {"text": "".join(b.text for b in resp.content if b.type == "text"), "source": "claude"}
-        except anthropic.APIError:
-            pass
-    return {"text": TalukAnswer(ctx, lang, platform).respond(messages[-1]["content"]), "source": "builtin"}
+    system = SYSTEM_TALUK.format(platform=PLATFORM_NAME.get(platform, platform), name=ctx["name"], district=ctx["district"],
+                                 language="Kannada (ಕನ್ನಡ)" if lang == "kn" else "English",
+                                 data=json.dumps({**ctx, "as_of": as_of}, ensure_ascii=False, indent=1))
+    return _llm(system, messages) or {"text": TalukAnswer(ctx, lang, platform).respond(messages[-1]["content"]),
+                                      "source": "builtin"}
 
 
 class TalukAnswer:
@@ -361,14 +410,14 @@ class TalukAnswer:
         rng = f"{self._days(f['days_low'])} – {self._days(f['days_high'])}"
         if (f["days_mid"] or 0) >= 366 and (f["days_low"] or 366) < 366:   # watch tier: only the dry-year path
             if self.kn:
-                return (f"📅 {c['name']} ತಾಲೂಕು: ಸಾಮಾನ್ಯ ವರ್ಷದಲ್ಲಿ 6 ತಿಂಗಳೊಳಗೆ ಅಂತರ್ಜಲ ಒತ್ತಡ ನಿರೀಕ್ಷೆ ಇಲ್ಲ, ಆದರೆ ಮುಂದಿನ ತಿಂಗಳುಗಳು "
+                return (f"{c['name']} ತಾಲೂಕು: ಸಾಮಾನ್ಯ ವರ್ಷದಲ್ಲಿ 6 ತಿಂಗಳೊಳಗೆ ಅಂತರ್ಜಲ ಒತ್ತಡ ನಿರೀಕ್ಷೆ ಇಲ್ಲ, ಆದರೆ ಮುಂದಿನ ತಿಂಗಳುಗಳು "
                         f"ಒಣಗಿದ್ದರೆ ಸುಮಾರು {self._days(f['days_low'])} ದಿನಗಳಲ್ಲಿ ತಲುಪಬಹುದು. ಅಪಾಯ: {risk} (ಎಚ್ಚರಿಕೆ ಪಟ್ಟಿ).")
-            return (f"📅 {c['name']} taluk: groundwater is not expected to reach its stress level within 6 months in a "
+            return (f"{c['name']} taluk: groundwater is not expected to reach its stress level within 6 months in a "
                     f"typical year, but if the coming months are dry it could in about {self._days(f['days_low'])}. "
                     f"Risk: {risk} (watch list).")
         if self.kn:
-            return f"📅 {c['name']} ತಾಲೂಕಿನ ಅಂತರ್ಜಲ ಒತ್ತಡ ಮಟ್ಟ ತಲುಪಲು ಸುಮಾರು {self._days(f['days_mid'])} (ವ್ಯಾಪ್ತಿ {rng}). ಅಪಾಯ: {risk}."
-        return (f"📅 {c['name']} taluk's groundwater is expected to reach its stress level in about "
+            return f"{c['name']} ತಾಲೂಕಿನ ಅಂತರ್ಜಲ ಒತ್ತಡ ಮಟ್ಟ ತಲುಪಲು ಸುಮಾರು {self._days(f['days_mid'])} (ವ್ಯಾಪ್ತಿ {rng}). ಅಪಾಯ: {risk}."
+        return (f"{c['name']} taluk's groundwater is expected to reach its stress level in about "
                 f"{self._days(f['days_mid'])} (likely range {rng}). Risk: {risk}.")
 
     def why(self):
@@ -393,10 +442,10 @@ class TalukAnswer:
 
     def how(self):
         if self.kn:
-            return ["🧠 ಮುನ್ಸೂಚನೆ ಹೇಗೆ: 2,698 ಸರ್ಕಾರಿ ಮೇಲ್ವಿಚಾರಣಾ ಬಾವಿಗಳ ಮಾಸಿಕ ದತ್ತಾಂಶದಿಂದ ಕಲಿತ ML ಮಾದರಿ, IMD ಮಳೆ ಮಾಪಕ "
+            return ["ಮುನ್ಸೂಚನೆ ಹೇಗೆ: 2,664 ಸರ್ಕಾರಿ ಮೇಲ್ವಿಚಾರಣಾ ಬಾವಿಗಳ ಮಾಸಿಕ ದತ್ತಾಂಶದಿಂದ ಕಲಿತ ML ಮಾದರಿ, IMD ಮಳೆ ಮಾಪಕ "
                     "ದತ್ತಾಂಶ ಮತ್ತು ಹಿಂದಿನ 8 ವರ್ಷಗಳ ಮಳೆಯನ್ನು ಸಂಭಾವ್ಯ ಭವಿಷ್ಯಗಳಾಗಿ ಬಳಸುತ್ತದೆ. 2022–26 ರ ಮೇಲೆ ಪರೀಕ್ಷಿಸಲಾಗಿದೆ; "
                     "ತೀವ್ರ ಸಂದರ್ಭಗಳನ್ನು ಸ್ವಲ್ಪ ಕಡಿಮೆ ಅಂದಾಜಿಸುತ್ತದೆ."]
-        return ["🧠 How this works: an ML model learned from monthly readings at 2,698 government monitoring wells, uses "
+        return ["How this works: an ML model learned from monthly readings at 2,664 government monitoring wells, uses "
                 "IMD rain-gauge data, and replays the past 8 years' rain as possible futures to give a range. It was "
                 "tested on 2022–26 (years it never saw) and tends to under-predict extremes."]
 
