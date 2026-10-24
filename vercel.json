@@ -6,7 +6,7 @@
   "functions": {
     "api/index.py": {
       "includeFiles": "backend/**",
-      "excludeFiles": "{backend/.venv/**,backend/**/__pycache__/**}",
+      "excludeFiles": "{backend/.venv/**,backend/**/__pycache__/**,backend/train/**,backend/data/raw/{aqueduct,cgwb,cgwb_gwra,crops,drought,reservoirs,wells}/**}",
       "maxDuration": 60,
       "memory": 1024
     }
