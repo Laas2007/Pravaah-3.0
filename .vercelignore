@@ -1,0 +1,10 @@
+# Never upload secrets or local-only folders when deploying with the Vercel CLI
+.env
+**/.env
+backend/.venv
+backend/data/_downloads
+backend/data/cache
+**/__pycache__
+frontend/node_modules
+frontend/dist
+*.docx
