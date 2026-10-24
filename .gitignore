@@ -14,3 +14,6 @@ frontend/dist/
 *.local
 .vscode/
 .DS_Store
+
+# Big auto-downloaded source files (re-created by backend/train/fetch_karnataka.py)
+backend/data/_downloads/

@@ -1,0 +1,8 @@
+# Offline data + training scripts (backend/train/). Not needed by the running API.
+-r requirements.txt
+shapely
+pandas
+scikit-learn
+joblib
+openpyxl
+pdfplumber

@@ -1,0 +1,4 @@
+National Water Data Portal (NWDP), https://nwdp.nwic.gov.in
+Dataset: "Ground Water Level Manual Daily Karnataka" (monthly well readings, Karnataka GW dept).
+Downloaded by hand 2026-10-24 for Ballari, Belagavi, Bagalkot. Files (4),(5) duplicate (2); (7),(8),(9) duplicate (10).
+The full state-wide data is now fetched by backend/train/fetch_nwdp.py, so these files are reference only.

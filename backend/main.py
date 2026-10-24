@@ -18,6 +18,13 @@ from model import FACTORS, Intervention, load_world, predict, risk_level, simula
 app = FastAPI(title="Pravaah – Water Scarcity Prediction Portal")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
+# Karnataka platforms (PLAN.md §3). One line per platform; each module owns its own /api/<name>/* routes.
+from core.router import router as core_router  # noqa: E402
+from usecases import agri, industry, urban  # noqa: E402
+
+for r in (core_router, agri.router, urban.router, industry.router):
+    app.include_router(r)
+
 # Backtest results are cached as JSON. The bundled copy in data/cache is read-only on
 # serverless hosts (e.g. Vercel), so new results fall back to the temp directory.
 BUNDLED_CACHE = Path(__file__).parent / "data" / "cache"
@@ -221,5 +228,7 @@ if DIST.exists():
 
     @app.get("/{path:path}")
     def spa(path: str):
+        if path.startswith("api/"):  # unknown API route: a real 404, not the HTML page
+            raise HTTPException(404, "unknown API route")
         f = DIST / path
         return FileResponse(f if path and f.is_file() else DIST / "index.html")

@@ -1,0 +1,118 @@
+/* Karnataka platforms + landing. Prefixed ps-/landing- so the Bengaluru app's styles (index.css) are untouched. */
+
+/* ---------- shell ---------- */
+.ps { --pc: var(--accent); display: flex; flex-direction: column; height: 100vh; }
+.ps-header {
+  display: flex; align-items: center; gap: 18px; padding: 10px 20px; color: #fff; flex-wrap: wrap;
+  background: linear-gradient(90deg, var(--navy), color-mix(in srgb, var(--pc) 70%, var(--navy)));
+}
+.ps-brand { display: flex; align-items: center; gap: 10px; color: inherit; text-decoration: none; }
+.ps-brand b { display: block; font-size: 18px; letter-spacing: -.02em; }
+.ps-brand small { display: block; font-size: 11px; opacity: .7; text-transform: uppercase; letter-spacing: .08em; }
+.ps-logo { width: 36px; height: 36px; border-radius: 11px; display: grid; place-items: center; font-size: 20px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2)); }
+.ps-title { font-weight: 700; font-size: 17px; display: flex; gap: 8px; align-items: center; }
+.ps-nav { margin-left: auto; display: flex; gap: 4px; background: rgba(255,255,255,.1); padding: 4px; border-radius: 12px; }
+.ps-nav a { padding: 6px 10px; border-radius: 9px; text-decoration: none; font-size: 18px; filter: grayscale(.4); opacity: .8; }
+.ps-nav a:hover { background: rgba(255,255,255,.12); opacity: 1; }
+.ps-nav a.on { background: #fff; filter: none; opacity: 1; }
+
+.ps-datebar { display: flex; align-items: center; gap: 14px; padding: 8px 20px; background: var(--card); border-bottom: 1px solid var(--line); flex-wrap: wrap; min-height: 49px; }
+.ps-datebar label { font-weight: 600; font-size: 14px; display: flex; gap: 8px; align-items: center; }
+.ps-datebar input { border: 1px solid var(--line); border-radius: 8px; padding: 5px 8px; }
+.ps-presets { display: flex; gap: 6px; flex-wrap: wrap; }
+.ps-presets button { border: 1px solid var(--line); background: var(--page); border-radius: 999px; padding: 5px 12px; font-size: 13px; cursor: pointer; }
+.ps-presets button.on { background: var(--pc); border-color: var(--pc); color: #fff; }
+.ps-datebar-note { margin-left: auto; font-size: 12px; color: var(--muted); }
+
+.ps-main { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr) 480px; min-height: 0; }
+.ps-main:not(:has(.ps-map-col)) { grid-template-columns: 1fr; }
+.ps-map-col { position: relative; min-height: 0; }
+.ps-panel { overflow-y: auto; padding: 18px 20px 28px; border-left: 1px solid var(--line); background: var(--page); }
+
+/* ---------- map ---------- */
+.ps-map { position: relative; height: 100%; min-height: 320px; }
+.ps-map-inner { height: 100%; width: 100%; background: #e9edf2; }
+.ps-legend { position: absolute; left: 12px; bottom: 12px; z-index: 500; background: rgba(255,255,255,.95); color: var(--ink); border-radius: 10px;
+  padding: 7px 10px; display: flex; gap: 12px; font-size: 12px; box-shadow: 0 2px 10px rgba(0,0,0,.12); text-transform: capitalize; }
+.ps-legend span { display: flex; align-items: center; gap: 5px; }
+.ps-legend i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+
+/* ---------- panel pieces ---------- */
+.ps-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; margin-bottom: 18px; }
+.ps-card-head { display: flex; align-items: flex-start; gap: 10px; }
+.ps-card-head > div:first-child { flex: 1; }
+.ps-x { border: 0; background: var(--page); border-radius: 8px; width: 30px; height: 30px; cursor: pointer; }
+.ps-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin: 12px 0; }
+.ps-stat { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; }
+.ps-card .ps-stat { background: var(--page); border-color: transparent; }
+.ps-stat-label { font-size: 12px; color: var(--muted); text-transform: capitalize; }
+.ps-stat-value { font-size: 24px; font-weight: 800; letter-spacing: -.02em; }
+.ps-stat-value span { font-size: 13px; font-weight: 600; color: var(--ink-2); margin-left: 4px; }
+.ps-stat-sub { font-size: 12px; color: var(--ink-2); }
+.ps-stat.bad .ps-stat-value { color: #c0392b; }
+.ps-badge { display: inline-block; color: #fff; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing: .04em; }
+.ps-badge.muted { background: #c7ced8; }
+.ps-mock { background: #fff6e0; border: 1px dashed #e5b33a; color: #6b4e00; border-radius: 10px; padding: 8px 12px; font-size: 13px; margin: 10px 0; }
+.ps-note { background: #eef5ff; color: #24486f; border-radius: 10px; padding: 8px 12px; font-size: 12.5px; margin: 8px 0 4px; }
+.ps-loading, .ps-empty { padding: 18px; color: var(--ink-2); background: var(--card); border: 1px dashed var(--line); border-radius: 12px; margin-bottom: 16px; }
+.ps-error { padding: 14px; background: #fdecea; color: #8a1c13; border-radius: 12px; margin-bottom: 16px; }
+.ps-table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 12px; overflow: hidden; font-size: 13.5px; }
+.ps-table th { text-align: left; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; padding: 8px 10px; background: #f7f9fc; }
+.ps-table td { padding: 8px 10px; border-top: 1px solid var(--line); vertical-align: top; }
+.ps-table tbody tr { cursor: pointer; }
+.ps-table tbody tr:hover { background: #f5f8fc; }
+.ps-hero-link { display: flex; align-items: center; gap: 14px; padding: 14px 16px; margin-bottom: 18px; border-radius: var(--radius);
+  background: linear-gradient(135deg, var(--pc), var(--accent-2)); color: #fff; text-decoration: none; }
+.ps-hero-link > span { font-size: 26px; }
+.ps-hero-link > div { flex: 1; }
+
+/* reservoirs (no map: two columns) */
+.ps-two { display: grid; grid-template-columns: minmax(300px, 420px) minmax(0, 1fr); gap: 22px; max-width: 1300px; }
+.ps-res-list { display: flex; flex-direction: column; gap: 8px; }
+.ps-res { text-align: left; border: 1px solid var(--line); background: var(--card); border-radius: 12px; padding: 10px 12px; cursor: pointer; }
+.ps-res.on { border-color: var(--pc); box-shadow: 0 0 0 2px color-mix(in srgb, var(--pc) 30%, transparent); }
+.ps-res-name { font-weight: 700; font-size: 14px; }
+.ps-res-name small { font-weight: 500; color: var(--muted); }
+.ps-res-bar { height: 7px; background: #e8edf3; border-radius: 99px; margin: 6px 0; overflow: hidden; }
+.ps-res-bar i { display: block; height: 100%; background: var(--pc); border-radius: 99px; }
+.ps-res-meta { display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-2); gap: 8px; }
+.ps-res-meta .bad { color: #c0392b; font-weight: 600; }
+
+/* ---------- landing ---------- */
+.landing { min-height: 100vh; background: var(--page); }
+.landing-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; padding: 28px 32px 8px;
+  background: linear-gradient(160deg, var(--navy), var(--navy-2)); color: #fff; }
+.landing-text { padding: 12px 0 28px; }
+.ps-brand.big b { font-size: 24px; }
+.landing h1 { font-size: 38px; line-height: 1.12; letter-spacing: -.025em; margin: 26px 0 14px; max-width: 620px; }
+.landing p { font-size: 16px; line-height: 1.55; opacity: .85; max-width: 580px; }
+.landing-facts { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+.landing-facts span { background: rgba(255,255,255,.1); border-radius: 999px; padding: 6px 12px; font-size: 13px; }
+.landing-now { margin-top: 16px; background: #fff; color: var(--ink); border-radius: 12px; padding: 10px 14px; font-size: 14px; text-transform: capitalize; }
+.landing-now small { color: var(--muted); text-transform: none; }
+.landing-map { height: 440px; border-radius: 18px 18px 0 0; overflow: hidden; align-self: end; }
+.landing-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; padding: 24px 32px; }
+.landing-card { --pc: var(--accent); display: flex; flex-direction: column; background: var(--card); border: 1px solid var(--line);
+  border-top: 5px solid var(--pc); border-radius: var(--radius); padding: 18px; text-decoration: none; color: var(--ink);
+  transition: transform .12s, box-shadow .12s; }
+.landing-card:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(11,37,69,.12); }
+.landing-card-icon { font-size: 34px; }
+.landing-card-title { font-weight: 800; font-size: 17px; margin-top: 8px; }
+.landing-card-kn { color: var(--muted); font-size: 13px; }
+.landing-card p { font-size: 13.5px; color: var(--ink-2); line-height: 1.5; flex: 1; opacity: 1; }
+.landing-card-go { color: var(--pc); font-weight: 700; font-size: 14px; }
+.landing-foot { text-align: center; padding: 10px 16px 26px; font-size: 12.5px; color: var(--muted); }
+
+@media (max-width: 900px) {
+  .ps-main { grid-template-columns: 1fr; }
+  .ps-map-col { height: 55vh; }
+  .ps-panel { border-left: 0; border-top: 1px solid var(--line); padding: 16px; }
+  .ps-two { grid-template-columns: 1fr; }
+  .landing-hero { grid-template-columns: 1fr; padding: 20px 16px 0; }
+  .landing h1 { font-size: 28px; }
+  .landing-map { height: 320px; }
+  .landing-cards { padding: 18px 16px; }
+  .ps-header, .ps-datebar { padding-left: 16px; padding-right: 16px; }
+  .ps-datebar-note { display: none; }
+}
