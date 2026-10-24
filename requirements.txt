@@ -1,0 +1,5 @@
+# Python dependencies for the Vercel serverless API (api/index.py).
+# Local development uses backend/requirements.txt.
+fastapi
+numpy
+anthropic

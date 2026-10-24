@@ -1,0 +1,16 @@
+# Python
+backend/.venv/
+__pycache__/
+*.pyc
+backend/data/cache/*
+!backend/data/cache/backtest_2023-09-01_2024-04-30_7.json
+
+# Node / build output
+frontend/node_modules/
+frontend/dist/
+
+# Local secrets & editor files
+.env
+*.local
+.vscode/
+.DS_Store
