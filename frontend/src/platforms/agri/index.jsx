@@ -10,21 +10,14 @@ import { useAsOf, useLoad, useTaluk, useTalukSel } from '../../shared/hooks'
 import { useTr } from '../../shared/lang'
 import { ErrorBox, Loading, RiskBadge, Stat, m, pct } from '../../shared/ui'
 import { agriApi } from './api'
+import { useMemo } from 'react'
 import CropAdvisor from './CropAdvisor'
+import DroughtCard from './DroughtCard'
+import { useLayerMap } from '../../shared/layers'
+import StateSummary, { talukItems } from '../../shared/StateSummary'
 
 const COLOR = platform('agri').color
 const SEASON_KN = { Kharif: 'ಮುಂಗಾರು', Rabi: 'ಹಿಂಗಾರು', Summer: 'ಬೇಸಿಗೆ' }
-
-// rain deviation (last 3 months) -> brown (dry) .. green (wet)
-function devColor(v) {
-  if (v == null) return null
-  if (v <= -50) return '#8c510a'
-  if (v <= -25) return '#d8b365'
-  if (v <= -10) return '#f6e8c3'
-  if (v < 10) return '#e9f0e4'
-  if (v < 40) return '#a6d96a'
-  return '#1a9641'
-}
 
 export default function AgriPlatform() {
   const tr = useTr()
@@ -32,25 +25,32 @@ export default function AgriPlatform() {
   const [sel, setSel] = useTalukSel()
   const taluk = useTaluk(sel)
   const ind = useLoad(() => (asOf ? core.indicators(asOf) : Promise.resolve(null)), [asOf]).data
-  const byIdx = ind ? ind.taluks : []
+  const dr = useLoad(() => (asOf ? agriApi.drought(asOf) : Promise.resolve(null)), [asOf]).data
+  const byIdx = useMemo(() => {
+    if (!ind) return []
+    const d = dr && dr.in_season ? Object.fromEntries(dr.taluks.map((t) => [t.idx, t])) : {}
+    return ind.taluks.map((r) => ({ ...r, drought_level: d[r.idx]?.level, drought_p: d[r.idx]?.p_drought }))
+  }, [ind, dr])
 
+  const lm = useLayerMap({ layers: ['risk', 'drought', 'heat', 'rain3', 'waterbal', 'groundwater'], fallback: 'risk', rows: byIdx })
   const map = (
-    <KarnatakaMap selected={sel} onSelect={setSel}
-      colorOf={(i) => devColor(byIdx[i]?.rain_90d_dev_pct)}
-      labelOf={(i) => byIdx[i] && tr(`Rain, last 3 months: ${pct(byIdx[i].rain_90d_dev_pct)} vs normal`, `ಕಳೆದ 3 ತಿಂಗಳ ಮಳೆ: ವಾಡಿಕೆಗಿಂತ ${pct(byIdx[i].rain_90d_dev_pct)}`)}
-      legend={<><span><i style={{ background: '#8c510a' }} />≤ −50%</span><span><i style={{ background: '#d8b365' }} />−25%</span>
-        <span><i style={{ background: '#e9f0e4' }} />{tr('normal', 'ವಾಡಿಕೆ')}</span><span><i style={{ background: '#1a9641' }} />+40%</span></>} />
+    <KarnatakaMap selected={sel} onSelect={setSel} colorOf={lm.colorOf} labelOf={lm.labelOf} indexMode={lm.index}
+      ui={<>{lm.switcher}{lm.title}{lm.legend}</>} />
   )
 
   return (
     <PlatformShell which="agri" asOf={asOf} setAsOf={setAsOf} meta={meta} map={map}>
       {sel == null
         ? <>
+          {ind && <StateSummary kicker={tr('Karnataka · farm taluks', 'ಕರ್ನಾಟಕ · ಕೃಷಿ ತಾಲೂಕುಗಳು')} asOf={asOf} items={talukItems(byIdx, tr)}
+            text={tr(<>taluks where groundwater is <b>likely to reach stress within 6 months</b> (critical or high), from the ML forecast on 2,698 wells</>,
+              <>ತಾಲೂಕುಗಳಲ್ಲಿ <b>6 ತಿಂಗಳೊಳಗೆ ಅಂತರ್ಜಲ ಒತ್ತಡ ಸಾಧ್ಯತೆ</b> (ಗಂಭೀರ ಅಥವಾ ಹೆಚ್ಚು), 2,698 ಬಾವಿಗಳ ML ಮುನ್ಸೂಚನೆ</>)}
+            urgentTitle={tr('Most urgent taluks', 'ಅತ್ಯಂತ ತುರ್ತು ತಾಲೂಕುಗಳು')} onPick={(x) => setSel(x.idx)} />}
           <div className="ps-empty">👆 {tr('Click your taluk on the map to see season rainfall, groundwater forecast and crop advice.',
             'ಋತುವಿನ ಮಳೆ, ಅಂತರ್ಜಲ ಮುನ್ಸೂಚನೆ ಮತ್ತು ಬೆಳೆ ಸಲಹೆಗಾಗಿ ನಕ್ಷೆಯಲ್ಲಿ ನಿಮ್ಮ ತಾಲೂಕು ಕ್ಲಿಕ್ ಮಾಡಿ.')}</div>
           {asOf && <TimeMachine asOf={asOf} color={COLOR} />}
         </>
-        : <><TalukDetail idx={sel} asOf={asOf} color={COLOR} onClose={() => setSel(null)} /><CropAdvisor idx={sel} asOf={asOf} /><Detail idx={sel} asOf={asOf} /></>}
+        : <><TalukDetail idx={sel} asOf={asOf} color={COLOR} onClose={() => setSel(null)} /><DroughtCard idx={sel} asOf={asOf} /><CropAdvisor idx={sel} asOf={asOf} /><Detail idx={sel} asOf={asOf} /></>}
       <PlatformChat platform="agri" asOf={asOf} taluk={taluk} />
     </PlatformShell>
   )

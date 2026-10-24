@@ -1,0 +1,1117 @@
+{
+ "sources": {
+  "2023": "GO RD 449 TNR 2023 (13.09.2023), Annexures I-II, translated copy in NGT OA 196/2024 reply by R2; order of 04.11.2023 (7 taluks, Deccan Chronicle). 22 taluks added 12.10.2023 are not named publicly.",
+  "2026": "Order of 17.09.2026, 23 taluks (Deccan Chronicle). 101 first-phase taluks (27.08.2026) not named publicly."
+ },
+ "complete": {
+  "2023": false,
+  "2026": false
+ },
+ "note": "Taluks not listed are NOT known to be drought-free: in 2023, 22 of the unlisted taluks were declared in October; in 2026, 101 first-phase taluks are unnamed. Use listed taluks as positives only.",
+ "years": {
+  "2023": {
+   "33": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Bengaluru East"
+   },
+   "28": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Devanahalli"
+   },
+   "29": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Doddaballapura"
+   },
+   "30": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Hosakote"
+   },
+   "31": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Nelamangala"
+   },
+   "164": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Kanakapura"
+   },
+   "166": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Ramanagara"
+   },
+   "128": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Bangarapete"
+   },
+   "129": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Kolar"
+   },
+   "132": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Mulabagilu"
+   },
+   "133": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Srinivasapura"
+   },
+   "130": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "K.G.F"
+   },
+   "50": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Bagepalli"
+   },
+   "51": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Chikkaballapura"
+   },
+   "52": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Chinthamani"
+   },
+   "53": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Gowribidanuru"
+   },
+   "54": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Gudibande"
+   },
+   "55": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Shidlagatta"
+   },
+   "174": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Chikkanayakanahalli"
+   },
+   "175": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Gubbi"
+   },
+   "176": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Koratagere"
+   },
+   "177": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Kunigal"
+   },
+   "178": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Madugiri"
+   },
+   "179": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Pavgada"
+   },
+   "180": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Shira"
+   },
+   "181": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Tipaturu"
+   },
+   "183": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Turuvekere"
+   },
+   "64": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Challakere"
+   },
+   "65": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Chitradurga"
+   },
+   "66": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Hiriyuru"
+   },
+   "67": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Holalkere"
+   },
+   "68": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Hosadurga"
+   },
+   "69": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Molakalmuuru"
+   },
+   "77": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Chennagiri"
+   },
+   "78": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Davanagere"
+   },
+   "79": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Harihara"
+   },
+   "80": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Honnalli"
+   },
+   "81": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Jagalluru"
+   },
+   "82": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Thanamati"
+   },
+   "148": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "H.D. Kote"
+   },
+   "149": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Hunasuru"
+   },
+   "151": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Mysuru"
+   },
+   "152": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Nanjanagudu"
+   },
+   "153": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Piriyapatana"
+   },
+   "155": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "T. Narasipura"
+   },
+   "154": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Saraguru"
+   },
+   "150": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Saligrama"
+   },
+   "141": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Krishnarajapete"
+   },
+   "142": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Maddur"
+   },
+   "143": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Malavalli"
+   },
+   "144": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Mandya"
+   },
+   "145": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Nagamangala"
+   },
+   "146": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Pandavapura"
+   },
+   "147": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Srirangapatna"
+   },
+   "9": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Bellary"
+   },
+   "12": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Sandur"
+   },
+   "13": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Shiruguppa"
+   },
+   "11": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Kurugodu"
+   },
+   "10": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Kampli"
+   },
+   "134": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Gangavathi"
+   },
+   "137": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Koppal"
+   },
+   "139": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Kushtagi"
+   },
+   "140": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Yulburga"
+   },
+   "136": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Karatagi"
+   },
+   "138": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Kukanooru"
+   },
+   "135": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Kanakagiri"
+   },
+   "157": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Lingasuguru"
+   },
+   "158": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Maanvi"
+   },
+   "160": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Raichur"
+   },
+   "162": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Shiravaara"
+   },
+   "114": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Afjalpura"
+   },
+   "115": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Aalanda"
+   },
+   "116": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Chincholi"
+   },
+   "117": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Chithapura"
+   },
+   "119": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Kalaburgi"
+   },
+   "118": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Jeevargi"
+   },
+   "122": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Sedam"
+   },
+   "120": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Kalagi"
+   },
+   "121": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Kamalapura"
+   },
+   "124": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Yadrami"
+   },
+   "123": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Shahabhad"
+   },
+   "39": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Balki"
+   },
+   "38": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Basavakalyana"
+   },
+   "43": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Hulasuru"
+   },
+   "14": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Athani"
+   },
+   "15": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Bailahongala"
+   },
+   "17": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Chikkodi"
+   },
+   "18": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Gokak"
+   },
+   "19": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Hikkeri"
+   },
+   "25": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Ramadurga"
+   },
+   "26": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Rayabhag"
+   },
+   "27": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Savadathi"
+   },
+   "22": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Kithuru"
+   },
+   "24": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Nippani"
+   },
+   "20": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Khagwad"
+   },
+   "23": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Mudalagi"
+   },
+   "0": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Badami"
+   },
+   "1": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Bagalkote"
+   },
+   "2": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Beelagi"
+   },
+   "4": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Hunagunda"
+   },
+   "6": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Jamakandi"
+   },
+   "7": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Mudhola"
+   },
+   "3": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Guledagudda"
+   },
+   "5": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Hilkal"
+   },
+   "8": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Rabakavi Banahatti"
+   },
+   "210": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Basavana Bhagewadi"
+   },
+   "220": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Vijayapura"
+   },
+   "213": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Indi"
+   },
+   "215": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Muddebihaala"
+   },
+   "217": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Sindagi"
+   },
+   "209": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Bableshwara"
+   },
+   "211": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Chadachana"
+   },
+   "216": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Nidagundhi"
+   },
+   "218": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Thalikote"
+   },
+   "214": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Kohlara"
+   },
+   "212": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Devarahipparagi"
+   },
+   "91": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Gadag"
+   },
+   "95": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Naragunda"
+   },
+   "96": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Roona"
+   },
+   "97": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Shirahatti"
+   },
+   "92": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Gajendragada"
+   },
+   "93": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Lakshmeshwara"
+   },
+   "108": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Haveri"
+   },
+   "109": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Hirekarur"
+   },
+   "110": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Ranibennur"
+   },
+   "112": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Savanuru"
+   },
+   "111": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Rattihalli"
+   },
+   "85": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Dharwad"
+   },
+   "86": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Hubbali"
+   },
+   "89": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Kundagola"
+   },
+   "90": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Navalagunda"
+   },
+   "87": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Hubbalinagara"
+   },
+   "167": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Baravathi"
+   },
+   "168": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Hosanagara"
+   },
+   "169": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Sagara"
+   },
+   "170": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Shikaripura"
+   },
+   "171": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Shivamogga"
+   },
+   "172": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Soraba"
+   },
+   "173": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Theertahalli"
+   },
+   "99": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Arakalagudu"
+   },
+   "58": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Kaduru"
+   },
+   "56": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Ajjampura"
+   },
+   "125": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Madikere"
+   },
+   "127": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Virajpete"
+   },
+   "126": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Kushalnagara"
+   },
+   "188": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Karkala"
+   },
+   "194": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Haliyala"
+   },
+   "198": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Mundagod"
+   },
+   "200": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Shirasi"
+   },
+   "202": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Yellapura"
+   },
+   "223": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Shapura"
+   },
+   "225": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Vadagera"
+   },
+   "206": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Hosapete"
+   },
+   "203": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Hadagali"
+   },
+   "204": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Hagaribommanahalli"
+   },
+   "205": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Harapannahalli"
+   },
+   "207": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Kotturu"
+   },
+   "208": {
+    "level": "severe",
+    "phase": "2023-09-13",
+    "official_name": "Kudlugi"
+   },
+   "32": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Anekal"
+   },
+   "34": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Bengaluru North"
+   },
+   "35": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Bengaluru South"
+   },
+   "36": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Yelahanka"
+   },
+   "163": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Chennapattana"
+   },
+   "165": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Magadi"
+   },
+   "131": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Malur"
+   },
+   "182": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Tumakuru"
+   },
+   "46": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Gundlupete"
+   },
+   "48": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Kollgala"
+   },
+   "47": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Hanuru"
+   },
+   "156": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Devadurga"
+   },
+   "159": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Maski"
+   },
+   "101": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Beluru"
+   },
+   "102": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Chennarayapattana"
+   },
+   "104": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Holenarasipura"
+   },
+   "105": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Sakaleshpura"
+   },
+   "59": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Koppa"
+   },
+   "61": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Narasimharajapura"
+   },
+   "62": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Shrigeri"
+   },
+   "60": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Kalasa"
+   },
+   "73": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Mangaluru"
+   },
+   "74": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Mudabidre"
+   },
+   "185": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Brahmavara"
+   },
+   "191": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Ankola"
+   },
+   "192": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Batkala"
+   },
+   "196": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Karawar"
+   },
+   "197": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Kumta"
+   },
+   "201": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Joyida"
+   },
+   "224": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Shorapura"
+   },
+   "226": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Yadagiri"
+   },
+   "221": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Gurumittal"
+   },
+   "222": {
+    "level": "moderate",
+    "phase": "2023-09-13",
+    "official_name": "Hunasigi"
+   },
+   "37": {
+    "level": "severe",
+    "phase": "2023-11-04",
+    "official_name": "Aurad"
+   },
+   "40": {
+    "level": "severe",
+    "phase": "2023-11-04",
+    "official_name": "Bidar"
+   },
+   "41": {
+    "level": "severe",
+    "phase": "2023-11-04",
+    "official_name": "Chitaguppa"
+   },
+   "42": {
+    "level": "severe",
+    "phase": "2023-11-04",
+    "official_name": "Humnabad"
+   },
+   "44": {
+    "level": "severe",
+    "phase": "2023-11-04",
+    "official_name": "Kamala Nagar"
+   },
+   "161": {
+    "level": "severe",
+    "phase": "2023-11-04",
+    "official_name": "Sindhanur"
+   },
+   "219": {
+    "level": "severe",
+    "phase": "2023-11-04",
+    "official_name": "Tikota"
+   }
+  },
+  "2026": {
+   "181": {
+    "level": "severe",
+    "phase": "2026-09-17",
+    "official_name": "Tiptur"
+   },
+   "136": {
+    "level": "severe",
+    "phase": "2026-09-17",
+    "official_name": "Karatagi"
+   },
+   "158": {
+    "level": "severe",
+    "phase": "2026-09-17",
+    "official_name": "Manvi"
+   },
+   "161": {
+    "level": "severe",
+    "phase": "2026-09-17",
+    "official_name": "Sindhanur"
+   },
+   "162": {
+    "level": "severe",
+    "phase": "2026-09-17",
+    "official_name": "Sirwar"
+   },
+   "114": {
+    "level": "severe",
+    "phase": "2026-09-17",
+    "official_name": "Afzalpur"
+   },
+   "115": {
+    "level": "severe",
+    "phase": "2026-09-17",
+    "official_name": "Aland"
+   },
+   "117": {
+    "level": "severe",
+    "phase": "2026-09-17",
+    "official_name": "Chittapur"
+   },
+   "119": {
+    "level": "severe",
+    "phase": "2026-09-17",
+    "official_name": "Kalaburagi"
+   },
+   "124": {
+    "level": "severe",
+    "phase": "2026-09-17",
+    "official_name": "Yadrami"
+   },
+   "123": {
+    "level": "severe",
+    "phase": "2026-09-17",
+    "official_name": "Shahabad"
+   },
+   "39": {
+    "level": "severe",
+    "phase": "2026-09-17",
+    "official_name": "Bhalki"
+   },
+   "210": {
+    "level": "severe",
+    "phase": "2026-09-17",
+    "official_name": "Basavana Bagewadi"
+   },
+   "209": {
+    "level": "severe",
+    "phase": "2026-09-17",
+    "official_name": "Babaleshwar"
+   },
+   "219": {
+    "level": "severe",
+    "phase": "2026-09-17",
+    "official_name": "Tikota"
+   },
+   "111": {
+    "level": "severe",
+    "phase": "2026-09-17",
+    "official_name": "Rattihalli"
+   },
+   "86": {
+    "level": "severe",
+    "phase": "2026-09-17",
+    "official_name": "Hubballi"
+   },
+   "90": {
+    "level": "severe",
+    "phase": "2026-09-17",
+    "official_name": "Navalgund"
+   },
+   "87": {
+    "level": "severe",
+    "phase": "2026-09-17",
+    "official_name": "Hubballi City"
+   },
+   "84": {
+    "level": "severe",
+    "phase": "2026-09-17",
+    "official_name": "Annigeri"
+   },
+   "58": {
+    "level": "severe",
+    "phase": "2026-09-17",
+    "official_name": "Kadur"
+   },
+   "127": {
+    "level": "moderate",
+    "phase": "2026-09-17",
+    "official_name": "Ponnampet"
+   }
+  }
+ }
+}

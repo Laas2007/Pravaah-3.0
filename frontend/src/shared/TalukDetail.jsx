@@ -3,6 +3,7 @@ import { core } from '../api'
 import { useLoad } from './hooks'
 import { DRIVER_TEXT, useTr } from './lang'
 import TimeMachine from './TimeMachine'
+import { talukHeadline, talukReasons } from './explain'
 import { ErrorBox, Loading, RiskBadge, Stat, m, pct } from './ui'
 
 /** Real-data summary + M2 groundwater forecast (+ Time Machine) for one taluk. Reused by all platforms. */
@@ -22,7 +23,7 @@ export default function TalukDetail({ idx, asOf, onClose, color = '#2a78d6' }) {
           {onClose && <button className="ps-x" onClick={onClose} aria-label="Close">✕</button>}
         </div>
 
-        {fc ? <Forecast fc={fc} hist={t.groundwater_history} color={color} /> : (
+        {fc ? <Forecast fc={fc} risk={t.risk} hist={t.groundwater_history} color={color} /> : (
           <div className="ps-note">{tr('No monitoring wells report here recently, so risk uses the provisional index (rain + groundwater anomaly).',
             'ಇಲ್ಲಿ ಇತ್ತೀಚೆಗೆ ಮೇಲ್ವಿಚಾರಣಾ ಬಾವಿ ದತ್ತಾಂಶ ಇಲ್ಲ; ಅಪಾಯ ತಾತ್ಕಾಲಿಕ ಸೂಚ್ಯಂಕದಿಂದ (ಮಳೆ + ಅಂತರ್ಜಲ ವ್ಯತ್ಯಾಸ).')}</div>
         )}
@@ -42,7 +43,7 @@ export default function TalukDetail({ idx, asOf, onClose, color = '#2a78d6' }) {
   )
 }
 
-function Forecast({ fc, hist, color }) {
+function Forecast({ fc, risk, hist, color }) {
   const tr = useTr()
   const daysText = (d) => (d == null ? '–' : d === 0 ? tr('now', 'ಈಗಲೇ') : d >= 366 ? tr('6+ months', '6+ ತಿಂಗಳು') : tr(`${Math.round(d)} days`, `${Math.round(d)} ದಿನ`))
   // last 24 months of observed anomaly + the 6-month forecast band
@@ -52,15 +53,20 @@ function Forecast({ fc, hist, color }) {
   if (last) future.unshift({ month: last.month, mid: last.observed, band: [last.observed, last.observed] })
   const data = [...past.slice(0, -1), ...future]
   const maxM = Math.max(...fc.drivers.map((d) => Math.abs(d.metres)), 0.5)
+  const head = talukHeadline(fc, tr)
   return (
     <>
-      <div className="ps-forecast" data-tour="forecast">
-        <div className="ps-forecast-big">{daysText(fc.days_mid)}</div>
+      <div className={`ps-forecast tone-${risk}`} data-tour="forecast">
+        <div className="ps-forecast-big">{head.big}</div>
         <div>
-          <b>{tr('until groundwater reaches stress level', 'ಅಂತರ್ಜಲ ಒತ್ತಡ ಮಟ್ಟ ತಲುಪಲು')}</b>
-          <div className="small muted">{tr(`likely range ${daysText(fc.days_low)} – ${daysText(fc.days_high)} · ML forecast from ${fc.origin_month} well readings`,
-            `ಸಂಭಾವ್ಯ ವ್ಯಾಪ್ತಿ ${daysText(fc.days_low)} – ${daysText(fc.days_high)} · ${fc.origin_month} ಬಾವಿ ದತ್ತಾಂಶದಿಂದ ML ಮುನ್ಸೂಚನೆ`)}</div>
+          <b>{head.label}</b>
+          <div className="small muted">{tr(`range ${daysText(fc.days_low)} (dry year) – ${daysText(fc.days_high)} (wet year) · ML forecast from ${fc.origin_month} well readings`,
+            `ವ್ಯಾಪ್ತಿ ${daysText(fc.days_low)} (ಒಣ ವರ್ಷ) – ${daysText(fc.days_high)} (ಮಳೆಯ ವರ್ಷ) · ${fc.origin_month} ಬಾವಿ ದತ್ತಾಂಶದಿಂದ ML ಮುನ್ಸೂಚನೆ`)}</div>
         </div>
+      </div>
+      <div className="ps-reasons">
+        <b>{tr('Why this number?', 'ಈ ಸಂಖ್ಯೆ ಏಕೆ?')}</b>
+        <ul>{talukReasons(fc, risk, tr).map((r, i) => <li key={i}>{r}</li>)}</ul>
       </div>
       <h3>{tr('Groundwater vs normal: past 2 years + next 6 months (m deeper than normal)', 'ಅಂತರ್ಜಲ vs ವಾಡಿಕೆ: ಕಳೆದ 2 ವರ್ಷ + ಮುಂದಿನ 6 ತಿಂಗಳು (ವಾಡಿಕೆಗಿಂತ ಮೀ. ಆಳ)')}</h3>
       <div style={{ height: 190 }}>

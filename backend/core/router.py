@@ -3,7 +3,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from fastapi.responses import Response
 
-from .data import climate, clamp_date, geojson_bytes, groundwater, last_complete_month, regions, taluk
+from .data import KA as KA_DIR, climate, clamp_date, geojson_bytes, groundwater, last_complete_month, regions, taluk
 from .indicators import clean, taluk_indicators
 from .risk import taluk_risk
 
@@ -50,12 +50,34 @@ def api_indicators(as_of: str | None = None):
     ind = taluk_indicators(as_of)
     rk = taluk_risk(as_of)
     score, levels = rk["score"], rk["levels"]
+    wb = season_water_balance(as_of)
     return {
         "as_of": as_of, "model": rk["model"],
-        "taluks": [{"idx": r["idx"], "risk": levels[i], "stress": clean(score[i]), "source": rk["source"][i],
+        "taluks": [{"idx": r["idx"], "name": r["name"], "district": r["district"], "risk": levels[i],
+                    "stress": clean(score[i]), "source": rk["source"][i],
                     "days_mid": clean(rk["days_mid"][i]) if rk["days_mid"] is not None else None,
+                    "days_low": clean(rk["days_low"][i]) if rk["days_low"] is not None else None,
+                    "season_wb_mm": clean(wb[i]),
                     **{k: clean(v[i]) for k, v in ind.items()}} for i, r in enumerate(regions())],
     }
+
+
+def season_water_balance(as_of: str):
+    """Rain minus FAO reference evaporation (ET0) since the start of the current crop season, per taluk (mm).
+    Seasons: kharif Jun-Sep, rabi Oct-Jan, summer Feb-May."""
+    import datetime as dt
+    c = climate()
+    d = dt.date.fromisoformat(as_of)
+    if 6 <= d.month <= 9:
+        start = dt.date(d.year, 6, 1)
+    elif d.month >= 10:
+        start = dt.date(d.year, 10, 1)
+    elif d.month == 1:
+        start = dt.date(d.year - 1, 10, 1)
+    else:
+        start = dt.date(d.year, 2, 1)
+    t0, t1 = c.index(start.isoformat()), c.index(as_of)
+    return c.rain[t0:t1 + 1].sum(axis=0) - c.et0[t0:t1 + 1].sum(axis=0)
 
 
 def forecast_for(rk: dict, idx: int, as_of: str) -> dict | None:
@@ -99,6 +121,35 @@ def api_backtest(as_of: str | None = None, idx: int | None = None):
     return out
 
 
+@router.get("/drought")
+def api_drought(as_of: str | None = None, idx: int | None = None):
+    """M1 kharif drought early warning (Jul 1 - Sep 30): alert level per taluk, probability, trigger evidence,
+    drivers, and the official declaration for that taluk and year where one is known."""
+    import json
+    from . import drought as dr
+    as_of = clamp_date(as_of)
+    p = dr.predict(as_of)
+    off_file = KA_DIR / "drought_official.json"
+    official = json.loads(off_file.read_text(encoding="utf-8"))["years"] if off_file.exists() else {}
+    year_off = official.get(as_of[:4], {})
+    if p is None:
+        return {"as_of": as_of, "in_season": False, "model": (dr.card() or {}).get("version"),
+                "message": "The kharif drought early warning runs from 1 July to 30 September."}
+    rows = []
+    for i, r in enumerate(regions()):
+        if idx is not None and i != idx:
+            continue
+        drivers = sorted([{"key": k, "label": dr.DRIVERS[k][1], "label_kn": dr.DRIVERS[k][2], "change": round(float(v[i]), 3)}
+                          for k, v in p["drivers"].items()], key=lambda d: -d["change"])
+        rows.append({"idx": i, "name": r["name"], "district": r["district"], "level": p["level"][i],
+                     "p_drought": round(float(p["p_drought"][i]), 3), "trigger": bool(p["trigger"][i]),
+                     "rain_dev_season": clean(p["rain_dev_season"][i]), "longest_dry_spell": int(p["longest_dry_spell"][i]),
+                     "mai": clean(p["mai_to_date"][i]), "drivers": drivers, "official": year_off.get(str(i))})
+    return {"as_of": as_of, "in_season": True, "model": (dr.card() or {}).get("version"), "cut": p["cut"],
+            "trigger_rule": dr.TRIGGER, "official_source": json.loads(off_file.read_text(encoding="utf-8"))["sources"].get(as_of[:4])
+            if off_file.exists() else None, "taluks": rows}
+
+
 class TalukChatIn(BaseModel):
     idx: int
     as_of: str | None = None
@@ -129,8 +180,11 @@ def model_card():
     blr = MODELS / "bengaluru_validation.json"
     b = json.loads(blr.read_text())["current_params"] if blr.exists() else None
     m3 = MODELS / "m3_card.json"
+    from .drought import card as m1_card
     from .reservoir_model import card as m4_card
-    return {"m2": card(), "m1": {"status": "waiting for genuine drought-declaration labels"},
+    c1 = m1_card()
+    m1 = {k: c1[k] for k in ("version", "tests", "levels", "trigger", "official_sources")} if c1 else None
+    return {"m2": card(), "m1": m1,
             "m3": json.loads(m3.read_text()) if m3.exists() else None, "m4": m4_card(),
             "m5": {"status": "estimated, physically based (no public metered demand to train on)"},
             "m6": {"status": "tested on synthetic meters with planted leaks (no public meter data); see /api/urban/leaks/demo"},

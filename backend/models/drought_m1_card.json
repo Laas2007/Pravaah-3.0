@@ -1,0 +1,281 @@
+{
+  "model": "M1 kharif agricultural-drought early warning",
+  "version": "m1-v2",
+  "trained": "2026-10-25",
+  "sklearn": "1.9.1",
+  "features": [
+    "rain_dev_season",
+    "rain_dev_30",
+    "rain_dev_60",
+    "dry_spell_now",
+    "longest_dry_spell",
+    "spi_to_date",
+    "mai_to_date",
+    "gw_anom",
+    "et0_dev_30",
+    "days_left",
+    "share_normal_left"
+  ],
+  "monotonic": [
+    -1,
+    -1,
+    -1,
+    1,
+    1,
+    -1,
+    -1,
+    1,
+    1,
+    0,
+    0
+  ],
+  "trigger": "rainfall so far <= -20 % of normal, or a dry spell of >= 21 days (Drought Manual mandatory trigger)",
+  "level_cut": 0.5,
+  "loyo_best_cut": 0.05,
+  "loyo_f1": 0.607,
+  "levels": "alert = Drought Manual trigger met so far (leave-one-year-out showed the trigger alone gives the best drought / no-drought call); within alerts: likely = model probability >= 0.5, else watch",
+  "labels": "Drought Manual-style season labels from real data; MAI band chosen after seeing 2023 (labels in-sample for 2023)",
+  "label_counts": {
+    "2015": [
+      112,
+      96,
+      19
+    ],
+    "2016": [
+      120,
+      92,
+      15
+    ],
+    "2017": [
+      177,
+      45,
+      5
+    ],
+    "2018": [
+      81,
+      80,
+      66
+    ],
+    "2019": [
+      195,
+      24,
+      8
+    ],
+    "2020": [
+      227,
+      0,
+      0
+    ],
+    "2021": [
+      223,
+      4,
+      0
+    ],
+    "2022": [
+      227,
+      0,
+      0
+    ],
+    "2023": [
+      95,
+      111,
+      21
+    ],
+    "2024": [
+      201,
+      25,
+      1
+    ],
+    "2025": [
+      208,
+      19,
+      0
+    ],
+    "2026": [
+      41,
+      173,
+      13
+    ]
+  },
+  "official_sources": {
+    "2023": "GO RD 449 TNR 2023 (13.09.2023), Annexures I-II, translated copy in NGT OA 196/2024 reply by R2; order of 04.11.2023 (7 taluks, Deccan Chronicle). 22 taluks added 12.10.2023 are not named publicly.",
+    "2026": "Order of 17.09.2026, 23 taluks (Deccan Chronicle). 101 first-phase taluks (27.08.2026) not named publicly."
+  },
+  "tests": {
+    "A_train_2015_2021_test_2022_2025": {
+      "07-01": {
+        "auc_model": 0.808,
+        "auc_rain_deficit": 0.794
+      },
+      "07-15": {
+        "auc_model": 0.764,
+        "auc_rain_deficit": 0.816
+      },
+      "08-01": {
+        "auc_model": 0.704,
+        "auc_rain_deficit": 0.797
+      },
+      "08-15": {
+        "auc_model": 0.903,
+        "auc_rain_deficit": 0.899
+      },
+      "09-01": {
+        "auc_model": 0.941,
+        "auc_rain_deficit": 0.939
+      },
+      "09-15": {
+        "auc_model": 0.965,
+        "auc_rain_deficit": 0.953
+      }
+    },
+    "B_train_2015_2025_test_2026": {
+      "07-01": {
+        "auc_model": 0.795,
+        "auc_rain_deficit": 0.791,
+        "official_listed_22": {
+          "likely": 0,
+          "watch": 12,
+          "low": 10
+        },
+        "statewide": {
+          "likely": 6,
+          "watch": 124,
+          "low": 97
+        },
+        "labels_drought_taluks": 186
+      },
+      "07-15": {
+        "auc_model": 0.765,
+        "auc_rain_deficit": 0.763,
+        "official_listed_22": {
+          "likely": 8,
+          "watch": 9,
+          "low": 5
+        },
+        "statewide": {
+          "likely": 59,
+          "watch": 83,
+          "low": 85
+        },
+        "labels_drought_taluks": 186
+      },
+      "08-01": {
+        "auc_model": 0.795,
+        "auc_rain_deficit": 0.745,
+        "official_listed_22": {
+          "likely": 5,
+          "watch": 14,
+          "low": 3
+        },
+        "statewide": {
+          "likely": 59,
+          "watch": 109,
+          "low": 59
+        },
+        "labels_drought_taluks": 186
+      },
+      "08-15": {
+        "auc_model": 0.701,
+        "auc_rain_deficit": 0.684,
+        "official_listed_22": {
+          "likely": 1,
+          "watch": 7,
+          "low": 14
+        },
+        "statewide": {
+          "likely": 37,
+          "watch": 79,
+          "low": 111
+        },
+        "labels_drought_taluks": 186
+      },
+      "09-01": {
+        "auc_model": 0.789,
+        "auc_rain_deficit": 0.75,
+        "official_listed_22": {
+          "likely": 8,
+          "watch": 9,
+          "low": 5
+        },
+        "statewide": {
+          "likely": 93,
+          "watch": 78,
+          "low": 56
+        },
+        "labels_drought_taluks": 186
+      },
+      "09-15": {
+        "auc_model": 0.875,
+        "auc_rain_deficit": 0.758,
+        "official_listed_22": {
+          "likely": 20,
+          "watch": 2,
+          "low": 0
+        },
+        "statewide": {
+          "likely": 192,
+          "watch": 19,
+          "low": 16
+        },
+        "labels_drought_taluks": 186
+      }
+    },
+    "C_official_2023_order_model_without_2023": {
+      "08-01": {
+        "declared_severe": {
+          "likely": 2,
+          "watch": 39,
+          "low": 124
+        },
+        "declared_moderate": {
+          "likely": 1,
+          "watch": 6,
+          "low": 26
+        },
+        "not_listed": {
+          "likely": 1,
+          "watch": 1,
+          "low": 27
+        },
+        "auc_severe_vs_moderate": 0.577
+      },
+      "08-15": {
+        "declared_severe": {
+          "likely": 50,
+          "watch": 32,
+          "low": 83
+        },
+        "declared_moderate": {
+          "likely": 19,
+          "watch": 1,
+          "low": 13
+        },
+        "not_listed": {
+          "likely": 11,
+          "watch": 0,
+          "low": 18
+        },
+        "auc_severe_vs_moderate": 0.386
+      },
+      "09-01": {
+        "declared_severe": {
+          "likely": 131,
+          "watch": 4,
+          "low": 30
+        },
+        "declared_moderate": {
+          "likely": 22,
+          "watch": 0,
+          "low": 11
+        },
+        "not_listed": {
+          "likely": 20,
+          "watch": 0,
+          "low": 9
+        },
+        "auc_severe_vs_moderate": 0.477
+      }
+    }
+  },
+  "reading": "AUC ranks taluks; raw probabilities run low in statewide drought years, so the level combines the official trigger with the model's rank"
+}

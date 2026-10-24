@@ -7,12 +7,17 @@ function ModelList({ card }) {
   const tr = useTr()
   const m4 = card.m4?.validation?.by_horizon
   const m4h = m4 && (m4['90'] || m4[90])
+  const m1 = card.m1?.tests?.B_train_2015_2025_test_2026
+  const m1c = card.m1?.tests?.C_official_2023_order_model_without_2023
   const rain = card.m3?.by_crop?.filter((r) => ['Urad', 'Gram', 'Jowar', 'Moong'].includes(r.crop) && r.spearman_loss_vs_yield < 0)
   return (
     <table className="ps-table" style={{ margin: '10px 0' }}>
       <thead><tr><th>{tr('Model', 'ಮಾದರಿ')}</th><th>{tr('Data', 'ದತ್ತಾಂಶ')}</th><th>{tr('How it was tested', 'ಪರೀಕ್ಷೆ')}</th></tr></thead>
       <tbody>
         <tr><td><b>M2</b> {tr('groundwater', 'ಅಂತರ್ಜಲ')}</td><td>🟢 {tr('2,698 wells', '2,698 ಬಾವಿಗಳು')}</td><td>{tr('2022–26 unseen years (above)', '2022–26 ನೋಡದ ವರ್ಷಗಳು (ಮೇಲೆ)')}</td></tr>
+        {m1 && <tr><td><b>M1</b> {tr('kharif drought', 'ಮುಂಗಾರು ಬರ')}</td><td>🟢 {tr('IMD rain, ERA5, wells; official 2023 / 2026 orders', 'IMD ಮಳೆ, ERA5, ಬಾವಿಗಳು; ಅಧಿಕೃತ ಆದೇಶಗಳು')}</td>
+          <td>{tr(`unseen 2026: AUC ${m1['09-15'].auc_model} vs ${m1['09-15'].auc_rain_deficit} rain-deficit rule (15 Sep); officially declared taluks alerted ${22 - m1['08-01'].official_listed_22.low}/22 by 1 Aug. 2023 order (model trained without 2023): ${m1c['09-01'].declared_severe.likely + m1c['09-01'].declared_severe.watch}/165 severe alerted by 1 Sep. Cannot tell severe from moderate.`,
+            `ನೋಡದ 2026: AUC ${m1['09-15'].auc_model} vs ${m1['09-15'].auc_rain_deficit}; ಘೋಷಿತ ತಾಲೂಕುಗಳಲ್ಲಿ ${22 - m1['08-01'].official_listed_22.low}/22 ಗೆ 1 ಆಗಸ್ಟ್‌ನೊಳಗೆ ಎಚ್ಚರಿಕೆ`)}</td></tr>}
         {m4h && <tr><td><b>M4</b> {tr('reservoirs', 'ಜಲಾಶಯಗಳು')}</td><td>🟢 {tr('9 dams, daily', '9 ಜಲಾಶಯಗಳು, ದೈನಂದಿನ')}</td>
           <td>{tr(`90-day error ${m4h.model_pct_cap}% of capacity vs ${m4h.no_change_pct_cap}% "no change", ${m4h.seasonal_pct_cap}% seasonal; ${Math.round(m4h.coverage_10_90 * 100)}% inside range`,
             `90 ದಿನದ ದೋಷ ಸಾಮರ್ಥ್ಯದ ${m4h.model_pct_cap}% vs ${m4h.no_change_pct_cap}% "ಬದಲಾವಣೆ ಇಲ್ಲ"`)}</td></tr>}

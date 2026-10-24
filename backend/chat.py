@@ -359,6 +359,13 @@ class TalukAnswer:
             return (f"{c['name']} ತಾಲೂಕು: ಅಪಾಯ {risk} (ಮಳೆ ಮತ್ತು ಅಂತರ್ಜಲ ಆಧಾರಿತ ತಾತ್ಕಾಲಿಕ ಸೂಚ್ಯಂಕ)." if self.kn
                     else f"{c['name']} taluk: {risk} risk (provisional index from rain and groundwater; no recent well readings).")
         rng = f"{self._days(f['days_low'])} – {self._days(f['days_high'])}"
+        if (f["days_mid"] or 0) >= 366 and (f["days_low"] or 366) < 366:   # watch tier: only the dry-year path
+            if self.kn:
+                return (f"📅 {c['name']} ತಾಲೂಕು: ಸಾಮಾನ್ಯ ವರ್ಷದಲ್ಲಿ 6 ತಿಂಗಳೊಳಗೆ ಅಂತರ್ಜಲ ಒತ್ತಡ ನಿರೀಕ್ಷೆ ಇಲ್ಲ, ಆದರೆ ಮುಂದಿನ ತಿಂಗಳುಗಳು "
+                        f"ಒಣಗಿದ್ದರೆ ಸುಮಾರು {self._days(f['days_low'])} ದಿನಗಳಲ್ಲಿ ತಲುಪಬಹುದು. ಅಪಾಯ: {risk} (ಎಚ್ಚರಿಕೆ ಪಟ್ಟಿ).")
+            return (f"📅 {c['name']} taluk: groundwater is not expected to reach its stress level within 6 months in a "
+                    f"typical year, but if the coming months are dry it could in about {self._days(f['days_low'])}. "
+                    f"Risk: {risk} (watch list).")
         if self.kn:
             return f"📅 {c['name']} ತಾಲೂಕಿನ ಅಂತರ್ಜಲ ಒತ್ತಡ ಮಟ್ಟ ತಲುಪಲು ಸುಮಾರು {self._days(f['days_mid'])} (ವ್ಯಾಪ್ತಿ {rng}). ಅಪಾಯ: {risk}."
         return (f"📅 {c['name']} taluk's groundwater is expected to reach its stress level in about "

@@ -1,7 +1,6 @@
 // 🏭 Industries & Businesses. TODO list: backend/usecases/industry.py
-import { RISK_COLOR } from '../../i18n'
 import KarnatakaMap from '../../shared/KarnatakaMap'
-import PlatformShell, { RiskLegend } from '../../shared/PlatformShell'
+import PlatformShell from '../../shared/PlatformShell'
 import PlatformChat from '../../shared/PlatformChat'
 import TalukDetail from '../../shared/TalukDetail'
 import TimeMachine from '../../shared/TimeMachine'
@@ -11,6 +10,9 @@ import { platform } from '../../shared/platforms'
 import { WardCard, fetchWards, getWardGeo, wardOverlay } from '../../shared/wards'
 import { ErrorBox, Loading, RiskBadge, Stat } from '../../shared/ui'
 import { industryApi } from './api'
+import { core } from '../../api'
+import { useLayerMap } from '../../shared/layers'
+import StateSummary from '../../shared/StateSummary'
 
 const COLOR = platform('industry').color
 
@@ -26,12 +28,14 @@ export default function IndustryPlatform() {
   const byTaluk = {}
   rows.forEach((r) => r.taluk_idx.forEach((i) => { byTaluk[i] = r }))
 
+  const ind = useLoad(() => (asOf ? core.indicators(asOf) : Promise.resolve(null)), [asOf]).data
+  const merged = (ind ? ind.taluks : []).map((t) => t && { ...t, m7: byTaluk[t.idx]?.output_at_risk_pct ?? null })
+  const lm = useLayerMap({ layers: ['m7', 'risk', 'heat', 'groundwater'], fallback: 'm7', rows: merged })
+
   const map = (
-    <KarnatakaMap selected={sel} onSelect={setSel} legend={<RiskLegend />}
-      overlay={wardOverlay(wardGeo, wards, wsel, setWard)}
-      colorOf={(i) => byTaluk[i] && RISK_COLOR[byTaluk[i].risk]}
-      labelOf={(i) => byTaluk[i] && tr(`${byTaluk[i].district}: ${byTaluk[i].output_at_risk_pct}% industrial output at risk (6 months)`,
-        `${byTaluk[i].district}: ${byTaluk[i].output_at_risk_pct}% ಕೈಗಾರಿಕಾ ಉತ್ಪಾದನೆ ಅಪಾಯದಲ್ಲಿ`)} />
+    <KarnatakaMap selected={sel} onSelect={setSel} colorOf={lm.colorOf} labelOf={lm.labelOf} indexMode={lm.index}
+      ui={<>{lm.switcher}{lm.title}{lm.legend}</>}
+      overlay={wardOverlay(wardGeo, wards, wsel, setWard, lm.wardColor)} />
   )
 
   return (
@@ -41,6 +45,13 @@ export default function IndustryPlatform() {
       {wsel != null && wards && <WardCard ward={wards.wards[wsel]} asOf={wards.as_of} onClose={() => setWard(null)} />}
       {sel != null && <TalukDetail idx={sel} asOf={asOf} color={COLOR} onClose={() => setSel(null)} />}
       {res.error && <ErrorBox error={res.error} />}
+      {res.data && sel == null && wsel == null && (
+        <StateSummary kicker={tr('Karnataka · KIADB industrial districts', 'ಕರ್ನಾಟಕ · KIADB ಕೈಗಾರಿಕಾ ಜಿಲ್ಲೆಗಳು')} asOf={asOf}
+          items={rows.map((r) => ({ key: r.district, idx: r.taluk_idx[0], name: r.district, sub: tr(`${r.kiadb_areas} KIADB areas`, `${r.kiadb_areas} KIADB ಪ್ರದೇಶ`), risk: r.risk, right: `${r.output_at_risk_pct}%` }))}
+          text={tr(<>districts where <b>a quarter or more of industrial output</b> is at risk from water shortfalls in the next 6 months (groundwater M2 + reservoirs M4)</>,
+            <>ಜಿಲ್ಲೆಗಳಲ್ಲಿ ಮುಂದಿನ 6 ತಿಂಗಳಲ್ಲಿ <b>ಕನಿಷ್ಠ ಕಾಲು ಭಾಗ ಕೈಗಾರಿಕಾ ಉತ್ಪಾದನೆ</b> ನೀರಿನ ಕೊರತೆಯ ಅಪಾಯದಲ್ಲಿ</>)}
+          urgentTitle={tr('Most exposed districts', 'ಅತಿ ಹೆಚ್ಚು ಅಪಾಯದ ಜಿಲ್ಲೆಗಳು')} onPick={(x) => x.idx != null && setSel(x.idx)} />
+      )}
       {!res.data ? <Loading what="industrial risk" /> : <Disruption data={res.data} onSelect={setSel} />}
       {asOf && sel == null && <TimeMachine asOf={asOf} color={COLOR} />}
       <PlatformChat platform="industry" asOf={asOf} taluk={taluk} ward={wsel != null && wards ? wards.wards[wsel] : null} />

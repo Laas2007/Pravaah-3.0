@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { Area, CartesianGrid, ComposedChart, Line, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import { RISK_COLOR } from '../../i18n'
 import KarnatakaMap from '../../shared/KarnatakaMap'
-import PlatformShell, { RiskLegend } from '../../shared/PlatformShell'
+import PlatformShell from '../../shared/PlatformShell'
 import PlatformChat from '../../shared/PlatformChat'
 import TalukDetail from '../../shared/TalukDetail'
 import TimeMachine from '../../shared/TimeMachine'
@@ -14,6 +14,9 @@ import { WardCard, daysText, fetchWards, getWardGeo, wardOverlay } from '../../s
 import { platform } from '../../shared/platforms'
 import { ErrorBox, Loading, MockBanner, ProvisionalNote, RiskBadge, Stat, m, pct } from '../../shared/ui'
 import { urbanApi } from './api'
+import { core } from '../../api'
+import { useLayerMap } from '../../shared/layers'
+import StateSummary from '../../shared/StateSummary'
 import { DemandCard, LeakCard } from './UrbanModels'
 
 const COLOR = platform('urban').color
@@ -28,10 +31,13 @@ export default function UrbanPlatform() {
   const wardGeo = useLoad(getWardGeo, []).data
   const wards = useLoad(() => (asOf ? fetchWards(asOf) : Promise.resolve(null)), [asOf]).data
   const lang = tr.lang === 'kn' ? '&lang=kn' : ''
+  const ind = useLoad(() => (asOf ? core.indicators(asOf) : Promise.resolve(null)), [asOf]).data
+  const lm = useLayerMap({ layers: ['risk', 'heat', 'groundwater', 'rain12'], fallback: 'risk', rows: ind ? ind.taluks : [] })
 
   const map = (
-    <KarnatakaMap selected={sel} onSelect={setSel} legend={<RiskLegend />}
-      overlay={wardOverlay(wardGeo, wards, wsel, setWard)}
+    <KarnatakaMap selected={sel} onSelect={setSel} colorOf={lm.colorOf} labelOf={lm.labelOf} indexMode={lm.index}
+      ui={<>{lm.switcher}{lm.title}{lm.legend}</>}
+      overlay={wardOverlay(wardGeo, wards, wsel, setWard, lm.wardColor)}
       points={cities.filter((c) => c.lat && !c.live_ward_model).map((c) => ({
         key: c.city, lat: c.lat, lon: c.lon, color: RISK_COLOR[c.risk], radius: 8,
         label: `${c.city}: ${c.risk}`, onClick: () => setSel(c.taluk_idx),
@@ -79,33 +85,16 @@ export default function UrbanPlatform() {
 /** Bengaluru at ward level: counts and the most urgent wards (click to open). */
 function WardSummary({ wards, onSelect }) {
   const tr = useTr()
-  const ws = wards.wards
-  const count = (r) => ws.filter((w) => w.risk === r).length
-  const urgent = [...ws].sort((a, b) => a.days_mid - b.days_mid || a.groundwater_pct - b.groundwater_pct).slice(0, 8)
-  const dt = (d) => daysText(d, tr)
+  const order = { critical: 0, high: 1, medium: 2, low: 3 }
+  const items = [...wards.wards].sort((a, b) => order[a.risk] - order[b.risk] || a.days_mid - b.days_mid || a.groundwater_pct - b.groundwater_pct)
+    .map((w) => ({ key: w.idx, idx: w.idx, name: w.name, sub: tr(`ward ${w.ward_no}`, `ವಾರ್ಡ್ ${w.ward_no}`), risk: w.risk,
+      right: w.days_mid === 0 ? tr('now', 'ಈಗ') : w.days_mid > 365 ? '365+ d' : `${w.days_low}–${w.days_high > 365 ? '365+' : w.days_high} d` }))
   return (
-    <div className="ps-card" data-tour="wards">
-      <h2>{tr('Bengaluru, ward by ward', 'ಬೆಂಗಳೂರು, ವಾರ್ಡ್‌ವಾರು')}</h2>
-      <div className="muted small">{tr(`243 BBMP wards · ward-level water balance on IMD rain-gauge data · as of ${wards.as_of}. Use "🔎 Bengaluru wards" on the map to zoom in.`,
-        `243 BBMP ವಾರ್ಡ್‌ಗಳು · IMD ಮಳೆ ದತ್ತಾಂಶದ ಮೇಲೆ ವಾರ್ಡ್ ಮಟ್ಟದ ನೀರಿನ ಸಮತೋಲನ · ${wards.as_of}. ನಕ್ಷೆಯಲ್ಲಿ "🔎 Bengaluru wards" ಬಳಸಿ.`)}</div>
-      <div className="ps-stats">
-        <Stat label={tr('critical wards (≤30 days)', 'ಗಂಭೀರ ವಾರ್ಡ್‌ಗಳು (≤30 ದಿನ)')} value={count('critical')} tone={count('critical') ? 'bad' : ''} />
-        <Stat label={tr('high (≤90 days)', 'ಹೆಚ್ಚು (≤90 ದಿನ)')} value={count('high')} />
-        <Stat label={tr('medium (≤180 days)', 'ಮಧ್ಯಮ (≤180 ದಿನ)')} value={count('medium')} />
-        <Stat label={tr('low', 'ಕಡಿಮೆ')} value={count('low')} />
-      </div>
-      <h3>{tr('Most urgent wards', 'ಅತ್ಯಂತ ತುರ್ತು ವಾರ್ಡ್‌ಗಳು')}</h3>
-      <table className="ps-table">
-        <thead><tr><th>{tr('Ward', 'ವಾರ್ಡ್')}</th><th>{tr('Risk', 'ಅಪಾಯ')}</th><th>{tr('Shortage in', 'ಕೊರತೆ')}</th><th>{tr('Groundwater', 'ಅಂತರ್ಜಲ')}</th></tr></thead>
-        <tbody>
-          {urgent.map((w) => (
-            <tr key={w.idx} onClick={() => onSelect(w.idx)}>
-              <td><b>{w.name}</b><div className="muted small">{tr(`ward ${w.ward_no}`, `ವಾರ್ಡ್ ${w.ward_no}`)}</div></td><td><RiskBadge risk={w.risk} /></td>
-              <td>{dt(w.days_low)} – {dt(w.days_high)}</td><td>{w.groundwater_pct}%</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div data-tour="wards">
+      <StateSummary kicker={tr('Bengaluru · 243 wards', 'ಬೆಂಗಳೂರು · 243 ವಾರ್ಡ್‌ಗಳು')} asOf={wards.as_of} items={items}
+        text={tr(<>wards are expected to run short of water <b>within 90 days</b> (ward-level water balance on IMD rain). Use "🔎 Bengaluru wards" on the map to zoom in.</>,
+          <>ವಾರ್ಡ್‌ಗಳಲ್ಲಿ <b>90 ದಿನಗಳೊಳಗೆ</b> ನೀರಿನ ಕೊರತೆ ನಿರೀಕ್ಷೆ (IMD ಮಳೆಯ ಮೇಲೆ ವಾರ್ಡ್ ಮಟ್ಟದ ಜಲ ಸಮತೋಲನ).</>)}
+        urgentTitle={tr('Most urgent wards', 'ಅತ್ಯಂತ ತುರ್ತು ವಾರ್ಡ್‌ಗಳು')} onPick={(x) => onSelect(x.idx)} />
     </div>
   )
 }

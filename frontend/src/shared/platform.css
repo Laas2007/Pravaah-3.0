@@ -71,6 +71,24 @@
 .ps-link-btn { border: 1px solid var(--line); background: var(--card); border-radius: 8px; padding: 6px 10px; cursor: pointer; font-size: 13px; }
 .ps-note.bad { background: #fdecea; color: #8a1c13; }
 
+.ps-forecast.tone-low { background: #eefaf0; border-color: #bfe6c6; }
+.ps-forecast.tone-low .ps-forecast-big { color: #17672f; }
+.ps-forecast.tone-medium { background: #fff8e6; border-color: #f3dc9c; }
+.ps-forecast.tone-medium .ps-forecast-big { color: #9a6a00; }
+.ps-reasons { background: #f7f9fc; border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; margin: 10px 0; font-size: 13px; }
+.ps-reasons b { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+.ps-reasons ul { margin: 6px 0 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; line-height: 1.45; color: var(--ink-2); }
+
+/* Bengaluru-style map overlays on the taluk maps */
+.ps-map .layer-switch { left: 56px; top: 12px; max-width: calc(100% - 80px); }
+.ps-map .legend, .ps-map .colorbar { z-index: 1000; }
+.ps-zoom.below { top: auto; bottom: 14px; right: 12px; }
+.ps-map.index-mode .ps-map-inner { background: #ffffff; }
+.ps-map .map-title { top: 64px; }
+.tt-idx { margin: 2px 0; }
+.hero-card + h3 { margin-top: 18px; }
+.urgent-name .small { font-weight: 400; }
+
 .ps-zoom { position: absolute; right: 12px; top: 12px; z-index: 600; display: flex; gap: 6px; }
 .ps-zoom button { border: 1px solid var(--line); background: rgba(255,255,255,.96); color: var(--ink); border-radius: 9px;
   padding: 6px 10px; font-size: 13px; font-weight: 600; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.12); }

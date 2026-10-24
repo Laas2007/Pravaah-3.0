@@ -355,8 +355,36 @@ python train/fetch_nwdp.py && python train/clean_nwdp.py
         precision, misses only 2–4 L/h drips; CSV upload check. `platforms/urban/UrbanModels.jsx`.
       - `main.py` imports sklearn at startup (lazy imports from parallel request threads deadlocked → 500s).
       - Model card lists every model with its data type and test.
-- [ ] Real drought declarations (M1 labels) — user is sourcing them
-- [ ] M1 drought classifier + 2023 backtest
+- [x] 2026-10-25 — **Readable numbers + Bengaluru-style maps on all taluk platforms.**
+      - Headline matches the risk tier (medium shows the dry-year days, low shows "6+ months, even in a dry year");
+        "Why this number?" box on every taluk panel and ward card (`shared/explain.js`, EN/KN); chatbot says the same.
+      - `shared/layers.jsx` + `useLayerMap`: layer switcher, continuous index layers with colour bar (like the Bengaluru
+        app), risk legend with counts; `?layer=` in the URL. Agri: risk · heat · rain 3 months · season water balance ·
+        groundwater. Urban: risk · heat · groundwater · rain 12 months (wards follow heat / groundwater). Industry: M7
+        industrial risk (default) · risk · heat · groundwater. `/api/core/indicators` now also returns name, district,
+        days_low, season_wb_mm (rain − ET0 since season start).
+      - `shared/StateSummary.jsx`: Bengaluru-style hero card + most-urgent list (taluks on Agri, wards on Urban,
+        KIADB districts on Industry).
+- [x] 2026-10-25 — **M1 kharif drought early warning** (`core/drought.py`, `train/train_drought.py`,
+      `models/drought_m1.joblib`, `drought_m1_card.json`, `/api/core/drought`, `platforms/agri/DroughtCard.jsx`,
+      Agri map layer "Kharif drought (M1)").
+      - Official lists (`train/clean_drought_official.py` → `data/karnataka/drought_official.json`): GO RD 449 TNR 2023
+        (13 Sep 2023, Annexure I 161 severe + II 34 moderate, translated copy in NGT OA 196/2024 reply, R2) + 7 added
+        Nov 2023 (news) + 2026 second phase (21 severe + 2 moderate, news). Not public by name: the 22 added Oct 2023
+        and the 2026 first phase (101), so "not listed" ≠ "no drought". All official names mapped to our 227 taluks.
+      - Labels (2015–2026): Drought Manual style from real data. Mandatory trigger (season rain ≤ −20 % or dry spell
+        ≥ 21 days) + impact points (SPI, MAI ≤ 75/50 %, groundwater anomaly). The MAI band was picked after seeing
+        2023, so 2023 is in-sample for labels; the official lists are used only as tests.
+      - Model: monotonic HistGradientBoosting on dynamic features only (rain deviations, dry spells, SPI, MAI,
+        groundwater anomaly, ET0, days left), origins 1 Jul – 15 Sep. Level: likely = trigger + p ≥ 0.5, watch =
+        trigger, low = no trigger (leave-one-year-out showed the trigger itself is the best alert cut).
+      - Tests: A (train ≤2021, test 2022–25) AUC 0.70–0.97, beats the rain-deficit rule from mid-Aug, behind it
+        15 Jul – 1 Aug. B (unseen 2026): AUC above the rain rule at every date (15 Sep 0.875 vs 0.758); of the 22
+        officially named taluks, 19 alerted by 1 Aug, 22 by 15 Sep. C (2023 order, model trained without 2023):
+        1 Sep 135/165 severe and 22/33 moderate alerted (also 20/29 not listed); 1 Aug only 41/165. Cannot tell
+        severe from moderate (AUC 0.39–0.58): the official declaration also uses crop-loss surveys the model can't see.
+- [x] Real drought declarations (M1 labels) — official 2023 + partial 2026
+- [x] M1 drought classifier + 2023 backtest
 - [x] M2 taluk groundwater forecast (see above)
 - [ ] M4 Cauvery storage forecast → Urban supply outlook
 - [ ] Agri MUSTs · Urban MUSTs · Industry MUSTs
