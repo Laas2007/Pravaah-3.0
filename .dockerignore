@@ -1,0 +1,10 @@
+**/.env
+backend/.venv
+backend/data/_downloads
+backend/data/cache
+**/__pycache__
+frontend/node_modules
+frontend/dist
+*.docx
+*.pdf
+.git
