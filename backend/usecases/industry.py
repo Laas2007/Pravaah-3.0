@@ -67,6 +67,20 @@ def api_districts(as_of: str | None = None):
                         "estimated": ["water use per hectare", "surface vs groundwater dependence"]}}
 
 
+@router.get("/feasibility")
+def api_feasibility(lat: float, lon: float, demand_kld: float, as_of: str | None = None,
+                    gw_share: float | None = None, site_area_ha: float | None = None):
+    """Can a factory needing `demand_kld` kL/day get its water at this point? Verdict, score and the evidence."""
+    from fastapi import HTTPException
+    from usecases.industry_site import feasibility
+    if not 0 < demand_kld <= 500_000:
+        raise HTTPException(400, "demand_kld must be between 0 and 500,000 kL/day")
+    out = feasibility(lat, lon, demand_kld, clamp_date(as_of), gw_share, site_area_ha)
+    if out is None:
+        raise HTTPException(400, "That point is outside Karnataka")
+    return out
+
+
 @router.get("/location")
 def api_location(lat: float, lon: float, as_of: str | None = None):
     """Water risk for any point: nearest taluk centre (good enough until point-in-polygon is added)."""

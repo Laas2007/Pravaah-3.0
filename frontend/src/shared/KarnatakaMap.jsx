@@ -13,11 +13,14 @@ const BLR_BOUNDS = [[12.83, 77.42], [13.14, 77.78]]
  *   points        -> optional markers [{lat, lon, color, label, key, onClick}]
  *   overlay       -> optional finer polygons drawn on top (Bengaluru wards):
  *                    {geo, colorOf(idx), labelOf(idx), selected, onSelect}; adds Karnataka / Bengaluru zoom buttons
+ *   onPoint       -> optional (lat, lon) callback; while set, clicks report the exact point instead of selecting
  */
-export default function KarnatakaMap({ colorOf, labelOf, selected, onSelect, points = [], legend, height, overlay, indexMode, ui }) {
+export default function KarnatakaMap({ colorOf, labelOf, selected, onSelect, points = [], legend, height, overlay, indexMode, ui, onPoint }) {
   const geo = useLoad(getTaluks, []).data
   const layer = useRef(null)
   const wardLayer = useRef(null)
+  const pointRef = useRef(onPoint)        // click handlers are bound once, so read the latest callback from a ref
+  useEffect(() => { pointRef.current = onPoint })
 
   const style = (f) => {
     const i = f.properties.idx
@@ -44,7 +47,7 @@ export default function KarnatakaMap({ colorOf, labelOf, selected, onSelect, poi
   useEffect(() => { wardLayer.current?.setStyle(wardStyle) })
 
   return (
-    <div className={`ps-map ${indexMode ? 'index-mode' : ''}`} style={height ? { height } : undefined}>
+    <div className={`ps-map ${indexMode ? 'index-mode' : ''} ${onPoint ? 'picking' : ''}`} style={height ? { height } : undefined}>
       <MapContainer bounds={startOnBengaluru() ? BLR_BOUNDS : KA_BOUNDS} zoomSnap={0.25} className="ps-map-inner" scrollWheelZoom>
         <TileLayer url="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}"
           attribution="Tiles &copy; Esri" maxZoom={16} />
@@ -52,7 +55,7 @@ export default function KarnatakaMap({ colorOf, labelOf, selected, onSelect, poi
           <GeoJSON ref={layer} data={geo} style={style}
             onEachFeature={(f, l) => {
               const p = f.properties
-              l.on('click', () => onSelect?.(p.idx))
+              l.on('click', (e) => (pointRef.current ? pointRef.current(e.latlng.lat, e.latlng.lng) : onSelect?.(p.idx)))
               l.bindTooltip(() => `<b>${p.name}</b> · ${p.district}${labelOf ? '<br/>' + (labelOf(p.idx) ?? '') : ''}`, { sticky: true })
             }} />
         )}
@@ -60,12 +63,16 @@ export default function KarnatakaMap({ colorOf, labelOf, selected, onSelect, poi
           <GeoJSON ref={wardLayer} data={overlay.geo} style={wardStyle}
             onEachFeature={(f, l) => {
               const p = f.properties
-              l.on('click', (e) => { e.originalEvent?.stopPropagation?.(); overlay.onSelect?.(p.idx) })
+              l.on('click', (e) => {
+                e.originalEvent?.stopPropagation?.()
+                if (pointRef.current) pointRef.current(e.latlng.lat, e.latlng.lng)
+                else overlay.onSelect?.(p.idx)
+              })
               l.bindTooltip(() => `<b>${p.name}</b> (ward ${p.ward_no})${overlay.labelOf ? '<br/>' + (overlay.labelOf(p.idx) ?? '') : ''}`, { sticky: true })
             }} />
         )}
         {points.map((pt) => (
-          <CircleMarker key={pt.key} center={[pt.lat, pt.lon]} radius={pt.radius || 8}
+          <CircleMarker key={pt.key} center={[pt.lat, pt.lon]} radius={pt.radius || 8} pane="markerPane"
             pathOptions={{ color: '#fff', weight: 2, fillColor: pt.color || '#0b2545', fillOpacity: 0.95 }}
             eventHandlers={{ click: () => pt.onClick?.() }}>
             <Tooltip>{pt.label}</Tooltip>

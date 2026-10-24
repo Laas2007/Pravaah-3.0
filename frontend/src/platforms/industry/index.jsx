@@ -13,6 +13,8 @@ import { industryApi } from './api'
 import { core } from '../../api'
 import { useLayerMap } from '../../shared/layers'
 import StateSummary from '../../shared/StateSummary'
+import { useState } from 'react'
+import SiteCheck, { useSite } from './SiteCheck'
 
 const COLOR = platform('industry').color
 
@@ -32,14 +34,20 @@ export default function IndustryPlatform() {
   const merged = (ind ? ind.taluks : []).map((t) => t && { ...t, m7: byTaluk[t.idx]?.output_at_risk_pct ?? null })
   const lm = useLayerMap({ layers: ['m7', 'risk', 'heat', 'groundwater'], fallback: 'm7', rows: merged })
 
+  const [picking, setPicking] = useState(false)
+  const { site, set: setSite } = useSite()
+  const pick = (lat, lon) => { setSite({ site: `${lat.toFixed(4)},${lon.toFixed(4)}` }); setPicking(false) }
   const map = (
     <KarnatakaMap selected={sel} onSelect={setSel} colorOf={lm.colorOf} labelOf={lm.labelOf} indexMode={lm.index}
-      ui={<>{lm.switcher}{lm.title}{lm.legend}</>}
+      onPoint={picking ? pick : undefined}
+      points={site ? [{ key: 'site', lat: site.lat, lon: site.lon, color: '#0b2545', radius: 10, label: tr('Factory site', 'ಕಾರ್ಖಾನೆ ಸ್ಥಳ') }] : []}
+      ui={<>{lm.switcher}{lm.title}{lm.legend}{picking && <div className="map-title" style={{ top: 'auto', bottom: 70 }}>📍 {tr('Click anywhere in Karnataka to place the factory', 'ಕಾರ್ಖಾನೆ ಸ್ಥಳಕ್ಕಾಗಿ ನಕ್ಷೆ ಕ್ಲಿಕ್ ಮಾಡಿ')}</div>}</>}
       overlay={wardOverlay(wardGeo, wards, wsel, setWard, lm.wardColor)} />
   )
 
   return (
     <PlatformShell which="industry" asOf={asOf} setAsOf={setAsOf} meta={meta} map={map}>
+      {sel == null && wsel == null && <SiteCheck asOf={asOf} picking={picking} setPicking={setPicking} />}
       <div className="ps-empty">📍 {tr('Map colour = industrial water-disruption risk per district. Click any taluk, or any Bengaluru ward (zoom in), for a site-level water report.',
         'ನಕ್ಷೆಯ ಬಣ್ಣ = ಜಿಲ್ಲೆಯ ಕೈಗಾರಿಕಾ ನೀರಿನ ಅಡಚಣೆ ಅಪಾಯ. ಸ್ಥಳ ವರದಿಗಾಗಿ ತಾಲೂಕು ಅಥವಾ ಬೆಂಗಳೂರು ವಾರ್ಡ್ ಕ್ಲಿಕ್ ಮಾಡಿ.')}</div>
       {wsel != null && wards && <WardCard ward={wards.wards[wsel]} asOf={wards.as_of} onClose={() => setWard(null)} />}

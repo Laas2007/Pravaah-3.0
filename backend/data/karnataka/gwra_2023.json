@@ -1,0 +1,3652 @@
+{
+"source": "Dynamic Ground Water Resources of Karnataka 2023 (CGWB + Karnataka Ground Water Directorate, GEC-2015 method), Annexure V B1, via data.opencity.in",
+"units": "TMC per year (1 TMC = 28.317 million m3); *_mld = million litres per day",
+"categories": {
+"safe": "stage <= 70 %",
+"semi_critical": "70-90 %",
+"critical": "90-100 %",
+"over_exploited": "> 100 %"
+},
+"missing_taluks": [],
+"taluks": {
+"0": {
+"units": [
+"Badami"
+],
+"extractable_tmc": 2.57,
+"extraction_tmc": 2.49,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 2.29,
+"domestic_tmc": 0.19,
+"future_tmc": 0.64,
+"category": "critical",
+"stage_pct": 96.9,
+"extractable_mld": 199.4,
+"extraction_mld": 193.2,
+"future_mld": 49.7
+},
+"1": {
+"units": [
+"Bagalkote"
+],
+"extractable_tmc": 4.02,
+"extraction_tmc": 4.51,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 4.29,
+"domestic_tmc": 0.22,
+"future_tmc": 1.36,
+"category": "over_exploited",
+"stage_pct": 112.2,
+"extractable_mld": 311.9,
+"extraction_mld": 349.9,
+"future_mld": 105.5
+},
+"2": {
+"units": [
+"Bilagi"
+],
+"extractable_tmc": 1.81,
+"extraction_tmc": 1.03,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.88,
+"domestic_tmc": 0.15,
+"future_tmc": 1.15,
+"category": "safe",
+"stage_pct": 56.9,
+"extractable_mld": 140.4,
+"extraction_mld": 79.9,
+"future_mld": 89.2
+},
+"3": {
+"units": [
+"Guledagudda"
+],
+"extractable_tmc": 0.96,
+"extraction_tmc": 0.86,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.76,
+"domestic_tmc": 0.1,
+"future_tmc": 0.27,
+"category": "semi_critical",
+"stage_pct": 89.6,
+"extractable_mld": 74.5,
+"extraction_mld": 66.7,
+"future_mld": 20.9
+},
+"4": {
+"units": [
+"Hungund"
+],
+"extractable_tmc": 2.04,
+"extraction_tmc": 1.77,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.64,
+"domestic_tmc": 0.14,
+"future_tmc": 0.66,
+"category": "semi_critical",
+"stage_pct": 86.8,
+"extractable_mld": 158.3,
+"extraction_mld": 137.3,
+"future_mld": 51.2
+},
+"5": {
+"units": [
+"Ilkal"
+],
+"extractable_tmc": 1.58,
+"extraction_tmc": 1.18,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.03,
+"domestic_tmc": 0.14,
+"future_tmc": 0.55,
+"category": "semi_critical",
+"stage_pct": 74.7,
+"extractable_mld": 122.6,
+"extraction_mld": 91.5,
+"future_mld": 42.7
+},
+"6": {
+"units": [
+"Jamakhandi"
+],
+"extractable_tmc": 2.34,
+"extraction_tmc": 1.06,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.86,
+"domestic_tmc": 0.2,
+"future_tmc": 1.26,
+"category": "safe",
+"stage_pct": 45.3,
+"extractable_mld": 181.5,
+"extraction_mld": 82.2,
+"future_mld": 97.8
+},
+"7": {
+"units": [
+"Mudhol"
+],
+"extractable_tmc": 3.27,
+"extraction_tmc": 2.47,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 2.27,
+"domestic_tmc": 0.2,
+"future_tmc": 1.41,
+"category": "semi_critical",
+"stage_pct": 75.5,
+"extractable_mld": 253.7,
+"extraction_mld": 191.6,
+"future_mld": 109.4
+},
+"8": {
+"units": [
+"RABAKAVI BANAHATTI"
+],
+"extractable_tmc": 4.32,
+"extraction_tmc": 3.35,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 3.13,
+"domestic_tmc": 0.22,
+"future_tmc": 2.32,
+"category": "semi_critical",
+"stage_pct": 77.5,
+"extractable_mld": 335.1,
+"extraction_mld": 259.9,
+"future_mld": 180.0
+},
+"9": {
+"units": [
+"Ballari"
+],
+"extractable_tmc": 5.03,
+"extraction_tmc": 2.0,
+"industrial_tmc": 0.05,
+"irrigation_tmc": 1.76,
+"domestic_tmc": 0.19,
+"future_tmc": 3.01,
+"category": "safe",
+"stage_pct": 39.8,
+"extractable_mld": 390.2,
+"extraction_mld": 155.2,
+"future_mld": 233.5
+},
+"10": {
+"units": [
+"Kampli"
+],
+"extractable_tmc": 3.65,
+"extraction_tmc": 0.67,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.61,
+"domestic_tmc": 0.07,
+"future_tmc": 2.98,
+"category": "safe",
+"stage_pct": 18.4,
+"extractable_mld": 283.2,
+"extraction_mld": 52.0,
+"future_mld": 231.2
+},
+"11": {
+"units": [
+"Kurugodu"
+],
+"extractable_tmc": 3.72,
+"extraction_tmc": 0.51,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.44,
+"domestic_tmc": 0.08,
+"future_tmc": 3.32,
+"category": "safe",
+"stage_pct": 13.7,
+"extractable_mld": 288.6,
+"extraction_mld": 39.6,
+"future_mld": 257.6
+},
+"12": {
+"units": [
+"Sonduru"
+],
+"extractable_tmc": 2.88,
+"extraction_tmc": 1.91,
+"industrial_tmc": 0.08,
+"irrigation_tmc": 1.63,
+"domestic_tmc": 0.2,
+"future_tmc": 0.95,
+"category": "safe",
+"stage_pct": 66.3,
+"extractable_mld": 223.4,
+"extraction_mld": 148.2,
+"future_mld": 73.7
+},
+"13": {
+"units": [
+"Siraguppa"
+],
+"extractable_tmc": 6.57,
+"extraction_tmc": 0.91,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.75,
+"domestic_tmc": 0.16,
+"future_tmc": 5.66,
+"category": "safe",
+"stage_pct": 13.9,
+"extractable_mld": 509.7,
+"extraction_mld": 70.6,
+"future_mld": 439.1
+},
+"14": {
+"units": [
+"Athani"
+],
+"extractable_tmc": 2.16,
+"extraction_tmc": 1.53,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.18,
+"domestic_tmc": 0.35,
+"future_tmc": 0.91,
+"category": "semi_critical",
+"stage_pct": 70.8,
+"extractable_mld": 167.6,
+"extraction_mld": 118.7,
+"future_mld": 70.6
+},
+"15": {
+"units": [
+"Bailhongal"
+],
+"extractable_tmc": 1.94,
+"extraction_tmc": 2.19,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.93,
+"domestic_tmc": 0.26,
+"future_tmc": 0.02,
+"category": "over_exploited",
+"stage_pct": 112.9,
+"extractable_mld": 150.5,
+"extraction_mld": 169.9,
+"future_mld": 1.6
+},
+"16": {
+"units": [
+"Belagavi"
+],
+"extractable_tmc": 3.5,
+"extraction_tmc": 2.44,
+"industrial_tmc": 0.02,
+"irrigation_tmc": 1.64,
+"domestic_tmc": 0.78,
+"future_tmc": 0.96,
+"category": "safe",
+"stage_pct": 69.7,
+"extractable_mld": 271.5,
+"extraction_mld": 189.3,
+"future_mld": 74.5
+},
+"17": {
+"units": [
+"Chikkodi"
+],
+"extractable_tmc": 4.27,
+"extraction_tmc": 3.11,
+"industrial_tmc": 0.03,
+"irrigation_tmc": 2.75,
+"domestic_tmc": 0.33,
+"future_tmc": 1.39,
+"category": "semi_critical",
+"stage_pct": 72.8,
+"extractable_mld": 331.3,
+"extraction_mld": 241.3,
+"future_mld": 107.8
+},
+"18": {
+"units": [
+"Gokak"
+],
+"extractable_tmc": 2.46,
+"extraction_tmc": 1.83,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.43,
+"domestic_tmc": 0.4,
+"future_tmc": 0.59,
+"category": "semi_critical",
+"stage_pct": 74.4,
+"extractable_mld": 190.8,
+"extraction_mld": 142.0,
+"future_mld": 45.8
+},
+"19": {
+"units": [
+"Hukkeri"
+],
+"extractable_tmc": 4.0,
+"extraction_tmc": 3.49,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 3.17,
+"domestic_tmc": 0.31,
+"future_tmc": 1.16,
+"category": "semi_critical",
+"stage_pct": 87.2,
+"extractable_mld": 310.3,
+"extraction_mld": 270.8,
+"future_mld": 90.0
+},
+"20": {
+"units": [
+"Kagavada"
+],
+"extractable_tmc": 0.79,
+"extraction_tmc": 0.76,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.62,
+"domestic_tmc": 0.13,
+"future_tmc": 0.02,
+"category": "critical",
+"stage_pct": 96.2,
+"extractable_mld": 61.3,
+"extraction_mld": 59.0,
+"future_mld": 1.6
+},
+"21": {
+"units": [
+"Khanapur"
+],
+"extractable_tmc": 5.46,
+"extraction_tmc": 0.89,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.61,
+"domestic_tmc": 0.28,
+"future_tmc": 4.52,
+"category": "safe",
+"stage_pct": 16.3,
+"extractable_mld": 423.6,
+"extraction_mld": 69.0,
+"future_mld": 350.7
+},
+"22": {
+"units": [
+"Kitthuru"
+],
+"extractable_tmc": 1.06,
+"extraction_tmc": 0.57,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.45,
+"domestic_tmc": 0.12,
+"future_tmc": 0.47,
+"category": "safe",
+"stage_pct": 53.8,
+"extractable_mld": 82.2,
+"extraction_mld": 44.2,
+"future_mld": 36.5
+},
+"23": {
+"units": [
+"Mudalagi"
+],
+"extractable_tmc": 2.26,
+"extraction_tmc": 1.29,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.09,
+"domestic_tmc": 0.19,
+"future_tmc": 0.96,
+"category": "safe",
+"stage_pct": 57.1,
+"extractable_mld": 175.3,
+"extraction_mld": 100.1,
+"future_mld": 74.5
+},
+"24": {
+"units": [
+"Nippani"
+],
+"extractable_tmc": 3.12,
+"extraction_tmc": 1.92,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.66,
+"domestic_tmc": 0.25,
+"future_tmc": 1.42,
+"category": "safe",
+"stage_pct": 61.5,
+"extractable_mld": 242.1,
+"extraction_mld": 149.0,
+"future_mld": 110.2
+},
+"25": {
+"units": [
+"Ramadurg"
+],
+"extractable_tmc": 1.63,
+"extraction_tmc": 0.83,
+"industrial_tmc": 0.01,
+"irrigation_tmc": 0.57,
+"domestic_tmc": 0.25,
+"future_tmc": 0.76,
+"category": "safe",
+"stage_pct": 50.9,
+"extractable_mld": 126.5,
+"extraction_mld": 64.4,
+"future_mld": 59.0
+},
+"26": {
+"units": [
+"Raibag"
+],
+"extractable_tmc": 2.87,
+"extraction_tmc": 1.85,
+"industrial_tmc": 0.01,
+"irrigation_tmc": 1.49,
+"domestic_tmc": 0.34,
+"future_tmc": 0.99,
+"category": "safe",
+"stage_pct": 64.5,
+"extractable_mld": 222.7,
+"extraction_mld": 143.5,
+"future_mld": 76.8
+},
+"27": {
+"units": [
+"Savadatti",
+"Yaragatti"
+],
+"extractable_tmc": 4.79,
+"extraction_tmc": 4.59,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 4.25,
+"domestic_tmc": 0.35,
+"future_tmc": 0.28,
+"category": "critical",
+"stage_pct": 95.8,
+"extractable_mld": 371.6,
+"extraction_mld": 356.1,
+"future_mld": 21.7
+},
+"28": {
+"units": [
+"Devanahalli"
+],
+"extractable_tmc": 1.36,
+"extraction_tmc": 2.37,
+"industrial_tmc": 0.03,
+"irrigation_tmc": 2.15,
+"domestic_tmc": 0.19,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 174.3,
+"extractable_mld": 105.5,
+"extraction_mld": 183.9,
+"future_mld": 0.0
+},
+"29": {
+"units": [
+"Doddaballapura"
+],
+"extractable_tmc": 1.99,
+"extraction_tmc": 3.23,
+"industrial_tmc": 0.1,
+"irrigation_tmc": 2.85,
+"domestic_tmc": 0.28,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 162.3,
+"extractable_mld": 154.4,
+"extraction_mld": 250.6,
+"future_mld": 0.0
+},
+"30": {
+"units": [
+"Hoskote"
+],
+"extractable_tmc": 1.81,
+"extraction_tmc": 3.1,
+"industrial_tmc": 0.05,
+"irrigation_tmc": 2.79,
+"domestic_tmc": 0.26,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 171.3,
+"extractable_mld": 140.4,
+"extraction_mld": 240.5,
+"future_mld": 0.0
+},
+"31": {
+"units": [
+"Nelamangala"
+],
+"extractable_tmc": 1.48,
+"extraction_tmc": 1.53,
+"industrial_tmc": 0.12,
+"irrigation_tmc": 1.23,
+"domestic_tmc": 0.18,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 103.4,
+"extractable_mld": 114.8,
+"extraction_mld": 118.7,
+"future_mld": 0.0
+},
+"32": {
+"units": [
+"Anekal"
+],
+"extractable_tmc": 2.98,
+"extraction_tmc": 3.05,
+"industrial_tmc": 0.94,
+"irrigation_tmc": 1.84,
+"domestic_tmc": 0.27,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 102.3,
+"extractable_mld": 231.2,
+"extraction_mld": 236.6,
+"future_mld": 0.0
+},
+"33": {
+"units": [
+"Bangalore-East"
+],
+"extractable_tmc": 0.87,
+"extraction_tmc": 1.77,
+"industrial_tmc": 0.28,
+"irrigation_tmc": 1.42,
+"domestic_tmc": 0.06,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 203.4,
+"extractable_mld": 67.5,
+"extraction_mld": 137.3,
+"future_mld": 0.0
+},
+"34": {
+"units": [
+"Bangalore (North)"
+],
+"extractable_tmc": 0.57,
+"extraction_tmc": 1.18,
+"industrial_tmc": 0.04,
+"irrigation_tmc": 1.06,
+"domestic_tmc": 0.08,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 207.0,
+"extractable_mld": 44.2,
+"extraction_mld": 91.5,
+"future_mld": 0.0
+},
+"35": {
+"units": [
+"Bangalore City",
+"Bangalore-South"
+],
+"extractable_tmc": 2.27,
+"extraction_tmc": 3.44,
+"industrial_tmc": 1.28,
+"irrigation_tmc": 1.46,
+"domestic_tmc": 0.7,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 151.5,
+"extractable_mld": 176.1,
+"extraction_mld": 266.9,
+"future_mld": 0.0
+},
+"36": {
+"units": [
+"Yelahanka"
+],
+"extractable_tmc": 0.85,
+"extraction_tmc": 1.92,
+"industrial_tmc": 0.3,
+"irrigation_tmc": 1.5,
+"domestic_tmc": 0.12,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 225.9,
+"extractable_mld": 65.9,
+"extraction_mld": 149.0,
+"future_mld": 0.0
+},
+"37": {
+"units": [
+"Aurad"
+],
+"extractable_tmc": 1.67,
+"extraction_tmc": 0.72,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.58,
+"domestic_tmc": 0.14,
+"future_tmc": 0.95,
+"category": "safe",
+"stage_pct": 43.1,
+"extractable_mld": 129.6,
+"extraction_mld": 55.9,
+"future_mld": 73.7
+},
+"38": {
+"units": [
+"Basavakalyan"
+],
+"extractable_tmc": 1.9,
+"extraction_tmc": 1.02,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.78,
+"domestic_tmc": 0.25,
+"future_tmc": 0.88,
+"category": "safe",
+"stage_pct": 53.7,
+"extractable_mld": 147.4,
+"extraction_mld": 79.1,
+"future_mld": 68.3
+},
+"39": {
+"units": [
+"Bhalki"
+],
+"extractable_tmc": 2.61,
+"extraction_tmc": 1.85,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.6,
+"domestic_tmc": 0.25,
+"future_tmc": 0.75,
+"category": "semi_critical",
+"stage_pct": 70.9,
+"extractable_mld": 202.5,
+"extraction_mld": 143.5,
+"future_mld": 58.2
+},
+"40": {
+"units": [
+"Bidar"
+],
+"extractable_tmc": 2.07,
+"extraction_tmc": 1.25,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.75,
+"domestic_tmc": 0.5,
+"future_tmc": 0.8,
+"category": "safe",
+"stage_pct": 60.4,
+"extractable_mld": 160.6,
+"extraction_mld": 97.0,
+"future_mld": 62.1
+},
+"41": {
+"units": [
+"Chittaguppa"
+],
+"extractable_tmc": 0.92,
+"extraction_tmc": 0.54,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.42,
+"domestic_tmc": 0.12,
+"future_tmc": 0.38,
+"category": "safe",
+"stage_pct": 58.7,
+"extractable_mld": 71.4,
+"extraction_mld": 41.9,
+"future_mld": 29.5
+},
+"42": {
+"units": [
+"Humnabad"
+],
+"extractable_tmc": 1.11,
+"extraction_tmc": 0.56,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.41,
+"domestic_tmc": 0.15,
+"future_tmc": 0.55,
+"category": "safe",
+"stage_pct": 50.5,
+"extractable_mld": 86.1,
+"extraction_mld": 43.4,
+"future_mld": 42.7
+},
+"43": {
+"units": [
+"Hulasuru"
+],
+"extractable_tmc": 0.61,
+"extraction_tmc": 0.46,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.46,
+"domestic_tmc": 0.0,
+"future_tmc": 0.14,
+"category": "semi_critical",
+"stage_pct": 75.4,
+"extractable_mld": 47.3,
+"extraction_mld": 35.7,
+"future_mld": 10.9
+},
+"44": {
+"units": [
+"Kamalanagara"
+],
+"extractable_tmc": 1.06,
+"extraction_tmc": 0.6,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.51,
+"domestic_tmc": 0.1,
+"future_tmc": 0.46,
+"category": "safe",
+"stage_pct": 56.6,
+"extractable_mld": 82.2,
+"extraction_mld": 46.5,
+"future_mld": 35.7
+},
+"45": {
+"units": [
+"Chamarajanagara"
+],
+"extractable_tmc": 4.26,
+"extraction_tmc": 4.23,
+"industrial_tmc": 0.01,
+"irrigation_tmc": 3.92,
+"domestic_tmc": 0.3,
+"future_tmc": 0.08,
+"category": "critical",
+"stage_pct": 99.3,
+"extractable_mld": 330.5,
+"extraction_mld": 328.2,
+"future_mld": 6.2
+},
+"46": {
+"units": [
+"Gundlupet"
+],
+"extractable_tmc": 2.88,
+"extraction_tmc": 3.37,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 3.15,
+"domestic_tmc": 0.21,
+"future_tmc": 0.02,
+"category": "over_exploited",
+"stage_pct": 117.0,
+"extractable_mld": 223.4,
+"extraction_mld": 261.4,
+"future_mld": 1.6
+},
+"47": {
+"units": [
+"Kollegala (Hanur)"
+],
+"extractable_tmc": 2.42,
+"extraction_tmc": 1.94,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.8,
+"domestic_tmc": 0.14,
+"future_tmc": 0.46,
+"category": "semi_critical",
+"stage_pct": 80.2,
+"extractable_mld": 187.7,
+"extraction_mld": 150.5,
+"future_mld": 35.7
+},
+"48": {
+"units": [
+"Kollegala"
+],
+"extractable_tmc": 1.93,
+"extraction_tmc": 1.67,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.45,
+"domestic_tmc": 0.21,
+"future_tmc": 0.67,
+"category": "semi_critical",
+"stage_pct": 86.5,
+"extractable_mld": 149.7,
+"extraction_mld": 129.6,
+"future_mld": 52.0
+},
+"49": {
+"units": [
+"Yalandur"
+],
+"extractable_tmc": 1.3,
+"extraction_tmc": 1.15,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.07,
+"domestic_tmc": 0.08,
+"future_tmc": 0.14,
+"category": "semi_critical",
+"stage_pct": 88.5,
+"extractable_mld": 100.9,
+"extraction_mld": 89.2,
+"future_mld": 10.9
+},
+"50": {
+"units": [
+"Bagepalli"
+],
+"extractable_tmc": 2.22,
+"extraction_tmc": 2.8,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 2.66,
+"domestic_tmc": 0.14,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 126.1,
+"extractable_mld": 172.2,
+"extraction_mld": 217.2,
+"future_mld": 0.0
+},
+"51": {
+"units": [
+"Chikballapur"
+],
+"extractable_tmc": 1.52,
+"extraction_tmc": 2.56,
+"industrial_tmc": 0.02,
+"irrigation_tmc": 2.36,
+"domestic_tmc": 0.19,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 168.4,
+"extractable_mld": 117.9,
+"extraction_mld": 198.6,
+"future_mld": 0.0
+},
+"52": {
+"units": [
+"Chinthamani"
+],
+"extractable_tmc": 2.45,
+"extraction_tmc": 4.56,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 4.3,
+"domestic_tmc": 0.26,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 186.1,
+"extractable_mld": 190.1,
+"extraction_mld": 353.8,
+"future_mld": 0.0
+},
+"53": {
+"units": [
+"Gauribidanur"
+],
+"extractable_tmc": 2.43,
+"extraction_tmc": 3.84,
+"industrial_tmc": 0.01,
+"irrigation_tmc": 3.58,
+"domestic_tmc": 0.25,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 158.0,
+"extractable_mld": 188.5,
+"extraction_mld": 297.9,
+"future_mld": 0.0
+},
+"54": {
+"units": [
+"Gudibande"
+],
+"extractable_tmc": 0.48,
+"extraction_tmc": 0.49,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.45,
+"domestic_tmc": 0.04,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 102.1,
+"extractable_mld": 37.2,
+"extraction_mld": 38.0,
+"future_mld": 0.0
+},
+"55": {
+"units": [
+"Shidlagatta"
+],
+"extractable_tmc": 1.97,
+"extraction_tmc": 2.78,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 2.59,
+"domestic_tmc": 0.19,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 141.1,
+"extractable_mld": 152.8,
+"extraction_mld": 215.7,
+"future_mld": 0.0
+},
+"56": {
+"units": [
+"Ajjampura"
+],
+"extractable_tmc": 1.73,
+"extraction_tmc": 2.11,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 2.04,
+"domestic_tmc": 0.07,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 122.0,
+"extractable_mld": 134.2,
+"extraction_mld": 163.7,
+"future_mld": 0.0
+},
+"57": {
+"units": [
+"Chikmagalur"
+],
+"extractable_tmc": 4.22,
+"extraction_tmc": 2.04,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.76,
+"domestic_tmc": 0.28,
+"future_tmc": 2.14,
+"category": "safe",
+"stage_pct": 48.3,
+"extractable_mld": 327.4,
+"extraction_mld": 158.3,
+"future_mld": 166.0
+},
+"58": {
+"units": [
+"Kadur"
+],
+"extractable_tmc": 3.23,
+"extraction_tmc": 3.6,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 3.4,
+"domestic_tmc": 0.2,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 111.5,
+"extractable_mld": 250.6,
+"extraction_mld": 279.3,
+"future_mld": 0.0
+},
+"59": {
+"units": [
+"Koppa"
+],
+"extractable_tmc": 2.34,
+"extraction_tmc": 0.44,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.38,
+"domestic_tmc": 0.06,
+"future_tmc": 1.9,
+"category": "safe",
+"stage_pct": 18.8,
+"extractable_mld": 181.5,
+"extraction_mld": 34.1,
+"future_mld": 147.4
+},
+"60": {
+"units": [
+"Kalasa",
+"Mudigere"
+],
+"extractable_tmc": 2.89,
+"extraction_tmc": 0.51,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.42,
+"domestic_tmc": 0.08,
+"future_tmc": 2.38,
+"category": "safe",
+"stage_pct": 17.6,
+"extractable_mld": 224.2,
+"extraction_mld": 39.6,
+"future_mld": 184.6
+},
+"61": {
+"units": [
+"Narasimharajapura"
+],
+"extractable_tmc": 2.39,
+"extraction_tmc": 0.43,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.38,
+"domestic_tmc": 0.05,
+"future_tmc": 1.96,
+"category": "safe",
+"stage_pct": 18.0,
+"extractable_mld": 185.4,
+"extraction_mld": 33.4,
+"future_mld": 152.1
+},
+"62": {
+"units": [
+"Sringeri"
+],
+"extractable_tmc": 1.46,
+"extraction_tmc": 0.27,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.25,
+"domestic_tmc": 0.02,
+"future_tmc": 1.18,
+"category": "safe",
+"stage_pct": 18.5,
+"extractable_mld": 113.3,
+"extraction_mld": 20.9,
+"future_mld": 91.5
+},
+"63": {
+"units": [
+"Tarikere"
+],
+"extractable_tmc": 3.93,
+"extraction_tmc": 2.42,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 2.3,
+"domestic_tmc": 0.12,
+"future_tmc": 1.5,
+"category": "safe",
+"stage_pct": 61.6,
+"extractable_mld": 304.9,
+"extraction_mld": 187.7,
+"future_mld": 116.4
+},
+"64": {
+"units": [
+"Challakere"
+],
+"extractable_tmc": 3.09,
+"extraction_tmc": 3.78,
+"industrial_tmc": 0.01,
+"irrigation_tmc": 3.47,
+"domestic_tmc": 0.3,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 122.3,
+"extractable_mld": 239.7,
+"extraction_mld": 293.3,
+"future_mld": 0.0
+},
+"65": {
+"units": [
+"Chitradurga"
+],
+"extractable_tmc": 2.11,
+"extraction_tmc": 2.83,
+"industrial_tmc": 0.01,
+"irrigation_tmc": 2.47,
+"domestic_tmc": 0.35,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 134.1,
+"extractable_mld": 163.7,
+"extraction_mld": 219.6,
+"future_mld": 0.0
+},
+"66": {
+"units": [
+"Hiriyur"
+],
+"extractable_tmc": 3.83,
+"extraction_tmc": 4.65,
+"industrial_tmc": 0.01,
+"irrigation_tmc": 4.41,
+"domestic_tmc": 0.24,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 121.4,
+"extractable_mld": 297.1,
+"extraction_mld": 360.8,
+"future_mld": 0.0
+},
+"67": {
+"units": [
+"Holalkere"
+],
+"extractable_tmc": 2.11,
+"extraction_tmc": 4.07,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 3.9,
+"domestic_tmc": 0.17,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 192.9,
+"extractable_mld": 163.7,
+"extraction_mld": 315.8,
+"future_mld": 0.0
+},
+"68": {
+"units": [
+"Hosadurga"
+],
+"extractable_tmc": 2.61,
+"extraction_tmc": 3.51,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 3.31,
+"domestic_tmc": 0.19,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 134.5,
+"extractable_mld": 202.5,
+"extraction_mld": 272.3,
+"future_mld": 0.0
+},
+"69": {
+"units": [
+"Molakalmuru"
+],
+"extractable_tmc": 1.02,
+"extraction_tmc": 0.69,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.57,
+"domestic_tmc": 0.12,
+"future_tmc": 0.33,
+"category": "safe",
+"stage_pct": 67.6,
+"extractable_mld": 79.1,
+"extraction_mld": 53.5,
+"future_mld": 25.6
+},
+"70": {
+"units": [
+"Bantwal"
+],
+"extractable_tmc": 5.19,
+"extraction_tmc": 2.54,
+"industrial_tmc": 0.01,
+"irrigation_tmc": 2.22,
+"domestic_tmc": 0.31,
+"future_tmc": 2.64,
+"category": "safe",
+"stage_pct": 48.9,
+"extractable_mld": 402.6,
+"extraction_mld": 197.1,
+"future_mld": 204.8
+},
+"71": {
+"units": [
+"Belthangady"
+],
+"extractable_tmc": 5.75,
+"extraction_tmc": 2.61,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 2.4,
+"domestic_tmc": 0.21,
+"future_tmc": 3.13,
+"category": "safe",
+"stage_pct": 45.4,
+"extractable_mld": 446.1,
+"extraction_mld": 202.5,
+"future_mld": 242.8
+},
+"72": {
+"units": [
+"Kadaba"
+],
+"extractable_tmc": 2.79,
+"extraction_tmc": 0.98,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.88,
+"domestic_tmc": 0.09,
+"future_tmc": 1.81,
+"category": "safe",
+"stage_pct": 35.1,
+"extractable_mld": 216.5,
+"extraction_mld": 76.0,
+"future_mld": 140.4
+},
+"73": {
+"units": [
+"Mangalore"
+],
+"extractable_tmc": 3.99,
+"extraction_tmc": 1.86,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.04,
+"domestic_tmc": 0.81,
+"future_tmc": 2.05,
+"category": "safe",
+"stage_pct": 46.6,
+"extractable_mld": 309.5,
+"extraction_mld": 144.3,
+"future_mld": 159.0
+},
+"74": {
+"units": [
+"Mudabidri"
+],
+"extractable_tmc": 1.96,
+"extraction_tmc": 0.72,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.62,
+"domestic_tmc": 0.1,
+"future_tmc": 1.24,
+"category": "safe",
+"stage_pct": 36.7,
+"extractable_mld": 152.1,
+"extraction_mld": 55.9,
+"future_mld": 96.2
+},
+"75": {
+"units": [
+"Puttur"
+],
+"extractable_tmc": 1.99,
+"extraction_tmc": 0.83,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.64,
+"domestic_tmc": 0.18,
+"future_tmc": 1.15,
+"category": "safe",
+"stage_pct": 41.7,
+"extractable_mld": 154.4,
+"extraction_mld": 64.4,
+"future_mld": 89.2
+},
+"76": {
+"units": [
+"Sulya"
+],
+"extractable_tmc": 1.64,
+"extraction_tmc": 0.91,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.79,
+"domestic_tmc": 0.12,
+"future_tmc": 0.73,
+"category": "safe",
+"stage_pct": 55.5,
+"extractable_mld": 127.2,
+"extraction_mld": 70.6,
+"future_mld": 56.6
+},
+"77": {
+"units": [
+"Channagiri"
+],
+"extractable_tmc": 4.5,
+"extraction_tmc": 5.56,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 5.32,
+"domestic_tmc": 0.23,
+"future_tmc": 0.63,
+"category": "over_exploited",
+"stage_pct": 123.6,
+"extractable_mld": 349.1,
+"extraction_mld": 431.3,
+"future_mld": 48.9
+},
+"78": {
+"units": [
+"Davanagere"
+],
+"extractable_tmc": 3.35,
+"extraction_tmc": 3.34,
+"industrial_tmc": 0.06,
+"irrigation_tmc": 2.76,
+"domestic_tmc": 0.53,
+"future_tmc": 0.81,
+"category": "critical",
+"stage_pct": 99.7,
+"extractable_mld": 259.9,
+"extraction_mld": 259.1,
+"future_mld": 62.8
+},
+"79": {
+"units": [
+"Harihar"
+],
+"extractable_tmc": 5.54,
+"extraction_tmc": 3.5,
+"industrial_tmc": 0.01,
+"irrigation_tmc": 3.28,
+"domestic_tmc": 0.21,
+"future_tmc": 2.21,
+"category": "safe",
+"stage_pct": 63.2,
+"extractable_mld": 429.8,
+"extraction_mld": 271.5,
+"future_mld": 171.5
+},
+"80": {
+"units": [
+"Honnali"
+],
+"extractable_tmc": 2.56,
+"extraction_tmc": 1.77,
+"industrial_tmc": 0.01,
+"irrigation_tmc": 1.65,
+"domestic_tmc": 0.12,
+"future_tmc": 1.36,
+"category": "safe",
+"stage_pct": 69.1,
+"extractable_mld": 198.6,
+"extraction_mld": 137.3,
+"future_mld": 105.5
+},
+"81": {
+"units": [
+"Jagaluru"
+],
+"extractable_tmc": 1.47,
+"extraction_tmc": 2.09,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.96,
+"domestic_tmc": 0.13,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 142.2,
+"extractable_mld": 114.0,
+"extraction_mld": 162.1,
+"future_mld": 0.0
+},
+"82": {
+"units": [
+"Nyamati"
+],
+"extractable_tmc": 2.48,
+"extraction_tmc": 1.43,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.36,
+"domestic_tmc": 0.06,
+"future_tmc": 1.51,
+"category": "safe",
+"stage_pct": 57.7,
+"extractable_mld": 192.4,
+"extraction_mld": 110.9,
+"future_mld": 117.1
+},
+"83": {
+"units": [
+"Alnavara"
+],
+"extractable_tmc": 0.88,
+"extraction_tmc": 0.33,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.3,
+"domestic_tmc": 0.03,
+"future_tmc": 0.55,
+"category": "safe",
+"stage_pct": 37.5,
+"extractable_mld": 68.3,
+"extraction_mld": 25.6,
+"future_mld": 42.7
+},
+"84": {
+"units": [
+"ANNIGERI"
+],
+"extractable_tmc": 0.88,
+"extraction_tmc": 0.58,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.52,
+"domestic_tmc": 0.07,
+"future_tmc": 0.29,
+"category": "safe",
+"stage_pct": 65.9,
+"extractable_mld": 68.3,
+"extraction_mld": 45.0,
+"future_mld": 22.5
+},
+"85": {
+"units": [
+"Dharwad"
+],
+"extractable_tmc": 2.59,
+"extraction_tmc": 1.43,
+"industrial_tmc": 0.01,
+"irrigation_tmc": 1.33,
+"domestic_tmc": 0.09,
+"future_tmc": 1.15,
+"category": "safe",
+"stage_pct": 55.2,
+"extractable_mld": 200.9,
+"extraction_mld": 110.9,
+"future_mld": 89.2
+},
+"86": {
+"units": [
+"Hubli"
+],
+"extractable_tmc": 1.19,
+"extraction_tmc": 0.75,
+"industrial_tmc": 0.01,
+"irrigation_tmc": 0.62,
+"domestic_tmc": 0.12,
+"future_tmc": 0.44,
+"category": "safe",
+"stage_pct": 63.0,
+"extractable_mld": 92.3,
+"extraction_mld": 58.2,
+"future_mld": 34.1
+},
+"87": {
+"units": [
+"Hubballi Nagara"
+],
+"extractable_tmc": 0.34,
+"extraction_tmc": 0.15,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.05,
+"domestic_tmc": 0.1,
+"future_tmc": 0.19,
+"category": "safe",
+"stage_pct": 44.1,
+"extractable_mld": 26.4,
+"extraction_mld": 11.6,
+"future_mld": 14.7
+},
+"88": {
+"units": [
+"Kalgatgi"
+],
+"extractable_tmc": 1.53,
+"extraction_tmc": 0.87,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.75,
+"domestic_tmc": 0.12,
+"future_tmc": 0.65,
+"category": "safe",
+"stage_pct": 56.9,
+"extractable_mld": 118.7,
+"extraction_mld": 67.5,
+"future_mld": 50.4
+},
+"89": {
+"units": [
+"Kundgol"
+],
+"extractable_tmc": 1.35,
+"extraction_tmc": 0.72,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.72,
+"domestic_tmc": 0.0,
+"future_tmc": 0.63,
+"category": "safe",
+"stage_pct": 53.3,
+"extractable_mld": 104.7,
+"extraction_mld": 55.9,
+"future_mld": 48.9
+},
+"90": {
+"units": [
+"Navalgund"
+],
+"extractable_tmc": 1.5,
+"extraction_tmc": 0.93,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.85,
+"domestic_tmc": 0.08,
+"future_tmc": 0.57,
+"category": "safe",
+"stage_pct": 62.0,
+"extractable_mld": 116.4,
+"extraction_mld": 72.2,
+"future_mld": 44.2
+},
+"91": {
+"units": [
+"Gadag"
+],
+"extractable_tmc": 2.91,
+"extraction_tmc": 2.25,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 2.17,
+"domestic_tmc": 0.08,
+"future_tmc": 0.65,
+"category": "semi_critical",
+"stage_pct": 77.3,
+"extractable_mld": 225.8,
+"extraction_mld": 174.6,
+"future_mld": 50.4
+},
+"92": {
+"units": [
+"Gajendragad"
+],
+"extractable_tmc": 0.76,
+"extraction_tmc": 0.93,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.9,
+"domestic_tmc": 0.03,
+"future_tmc": 0.01,
+"category": "over_exploited",
+"stage_pct": 122.4,
+"extractable_mld": 59.0,
+"extraction_mld": 72.2,
+"future_mld": 0.8
+},
+"93": {
+"units": [
+"Laxmeshwar"
+],
+"extractable_tmc": 0.99,
+"extraction_tmc": 0.61,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.58,
+"domestic_tmc": 0.02,
+"future_tmc": 0.38,
+"category": "safe",
+"stage_pct": 61.6,
+"extractable_mld": 76.8,
+"extraction_mld": 47.3,
+"future_mld": 29.5
+},
+"94": {
+"units": [
+"Mundargi"
+],
+"extractable_tmc": 3.08,
+"extraction_tmc": 2.4,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 2.37,
+"domestic_tmc": 0.03,
+"future_tmc": 0.68,
+"category": "semi_critical",
+"stage_pct": 77.9,
+"extractable_mld": 238.9,
+"extraction_mld": 186.2,
+"future_mld": 52.8
+},
+"95": {
+"units": [
+"Naragund"
+],
+"extractable_tmc": 1.25,
+"extraction_tmc": 0.41,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.39,
+"domestic_tmc": 0.02,
+"future_tmc": 0.84,
+"category": "safe",
+"stage_pct": 32.8,
+"extractable_mld": 97.0,
+"extraction_mld": 31.8,
+"future_mld": 65.2
+},
+"96": {
+"units": [
+"Rona"
+],
+"extractable_tmc": 1.32,
+"extraction_tmc": 1.2,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.16,
+"domestic_tmc": 0.04,
+"future_tmc": 0.15,
+"category": "critical",
+"stage_pct": 90.9,
+"extractable_mld": 102.4,
+"extraction_mld": 93.1,
+"future_mld": 11.6
+},
+"97": {
+"units": [
+"Shirahatti"
+],
+"extractable_tmc": 1.09,
+"extraction_tmc": 0.72,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.7,
+"domestic_tmc": 0.02,
+"future_tmc": 0.37,
+"category": "safe",
+"stage_pct": 66.1,
+"extractable_mld": 84.6,
+"extraction_mld": 55.9,
+"future_mld": 28.7
+},
+"98": {
+"units": [
+"Alur"
+],
+"extractable_tmc": 1.7,
+"extraction_tmc": 0.58,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.53,
+"domestic_tmc": 0.06,
+"future_tmc": 1.12,
+"category": "safe",
+"stage_pct": 34.1,
+"extractable_mld": 131.9,
+"extraction_mld": 45.0,
+"future_mld": 86.9
+},
+"99": {
+"units": [
+"Arkalgud"
+],
+"extractable_tmc": 2.9,
+"extraction_tmc": 1.34,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.19,
+"domestic_tmc": 0.16,
+"future_tmc": 1.56,
+"category": "safe",
+"stage_pct": 46.2,
+"extractable_mld": 225.0,
+"extraction_mld": 104.0,
+"future_mld": 121.0
+},
+"100": {
+"units": [
+"Arsikere"
+],
+"extractable_tmc": 3.06,
+"extraction_tmc": 4.19,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 3.97,
+"domestic_tmc": 0.22,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 136.9,
+"extractable_mld": 237.4,
+"extraction_mld": 325.1,
+"future_mld": 0.0
+},
+"101": {
+"units": [
+"Belur"
+],
+"extractable_tmc": 2.84,
+"extraction_tmc": 1.63,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.52,
+"domestic_tmc": 0.11,
+"future_tmc": 1.2,
+"category": "safe",
+"stage_pct": 57.4,
+"extractable_mld": 220.3,
+"extraction_mld": 126.5,
+"future_mld": 93.1
+},
+"102": {
+"units": [
+"Channarayapatna"
+],
+"extractable_tmc": 4.96,
+"extraction_tmc": 4.83,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 4.67,
+"domestic_tmc": 0.16,
+"future_tmc": 1.17,
+"category": "critical",
+"stage_pct": 97.4,
+"extractable_mld": 384.8,
+"extraction_mld": 374.7,
+"future_mld": 90.8
+},
+"103": {
+"units": [
+"Hassan"
+],
+"extractable_tmc": 3.93,
+"extraction_tmc": 2.5,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 2.35,
+"domestic_tmc": 0.15,
+"future_tmc": 1.62,
+"category": "safe",
+"stage_pct": 63.6,
+"extractable_mld": 304.9,
+"extraction_mld": 194.0,
+"future_mld": 125.7
+},
+"104": {
+"units": [
+"Holenarasipura"
+],
+"extractable_tmc": 3.38,
+"extraction_tmc": 2.27,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 2.13,
+"domestic_tmc": 0.14,
+"future_tmc": 1.53,
+"category": "safe",
+"stage_pct": 67.2,
+"extractable_mld": 262.2,
+"extraction_mld": 176.1,
+"future_mld": 118.7
+},
+"105": {
+"units": [
+"Sakleshpura"
+],
+"extractable_tmc": 2.43,
+"extraction_tmc": 0.64,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.56,
+"domestic_tmc": 0.07,
+"future_tmc": 1.79,
+"category": "safe",
+"stage_pct": 26.3,
+"extractable_mld": 188.5,
+"extraction_mld": 49.7,
+"future_mld": 138.9
+},
+"106": {
+"units": [
+"Byadagi"
+],
+"extractable_tmc": 1.54,
+"extraction_tmc": 1.27,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.25,
+"domestic_tmc": 0.02,
+"future_tmc": 0.27,
+"category": "semi_critical",
+"stage_pct": 82.5,
+"extractable_mld": 119.5,
+"extraction_mld": 98.5,
+"future_mld": 20.9
+},
+"107": {
+"units": [
+"Hangal"
+],
+"extractable_tmc": 4.32,
+"extraction_tmc": 2.13,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.96,
+"domestic_tmc": 0.17,
+"future_tmc": 2.16,
+"category": "safe",
+"stage_pct": 49.3,
+"extractable_mld": 335.1,
+"extraction_mld": 165.2,
+"future_mld": 167.6
+},
+"108": {
+"units": [
+"Haveri"
+],
+"extractable_tmc": 3.23,
+"extraction_tmc": 1.82,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.71,
+"domestic_tmc": 0.11,
+"future_tmc": 1.54,
+"category": "safe",
+"stage_pct": 56.3,
+"extractable_mld": 250.6,
+"extraction_mld": 141.2,
+"future_mld": 119.5
+},
+"109": {
+"units": [
+"Hirekerur"
+],
+"extractable_tmc": 1.49,
+"extraction_tmc": 1.14,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.06,
+"domestic_tmc": 0.09,
+"future_tmc": 0.35,
+"category": "semi_critical",
+"stage_pct": 76.5,
+"extractable_mld": 115.6,
+"extraction_mld": 88.4,
+"future_mld": 27.2
+},
+"110": {
+"units": [
+"Ranebennur"
+],
+"extractable_tmc": 4.87,
+"extraction_tmc": 3.05,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 2.99,
+"domestic_tmc": 0.06,
+"future_tmc": 2.19,
+"category": "safe",
+"stage_pct": 62.6,
+"extractable_mld": 377.8,
+"extraction_mld": 236.6,
+"future_mld": 169.9
+},
+"111": {
+"units": [
+"Ratteehalli"
+],
+"extractable_tmc": 1.51,
+"extraction_tmc": 1.24,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.22,
+"domestic_tmc": 0.02,
+"future_tmc": 0.56,
+"category": "semi_critical",
+"stage_pct": 82.1,
+"extractable_mld": 117.1,
+"extraction_mld": 96.2,
+"future_mld": 43.4
+},
+"112": {
+"units": [
+"Savanur"
+],
+"extractable_tmc": 1.92,
+"extraction_tmc": 0.97,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.87,
+"domestic_tmc": 0.09,
+"future_tmc": 0.96,
+"category": "safe",
+"stage_pct": 50.5,
+"extractable_mld": 149.0,
+"extraction_mld": 75.3,
+"future_mld": 74.5
+},
+"113": {
+"units": [
+"Shiggaon"
+],
+"extractable_tmc": 2.03,
+"extraction_tmc": 1.13,
+"industrial_tmc": 0.02,
+"irrigation_tmc": 0.99,
+"domestic_tmc": 0.12,
+"future_tmc": 0.9,
+"category": "safe",
+"stage_pct": 55.7,
+"extractable_mld": 157.5,
+"extraction_mld": 87.7,
+"future_mld": 69.8
+},
+"114": {
+"units": [
+"Afzalpur"
+],
+"extractable_tmc": 2.32,
+"extraction_tmc": 1.94,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.73,
+"domestic_tmc": 0.21,
+"future_tmc": 0.43,
+"category": "semi_critical",
+"stage_pct": 83.6,
+"extractable_mld": 180.0,
+"extraction_mld": 150.5,
+"future_mld": 33.4
+},
+"115": {
+"units": [
+"Aland"
+],
+"extractable_tmc": 3.99,
+"extraction_tmc": 2.18,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.91,
+"domestic_tmc": 0.28,
+"future_tmc": 1.79,
+"category": "safe",
+"stage_pct": 54.6,
+"extractable_mld": 309.5,
+"extraction_mld": 169.1,
+"future_mld": 138.9
+},
+"116": {
+"units": [
+"Chincholi"
+],
+"extractable_tmc": 3.02,
+"extraction_tmc": 0.75,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.57,
+"domestic_tmc": 0.18,
+"future_tmc": 2.26,
+"category": "safe",
+"stage_pct": 24.8,
+"extractable_mld": 234.3,
+"extraction_mld": 58.2,
+"future_mld": 175.3
+},
+"117": {
+"units": [
+"Chittapur"
+],
+"extractable_tmc": 2.24,
+"extraction_tmc": 0.71,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.48,
+"domestic_tmc": 0.23,
+"future_tmc": 1.52,
+"category": "safe",
+"stage_pct": 31.7,
+"extractable_mld": 173.8,
+"extraction_mld": 55.1,
+"future_mld": 117.9
+},
+"118": {
+"units": [
+"Jevargi"
+],
+"extractable_tmc": 2.45,
+"extraction_tmc": 0.58,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.41,
+"domestic_tmc": 0.18,
+"future_tmc": 1.91,
+"category": "safe",
+"stage_pct": 23.7,
+"extractable_mld": 190.1,
+"extraction_mld": 45.0,
+"future_mld": 148.2
+},
+"119": {
+"units": [
+"Gulbarga"
+],
+"extractable_tmc": 2.64,
+"extraction_tmc": 1.7,
+"industrial_tmc": 0.01,
+"irrigation_tmc": 0.79,
+"domestic_tmc": 0.91,
+"future_tmc": 0.86,
+"category": "safe",
+"stage_pct": 64.4,
+"extractable_mld": 204.8,
+"extraction_mld": 131.9,
+"future_mld": 66.7
+},
+"120": {
+"units": [
+"Kalagi"
+],
+"extractable_tmc": 1.34,
+"extraction_tmc": 0.28,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.19,
+"domestic_tmc": 0.09,
+"future_tmc": 1.06,
+"category": "safe",
+"stage_pct": 20.9,
+"extractable_mld": 104.0,
+"extraction_mld": 21.7,
+"future_mld": 82.2
+},
+"121": {
+"units": [
+"Kamalapura"
+],
+"extractable_tmc": 1.38,
+"extraction_tmc": 0.42,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.31,
+"domestic_tmc": 0.11,
+"future_tmc": 0.96,
+"category": "safe",
+"stage_pct": 30.4,
+"extractable_mld": 107.1,
+"extraction_mld": 32.6,
+"future_mld": 74.5
+},
+"122": {
+"units": [
+"Sedam"
+],
+"extractable_tmc": 2.17,
+"extraction_tmc": 0.49,
+"industrial_tmc": 0.01,
+"irrigation_tmc": 0.3,
+"domestic_tmc": 0.19,
+"future_tmc": 1.67,
+"category": "safe",
+"stage_pct": 22.6,
+"extractable_mld": 168.4,
+"extraction_mld": 38.0,
+"future_mld": 129.6
+},
+"123": {
+"units": [
+"Shahbadha"
+],
+"extractable_tmc": 0.38,
+"extraction_tmc": 0.19,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.08,
+"domestic_tmc": 0.11,
+"future_tmc": 0.21,
+"category": "safe",
+"stage_pct": 50.0,
+"extractable_mld": 29.5,
+"extraction_mld": 14.7,
+"future_mld": 16.3
+},
+"124": {
+"units": [
+"Yadrami"
+],
+"extractable_tmc": 1.13,
+"extraction_tmc": 0.22,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.17,
+"domestic_tmc": 0.06,
+"future_tmc": 0.9,
+"category": "safe",
+"stage_pct": 19.5,
+"extractable_mld": 87.7,
+"extraction_mld": 17.1,
+"future_mld": 69.8
+},
+"125": {
+"units": [
+"Madikeri"
+],
+"extractable_tmc": 1.71,
+"extraction_tmc": 0.47,
+"industrial_tmc": 0.01,
+"irrigation_tmc": 0.4,
+"domestic_tmc": 0.07,
+"future_tmc": 1.23,
+"category": "safe",
+"stage_pct": 27.5,
+"extractable_mld": 132.7,
+"extraction_mld": 36.5,
+"future_mld": 95.4
+},
+"126": {
+"units": [
+"Kushalanagara",
+"Somavarapete"
+],
+"extractable_tmc": 2.61,
+"extraction_tmc": 1.65,
+"industrial_tmc": 0.01,
+"irrigation_tmc": 1.51,
+"domestic_tmc": 0.12,
+"future_tmc": 0.97,
+"category": "safe",
+"stage_pct": 63.2,
+"extractable_mld": 202.5,
+"extraction_mld": 128.0,
+"future_mld": 75.3
+},
+"127": {
+"units": [
+"Ponnampete",
+"VIRAJPET"
+],
+"extractable_tmc": 3.52,
+"extraction_tmc": 1.04,
+"industrial_tmc": 0.01,
+"irrigation_tmc": 0.9,
+"domestic_tmc": 0.14,
+"future_tmc": 2.47,
+"category": "safe",
+"stage_pct": 29.5,
+"extractable_mld": 273.1,
+"extraction_mld": 80.7,
+"future_mld": 191.6
+},
+"128": {
+"units": [
+"BANGARPET"
+],
+"extractable_tmc": 1.67,
+"extraction_tmc": 2.69,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 2.49,
+"domestic_tmc": 0.2,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 161.1,
+"extractable_mld": 129.6,
+"extraction_mld": 208.7,
+"future_mld": 0.0
+},
+"129": {
+"units": [
+"Kolar"
+],
+"extractable_tmc": 3.34,
+"extraction_tmc": 5.39,
+"industrial_tmc": 0.03,
+"irrigation_tmc": 4.98,
+"domestic_tmc": 0.38,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 161.4,
+"extractable_mld": 259.1,
+"extraction_mld": 418.2,
+"future_mld": 0.0
+},
+"130": {
+"units": [
+"K.G.F"
+],
+"extractable_tmc": 1.41,
+"extraction_tmc": 2.42,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 2.16,
+"domestic_tmc": 0.25,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 171.6,
+"extractable_mld": 109.4,
+"extraction_mld": 187.7,
+"future_mld": 0.0
+},
+"131": {
+"units": [
+"Malur"
+],
+"extractable_tmc": 1.81,
+"extraction_tmc": 3.08,
+"industrial_tmc": 0.02,
+"irrigation_tmc": 2.85,
+"domestic_tmc": 0.22,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 170.2,
+"extractable_mld": 140.4,
+"extraction_mld": 238.9,
+"future_mld": 0.0
+},
+"132": {
+"units": [
+"Mulabagilu"
+],
+"extractable_tmc": 4.37,
+"extraction_tmc": 9.33,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 9.09,
+"domestic_tmc": 0.24,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 213.5,
+"extractable_mld": 339.0,
+"extraction_mld": 723.8,
+"future_mld": 0.0
+},
+"133": {
+"units": [
+"Srinivaspura"
+],
+"extractable_tmc": 1.86,
+"extraction_tmc": 2.07,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.91,
+"domestic_tmc": 0.16,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 111.3,
+"extractable_mld": 144.3,
+"extraction_mld": 160.6,
+"future_mld": 0.0
+},
+"134": {
+"units": [
+"Gangavathi"
+],
+"extractable_tmc": 1.86,
+"extraction_tmc": 0.85,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.74,
+"domestic_tmc": 0.11,
+"future_tmc": 1.21,
+"category": "safe",
+"stage_pct": 45.7,
+"extractable_mld": 144.3,
+"extraction_mld": 65.9,
+"future_mld": 93.9
+},
+"135": {
+"units": [
+"Kanakagiri"
+],
+"extractable_tmc": 2.11,
+"extraction_tmc": 1.84,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.77,
+"domestic_tmc": 0.07,
+"future_tmc": 0.35,
+"category": "semi_critical",
+"stage_pct": 87.2,
+"extractable_mld": 163.7,
+"extraction_mld": 142.7,
+"future_mld": 27.2
+},
+"136": {
+"units": [
+"Karatagi"
+],
+"extractable_tmc": 3.68,
+"extraction_tmc": 0.48,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.38,
+"domestic_tmc": 0.1,
+"future_tmc": 3.2,
+"category": "safe",
+"stage_pct": 13.0,
+"extractable_mld": 285.5,
+"extraction_mld": 37.2,
+"future_mld": 248.3
+},
+"137": {
+"units": [
+"koppal"
+],
+"extractable_tmc": 4.92,
+"extraction_tmc": 3.01,
+"industrial_tmc": 0.01,
+"irrigation_tmc": 2.73,
+"domestic_tmc": 0.28,
+"future_tmc": 2.25,
+"category": "safe",
+"stage_pct": 61.2,
+"extractable_mld": 381.7,
+"extraction_mld": 233.5,
+"future_mld": 174.6
+},
+"138": {
+"units": [
+"Kukanuru"
+],
+"extractable_tmc": 2.49,
+"extraction_tmc": 2.35,
+"industrial_tmc": 0.01,
+"irrigation_tmc": 2.26,
+"domestic_tmc": 0.08,
+"future_tmc": 0.14,
+"category": "critical",
+"stage_pct": 94.4,
+"extractable_mld": 193.2,
+"extraction_mld": 182.3,
+"future_mld": 10.9
+},
+"139": {
+"units": [
+"Kushtagi"
+],
+"extractable_tmc": 3.83,
+"extraction_tmc": 2.64,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 2.41,
+"domestic_tmc": 0.23,
+"future_tmc": 1.76,
+"category": "safe",
+"stage_pct": 68.9,
+"extractable_mld": 297.1,
+"extraction_mld": 204.8,
+"future_mld": 136.5
+},
+"140": {
+"units": [
+"Yelburga"
+],
+"extractable_tmc": 1.99,
+"extraction_tmc": 1.74,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.63,
+"domestic_tmc": 0.11,
+"future_tmc": 0.37,
+"category": "semi_critical",
+"stage_pct": 87.4,
+"extractable_mld": 154.4,
+"extraction_mld": 135.0,
+"future_mld": 28.7
+},
+"141": {
+"units": [
+"Krishnarajpet"
+],
+"extractable_tmc": 2.57,
+"extraction_tmc": 1.24,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.04,
+"domestic_tmc": 0.2,
+"future_tmc": 1.33,
+"category": "safe",
+"stage_pct": 48.2,
+"extractable_mld": 199.4,
+"extraction_mld": 96.2,
+"future_mld": 103.2
+},
+"142": {
+"units": [
+"Maddur"
+],
+"extractable_tmc": 3.02,
+"extraction_tmc": 1.7,
+"industrial_tmc": 0.01,
+"irrigation_tmc": 1.47,
+"domestic_tmc": 0.22,
+"future_tmc": 1.43,
+"category": "safe",
+"stage_pct": 56.3,
+"extractable_mld": 234.3,
+"extraction_mld": 131.9,
+"future_mld": 110.9
+},
+"143": {
+"units": [
+"Malavalli"
+],
+"extractable_tmc": 4.93,
+"extraction_tmc": 3.93,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 3.71,
+"domestic_tmc": 0.22,
+"future_tmc": 1.55,
+"category": "semi_critical",
+"stage_pct": 79.7,
+"extractable_mld": 382.5,
+"extraction_mld": 304.9,
+"future_mld": 120.3
+},
+"144": {
+"units": [
+"Mandya"
+],
+"extractable_tmc": 4.35,
+"extraction_tmc": 2.29,
+"industrial_tmc": 0.01,
+"irrigation_tmc": 1.96,
+"domestic_tmc": 0.33,
+"future_tmc": 2.05,
+"category": "safe",
+"stage_pct": 52.6,
+"extractable_mld": 337.5,
+"extraction_mld": 177.7,
+"future_mld": 159.0
+},
+"145": {
+"units": [
+"Nagamangala"
+],
+"extractable_tmc": 3.61,
+"extraction_tmc": 2.31,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 2.17,
+"domestic_tmc": 0.14,
+"future_tmc": 1.39,
+"category": "safe",
+"stage_pct": 64.0,
+"extractable_mld": 280.1,
+"extraction_mld": 179.2,
+"future_mld": 107.8
+},
+"146": {
+"units": [
+"Pandavpura"
+],
+"extractable_tmc": 2.57,
+"extraction_tmc": 1.53,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.39,
+"domestic_tmc": 0.14,
+"future_tmc": 1.11,
+"category": "safe",
+"stage_pct": 59.5,
+"extractable_mld": 199.4,
+"extraction_mld": 118.7,
+"future_mld": 86.1
+},
+"147": {
+"units": [
+"Srirangapatna"
+],
+"extractable_tmc": 2.33,
+"extraction_tmc": 1.19,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.06,
+"domestic_tmc": 0.14,
+"future_tmc": 1.34,
+"category": "safe",
+"stage_pct": 51.1,
+"extractable_mld": 180.8,
+"extraction_mld": 92.3,
+"future_mld": 104.0
+},
+"148": {
+"units": [
+"Heggadadevanakote"
+],
+"extractable_tmc": 3.23,
+"extraction_tmc": 1.37,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.27,
+"domestic_tmc": 0.1,
+"future_tmc": 1.86,
+"category": "safe",
+"stage_pct": 42.4,
+"extractable_mld": 250.6,
+"extraction_mld": 106.3,
+"future_mld": 144.3
+},
+"149": {
+"units": [
+"Hunsur"
+],
+"extractable_tmc": 3.18,
+"extraction_tmc": 1.7,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.52,
+"domestic_tmc": 0.18,
+"future_tmc": 1.47,
+"category": "safe",
+"stage_pct": 53.5,
+"extractable_mld": 246.7,
+"extraction_mld": 131.9,
+"future_mld": 114.0
+},
+"150": {
+"units": [
+"K.R.Nagar"
+],
+"extractable_tmc": 1.94,
+"extraction_tmc": 0.84,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.76,
+"domestic_tmc": 0.07,
+"future_tmc": 1.1,
+"category": "safe",
+"stage_pct": 43.3,
+"extractable_mld": 150.5,
+"extraction_mld": 65.2,
+"future_mld": 85.3
+},
+"151": {
+"units": [
+"Mysuru"
+],
+"extractable_tmc": 2.39,
+"extraction_tmc": 1.55,
+"industrial_tmc": 0.02,
+"irrigation_tmc": 0.7,
+"domestic_tmc": 0.82,
+"future_tmc": 0.93,
+"category": "safe",
+"stage_pct": 64.9,
+"extractable_mld": 185.4,
+"extraction_mld": 120.3,
+"future_mld": 72.2
+},
+"152": {
+"units": [
+"Nanjangud"
+],
+"extractable_tmc": 2.58,
+"extraction_tmc": 1.67,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.62,
+"domestic_tmc": 0.05,
+"future_tmc": 0.91,
+"category": "safe",
+"stage_pct": 64.7,
+"extractable_mld": 200.2,
+"extraction_mld": 129.6,
+"future_mld": 70.6
+},
+"153": {
+"units": [
+"Piriyapatna"
+],
+"extractable_tmc": 2.69,
+"extraction_tmc": 1.78,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.63,
+"domestic_tmc": 0.15,
+"future_tmc": 0.91,
+"category": "safe",
+"stage_pct": 66.2,
+"extractable_mld": 208.7,
+"extraction_mld": 138.1,
+"future_mld": 70.6
+},
+"154": {
+"units": [
+"Saraguru"
+],
+"extractable_tmc": 1.28,
+"extraction_tmc": 0.3,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.27,
+"domestic_tmc": 0.03,
+"future_tmc": 0.98,
+"category": "safe",
+"stage_pct": 23.4,
+"extractable_mld": 99.3,
+"extraction_mld": 23.3,
+"future_mld": 76.0
+},
+"155": {
+"units": [
+"T.Narasipura"
+],
+"extractable_tmc": 2.62,
+"extraction_tmc": 1.8,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.7,
+"domestic_tmc": 0.1,
+"future_tmc": 0.81,
+"category": "safe",
+"stage_pct": 68.7,
+"extractable_mld": 203.3,
+"extraction_mld": 139.6,
+"future_mld": 62.8
+},
+"156": {
+"units": [
+"Devdurga"
+],
+"extractable_tmc": 2.89,
+"extraction_tmc": 1.13,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.94,
+"domestic_tmc": 0.19,
+"future_tmc": 1.73,
+"category": "safe",
+"stage_pct": 39.1,
+"extractable_mld": 224.2,
+"extraction_mld": 87.7,
+"future_mld": 134.2
+},
+"157": {
+"units": [
+"Lingasugur"
+],
+"extractable_tmc": 2.23,
+"extraction_tmc": 1.18,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.02,
+"domestic_tmc": 0.16,
+"future_tmc": 1.05,
+"category": "safe",
+"stage_pct": 52.9,
+"extractable_mld": 173.0,
+"extraction_mld": 91.5,
+"future_mld": 81.5
+},
+"158": {
+"units": [
+"Manvi"
+],
+"extractable_tmc": 3.57,
+"extraction_tmc": 0.93,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.83,
+"domestic_tmc": 0.1,
+"future_tmc": 2.73,
+"category": "safe",
+"stage_pct": 26.1,
+"extractable_mld": 277.0,
+"extraction_mld": 72.2,
+"future_mld": 211.8
+},
+"159": {
+"units": [
+"Maski"
+],
+"extractable_tmc": 2.76,
+"extraction_tmc": 1.26,
+"industrial_tmc": 0.01,
+"irrigation_tmc": 1.15,
+"domestic_tmc": 0.1,
+"future_tmc": 1.49,
+"category": "safe",
+"stage_pct": 45.7,
+"extractable_mld": 214.1,
+"extraction_mld": 97.8,
+"future_mld": 115.6
+},
+"160": {
+"units": [
+"Raichur"
+],
+"extractable_tmc": 3.47,
+"extraction_tmc": 2.23,
+"industrial_tmc": 0.05,
+"irrigation_tmc": 1.9,
+"domestic_tmc": 0.28,
+"future_tmc": 1.21,
+"category": "safe",
+"stage_pct": 64.3,
+"extractable_mld": 269.2,
+"extraction_mld": 173.0,
+"future_mld": 93.9
+},
+"161": {
+"units": [
+"Sindhanur"
+],
+"extractable_tmc": 5.92,
+"extraction_tmc": 1.38,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.13,
+"domestic_tmc": 0.25,
+"future_tmc": 4.51,
+"category": "safe",
+"stage_pct": 23.3,
+"extractable_mld": 459.3,
+"extraction_mld": 107.1,
+"future_mld": 349.9
+},
+"162": {
+"units": [
+"Sirivara"
+],
+"extractable_tmc": 3.82,
+"extraction_tmc": 2.92,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 2.85,
+"domestic_tmc": 0.07,
+"future_tmc": 1.41,
+"category": "semi_critical",
+"stage_pct": 76.4,
+"extractable_mld": 296.4,
+"extraction_mld": 226.5,
+"future_mld": 109.4
+},
+"163": {
+"units": [
+"Channapatna"
+],
+"extractable_tmc": 2.32,
+"extraction_tmc": 2.06,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.82,
+"domestic_tmc": 0.23,
+"future_tmc": 0.26,
+"category": "semi_critical",
+"stage_pct": 88.8,
+"extractable_mld": 180.0,
+"extraction_mld": 159.8,
+"future_mld": 20.2
+},
+"164": {
+"units": [
+"Harohalli",
+"Kanakpura"
+],
+"extractable_tmc": 6.72,
+"extraction_tmc": 6.43,
+"industrial_tmc": 0.17,
+"irrigation_tmc": 5.9,
+"domestic_tmc": 0.36,
+"future_tmc": 1.09,
+"category": "over_exploited",
+"stage_pct": 95.7,
+"extractable_mld": 521.3,
+"extraction_mld": 498.8,
+"future_mld": 84.6
+},
+"165": {
+"units": [
+"Magadi"
+],
+"extractable_tmc": 2.38,
+"extraction_tmc": 2.35,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 2.14,
+"domestic_tmc": 0.21,
+"future_tmc": 0.04,
+"category": "critical",
+"stage_pct": 98.7,
+"extractable_mld": 184.6,
+"extraction_mld": 182.3,
+"future_mld": 3.1
+},
+"166": {
+"units": [
+"Ramanagar"
+],
+"extractable_tmc": 2.96,
+"extraction_tmc": 2.94,
+"industrial_tmc": 0.09,
+"irrigation_tmc": 2.56,
+"domestic_tmc": 0.3,
+"future_tmc": 0.11,
+"category": "critical",
+"stage_pct": 99.3,
+"extractable_mld": 229.6,
+"extraction_mld": 228.1,
+"future_mld": 8.5
+},
+"167": {
+"units": [
+"Bhadravathi"
+],
+"extractable_tmc": 4.21,
+"extraction_tmc": 1.96,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.8,
+"domestic_tmc": 0.15,
+"future_tmc": 2.26,
+"category": "safe",
+"stage_pct": 46.6,
+"extractable_mld": 326.6,
+"extraction_mld": 152.1,
+"future_mld": 175.3
+},
+"168": {
+"units": [
+"Hosanagar"
+],
+"extractable_tmc": 4.74,
+"extraction_tmc": 1.1,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.01,
+"domestic_tmc": 0.09,
+"future_tmc": 3.64,
+"category": "safe",
+"stage_pct": 23.2,
+"extractable_mld": 367.7,
+"extraction_mld": 85.3,
+"future_mld": 282.4
+},
+"169": {
+"units": [
+"Sagara"
+],
+"extractable_tmc": 6.04,
+"extraction_tmc": 1.77,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.67,
+"domestic_tmc": 0.11,
+"future_tmc": 4.27,
+"category": "safe",
+"stage_pct": 29.3,
+"extractable_mld": 468.6,
+"extraction_mld": 137.3,
+"future_mld": 331.3
+},
+"170": {
+"units": [
+"Shikaripura"
+],
+"extractable_tmc": 5.44,
+"extraction_tmc": 2.7,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 2.55,
+"domestic_tmc": 0.15,
+"future_tmc": 3.2,
+"category": "safe",
+"stage_pct": 49.6,
+"extractable_mld": 422.0,
+"extraction_mld": 209.5,
+"future_mld": 248.3
+},
+"171": {
+"units": [
+"Shimoga"
+],
+"extractable_tmc": 4.32,
+"extraction_tmc": 2.09,
+"industrial_tmc": 0.09,
+"irrigation_tmc": 1.8,
+"domestic_tmc": 0.2,
+"future_tmc": 2.4,
+"category": "safe",
+"stage_pct": 48.4,
+"extractable_mld": 335.1,
+"extraction_mld": 162.1,
+"future_mld": 186.2
+},
+"172": {
+"units": [
+"Soraba"
+],
+"extractable_tmc": 4.89,
+"extraction_tmc": 2.82,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 2.65,
+"domestic_tmc": 0.17,
+"future_tmc": 2.06,
+"category": "safe",
+"stage_pct": 57.7,
+"extractable_mld": 379.4,
+"extraction_mld": 218.8,
+"future_mld": 159.8
+},
+"173": {
+"units": [
+"Thirthahalli"
+],
+"extractable_tmc": 4.47,
+"extraction_tmc": 1.43,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.35,
+"domestic_tmc": 0.08,
+"future_tmc": 3.04,
+"category": "safe",
+"stage_pct": 32.0,
+"extractable_mld": 346.8,
+"extraction_mld": 110.9,
+"future_mld": 235.8
+},
+"174": {
+"units": [
+"Chiknayakanahalli"
+],
+"extractable_tmc": 2.22,
+"extraction_tmc": 2.37,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 2.2,
+"domestic_tmc": 0.17,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 106.8,
+"extractable_mld": 172.2,
+"extraction_mld": 183.9,
+"future_mld": 0.0
+},
+"175": {
+"units": [
+"Gubbi"
+],
+"extractable_tmc": 3.33,
+"extraction_tmc": 1.73,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.52,
+"domestic_tmc": 0.21,
+"future_tmc": 1.85,
+"category": "safe",
+"stage_pct": 52.0,
+"extractable_mld": 258.3,
+"extraction_mld": 134.2,
+"future_mld": 143.5
+},
+"176": {
+"units": [
+"Koratagere"
+],
+"extractable_tmc": 1.75,
+"extraction_tmc": 1.69,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.55,
+"domestic_tmc": 0.14,
+"future_tmc": 0.06,
+"category": "critical",
+"stage_pct": 96.6,
+"extractable_mld": 135.8,
+"extraction_mld": 131.1,
+"future_mld": 4.7
+},
+"177": {
+"units": [
+"Kunigal"
+],
+"extractable_tmc": 3.12,
+"extraction_tmc": 2.02,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.83,
+"domestic_tmc": 0.19,
+"future_tmc": 1.16,
+"category": "safe",
+"stage_pct": 64.7,
+"extractable_mld": 242.1,
+"extraction_mld": 156.7,
+"future_mld": 90.0
+},
+"178": {
+"units": [
+"Madhugiri"
+],
+"extractable_tmc": 2.96,
+"extraction_tmc": 3.29,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 3.07,
+"domestic_tmc": 0.22,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 111.1,
+"extractable_mld": 229.6,
+"extraction_mld": 255.2,
+"future_mld": 0.0
+},
+"179": {
+"units": [
+"Pavagada"
+],
+"extractable_tmc": 2.18,
+"extraction_tmc": 1.88,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.69,
+"domestic_tmc": 0.2,
+"future_tmc": 0.28,
+"category": "semi_critical",
+"stage_pct": 86.2,
+"extractable_mld": 169.1,
+"extraction_mld": 145.9,
+"future_mld": 21.7
+},
+"180": {
+"units": [
+"Sira"
+],
+"extractable_tmc": 3.42,
+"extraction_tmc": 3.64,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 3.39,
+"domestic_tmc": 0.25,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 106.4,
+"extractable_mld": 265.3,
+"extraction_mld": 282.4,
+"future_mld": 0.0
+},
+"181": {
+"units": [
+"Tiptur"
+],
+"extractable_tmc": 1.84,
+"extraction_tmc": 2.35,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 2.16,
+"domestic_tmc": 0.18,
+"future_tmc": 0.27,
+"category": "over_exploited",
+"stage_pct": 127.7,
+"extractable_mld": 142.7,
+"extraction_mld": 182.3,
+"future_mld": 20.9
+},
+"182": {
+"units": [
+"Tumkur"
+],
+"extractable_tmc": 3.43,
+"extraction_tmc": 3.87,
+"industrial_tmc": 0.01,
+"irrigation_tmc": 3.53,
+"domestic_tmc": 0.33,
+"future_tmc": 0.73,
+"category": "over_exploited",
+"stage_pct": 112.8,
+"extractable_mld": 266.1,
+"extraction_mld": 300.2,
+"future_mld": 56.6
+},
+"183": {
+"units": [
+"Turuvekere"
+],
+"extractable_tmc": 2.14,
+"extraction_tmc": 1.38,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.23,
+"domestic_tmc": 0.14,
+"future_tmc": 0.76,
+"category": "safe",
+"stage_pct": 64.5,
+"extractable_mld": 166.0,
+"extraction_mld": 107.1,
+"future_mld": 59.0
+},
+"184": {
+"units": [
+"Bynduru"
+],
+"extractable_tmc": 2.34,
+"extraction_tmc": 0.69,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.58,
+"domestic_tmc": 0.11,
+"future_tmc": 1.65,
+"category": "safe",
+"stage_pct": 29.5,
+"extractable_mld": 181.5,
+"extraction_mld": 53.5,
+"future_mld": 128.0
+},
+"185": {
+"units": [
+"Bramhavara"
+],
+"extractable_tmc": 2.37,
+"extraction_tmc": 1.07,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.92,
+"domestic_tmc": 0.16,
+"future_tmc": 1.29,
+"category": "safe",
+"stage_pct": 45.1,
+"extractable_mld": 183.9,
+"extraction_mld": 83.0,
+"future_mld": 100.1
+},
+"186": {
+"units": [
+"Hebri"
+],
+"extractable_tmc": 1.53,
+"extraction_tmc": 0.85,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.81,
+"domestic_tmc": 0.04,
+"future_tmc": 0.68,
+"category": "safe",
+"stage_pct": 55.6,
+"extractable_mld": 118.7,
+"extraction_mld": 65.9,
+"future_mld": 52.8
+},
+"187": {
+"units": [
+"Kapu"
+],
+"extractable_tmc": 1.17,
+"extraction_tmc": 0.37,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.25,
+"domestic_tmc": 0.12,
+"future_tmc": 0.8,
+"category": "safe",
+"stage_pct": 31.6,
+"extractable_mld": 90.8,
+"extraction_mld": 28.7,
+"future_mld": 62.1
+},
+"188": {
+"units": [
+"Karkala"
+],
+"extractable_tmc": 3.34,
+"extraction_tmc": 0.96,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.87,
+"domestic_tmc": 0.08,
+"future_tmc": 2.38,
+"category": "safe",
+"stage_pct": 28.7,
+"extractable_mld": 259.1,
+"extraction_mld": 74.5,
+"future_mld": 184.6
+},
+"189": {
+"units": [
+"Kundapur"
+],
+"extractable_tmc": 4.22,
+"extraction_tmc": 1.1,
+"industrial_tmc": 0.01,
+"irrigation_tmc": 0.98,
+"domestic_tmc": 0.12,
+"future_tmc": 3.12,
+"category": "safe",
+"stage_pct": 26.1,
+"extractable_mld": 327.4,
+"extraction_mld": 85.3,
+"future_mld": 242.1
+},
+"190": {
+"units": [
+"Udupi"
+],
+"extractable_tmc": 1.68,
+"extraction_tmc": 0.58,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.46,
+"domestic_tmc": 0.11,
+"future_tmc": 1.1,
+"category": "safe",
+"stage_pct": 34.5,
+"extractable_mld": 130.3,
+"extraction_mld": 45.0,
+"future_mld": 85.3
+},
+"191": {
+"units": [
+"Ankola"
+],
+"extractable_tmc": 2.29,
+"extraction_tmc": 1.38,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.29,
+"domestic_tmc": 0.08,
+"future_tmc": 0.91,
+"category": "safe",
+"stage_pct": 60.3,
+"extractable_mld": 177.7,
+"extraction_mld": 107.1,
+"future_mld": 70.6
+},
+"192": {
+"units": [
+"Bhatkal"
+],
+"extractable_tmc": 1.24,
+"extraction_tmc": 0.41,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.28,
+"domestic_tmc": 0.12,
+"future_tmc": 0.83,
+"category": "safe",
+"stage_pct": 33.1,
+"extractable_mld": 96.2,
+"extraction_mld": 31.8,
+"future_mld": 64.4
+},
+"193": {
+"units": [
+"Dandelli"
+],
+"extractable_tmc": 0.75,
+"extraction_tmc": 0.09,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.04,
+"domestic_tmc": 0.05,
+"future_tmc": 0.66,
+"category": "safe",
+"stage_pct": 12.0,
+"extractable_mld": 58.2,
+"extraction_mld": 7.0,
+"future_mld": 51.2
+},
+"194": {
+"units": [
+"Haliyal"
+],
+"extractable_tmc": 2.07,
+"extraction_tmc": 1.05,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.97,
+"domestic_tmc": 0.08,
+"future_tmc": 1.02,
+"category": "safe",
+"stage_pct": 50.7,
+"extractable_mld": 160.6,
+"extraction_mld": 81.5,
+"future_mld": 79.1
+},
+"195": {
+"units": [
+"Honnavar"
+],
+"extractable_tmc": 1.99,
+"extraction_tmc": 0.76,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.63,
+"domestic_tmc": 0.13,
+"future_tmc": 1.23,
+"category": "safe",
+"stage_pct": 38.2,
+"extractable_mld": 154.4,
+"extraction_mld": 59.0,
+"future_mld": 95.4
+},
+"196": {
+"units": [
+"Karwar"
+],
+"extractable_tmc": 2.26,
+"extraction_tmc": 1.39,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.28,
+"domestic_tmc": 0.12,
+"future_tmc": 0.86,
+"category": "safe",
+"stage_pct": 61.5,
+"extractable_mld": 175.3,
+"extraction_mld": 107.8,
+"future_mld": 66.7
+},
+"197": {
+"units": [
+"Kumta"
+],
+"extractable_tmc": 1.83,
+"extraction_tmc": 0.42,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.3,
+"domestic_tmc": 0.12,
+"future_tmc": 1.41,
+"category": "safe",
+"stage_pct": 23.0,
+"extractable_mld": 142.0,
+"extraction_mld": 32.6,
+"future_mld": 109.4
+},
+"198": {
+"units": [
+"Mundgod"
+],
+"extractable_tmc": 1.88,
+"extraction_tmc": 0.6,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.51,
+"domestic_tmc": 0.09,
+"future_tmc": 1.28,
+"category": "safe",
+"stage_pct": 31.9,
+"extractable_mld": 145.9,
+"extraction_mld": 46.5,
+"future_mld": 99.3
+},
+"199": {
+"units": [
+"Siddapur"
+],
+"extractable_tmc": 3.0,
+"extraction_tmc": 0.7,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.62,
+"domestic_tmc": 0.07,
+"future_tmc": 2.3,
+"category": "safe",
+"stage_pct": 23.3,
+"extractable_mld": 232.7,
+"extraction_mld": 54.3,
+"future_mld": 178.4
+},
+"200": {
+"units": [
+"Sirsi"
+],
+"extractable_tmc": 4.25,
+"extraction_tmc": 1.1,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.95,
+"domestic_tmc": 0.14,
+"future_tmc": 3.15,
+"category": "safe",
+"stage_pct": 25.9,
+"extractable_mld": 329.7,
+"extraction_mld": 85.3,
+"future_mld": 244.4
+},
+"201": {
+"units": [
+"Joida"
+],
+"extractable_tmc": 3.6,
+"extraction_tmc": 0.59,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.54,
+"domestic_tmc": 0.04,
+"future_tmc": 3.01,
+"category": "safe",
+"stage_pct": 16.4,
+"extractable_mld": 279.3,
+"extraction_mld": 45.8,
+"future_mld": 233.5
+},
+"202": {
+"units": [
+"Yellapur"
+],
+"extractable_tmc": 4.47,
+"extraction_tmc": 1.04,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.98,
+"domestic_tmc": 0.07,
+"future_tmc": 3.43,
+"category": "safe",
+"stage_pct": 23.3,
+"extractable_mld": 346.8,
+"extraction_mld": 80.7,
+"future_mld": 266.1
+},
+"203": {
+"units": [
+"Hadagali"
+],
+"extractable_tmc": 3.07,
+"extraction_tmc": 2.29,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 2.15,
+"domestic_tmc": 0.14,
+"future_tmc": 1.04,
+"category": "semi_critical",
+"stage_pct": 74.6,
+"extractable_mld": 238.2,
+"extraction_mld": 177.7,
+"future_mld": 80.7
+},
+"204": {
+"units": [
+"Hagaribommanahalli"
+],
+"extractable_tmc": 2.01,
+"extraction_tmc": 2.12,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 2.0,
+"domestic_tmc": 0.12,
+"future_tmc": 0.08,
+"category": "over_exploited",
+"stage_pct": 105.5,
+"extractable_mld": 155.9,
+"extraction_mld": 164.5,
+"future_mld": 6.2
+},
+"205": {
+"units": [
+"Harapanahalli"
+],
+"extractable_tmc": 3.18,
+"extraction_tmc": 3.15,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 2.95,
+"domestic_tmc": 0.2,
+"future_tmc": 0.2,
+"category": "critical",
+"stage_pct": 99.1,
+"extractable_mld": 246.7,
+"extraction_mld": 244.4,
+"future_mld": 15.5
+},
+"206": {
+"units": [
+"Hospet"
+],
+"extractable_tmc": 1.72,
+"extraction_tmc": 1.09,
+"industrial_tmc": 0.01,
+"irrigation_tmc": 0.99,
+"domestic_tmc": 0.1,
+"future_tmc": 0.62,
+"category": "safe",
+"stage_pct": 63.4,
+"extractable_mld": 133.4,
+"extraction_mld": 84.6,
+"future_mld": 48.1
+},
+"207": {
+"units": [
+"Kotturu"
+],
+"extractable_tmc": 0.97,
+"extraction_tmc": 1.04,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.97,
+"domestic_tmc": 0.06,
+"future_tmc": 0.0,
+"category": "over_exploited",
+"stage_pct": 107.2,
+"extractable_mld": 75.3,
+"extraction_mld": 80.7,
+"future_mld": 0.0
+},
+"208": {
+"units": [
+"Kudligi"
+],
+"extractable_tmc": 2.11,
+"extraction_tmc": 1.21,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.05,
+"domestic_tmc": 0.15,
+"future_tmc": 0.89,
+"category": "safe",
+"stage_pct": 57.3,
+"extractable_mld": 163.7,
+"extraction_mld": 93.9,
+"future_mld": 69.0
+},
+"209": {
+"units": [
+"Babaleshwara"
+],
+"extractable_tmc": 2.63,
+"extraction_tmc": 0.67,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.57,
+"domestic_tmc": 0.1,
+"future_tmc": 1.96,
+"category": "safe",
+"stage_pct": 25.5,
+"extractable_mld": 204.0,
+"extraction_mld": 52.0,
+"future_mld": 152.1
+},
+"210": {
+"units": [
+"Basavan Bagewadi"
+],
+"extractable_tmc": 3.25,
+"extraction_tmc": 1.05,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.91,
+"domestic_tmc": 0.14,
+"future_tmc": 2.19,
+"category": "safe",
+"stage_pct": 32.3,
+"extractable_mld": 252.1,
+"extraction_mld": 81.5,
+"future_mld": 169.9
+},
+"211": {
+"units": [
+"Chadachana"
+],
+"extractable_tmc": 2.61,
+"extraction_tmc": 1.44,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.35,
+"domestic_tmc": 0.1,
+"future_tmc": 1.16,
+"category": "safe",
+"stage_pct": 55.2,
+"extractable_mld": 202.5,
+"extraction_mld": 111.7,
+"future_mld": 90.0
+},
+"212": {
+"units": [
+"Devara Hipparagi"
+],
+"extractable_tmc": 2.56,
+"extraction_tmc": 0.55,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.46,
+"domestic_tmc": 0.09,
+"future_tmc": 2.0,
+"category": "safe",
+"stage_pct": 21.5,
+"extractable_mld": 198.6,
+"extraction_mld": 42.7,
+"future_mld": 155.2
+},
+"213": {
+"units": [
+"Indi"
+],
+"extractable_tmc": 4.51,
+"extraction_tmc": 2.63,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 2.39,
+"domestic_tmc": 0.24,
+"future_tmc": 2.27,
+"category": "safe",
+"stage_pct": 58.3,
+"extractable_mld": 349.9,
+"extraction_mld": 204.0,
+"future_mld": 176.1
+},
+"214": {
+"units": [
+"Kolhara"
+],
+"extractable_tmc": 1.47,
+"extraction_tmc": 0.64,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.57,
+"domestic_tmc": 0.07,
+"future_tmc": 0.82,
+"category": "safe",
+"stage_pct": 43.5,
+"extractable_mld": 114.0,
+"extraction_mld": 49.7,
+"future_mld": 63.6
+},
+"215": {
+"units": [
+"Muddebihal"
+],
+"extractable_tmc": 2.6,
+"extraction_tmc": 0.8,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.66,
+"domestic_tmc": 0.15,
+"future_tmc": 1.79,
+"category": "safe",
+"stage_pct": 30.8,
+"extractable_mld": 201.7,
+"extraction_mld": 62.1,
+"future_mld": 138.9
+},
+"216": {
+"units": [
+"Nidagundi"
+],
+"extractable_tmc": 1.37,
+"extraction_tmc": 1.01,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.94,
+"domestic_tmc": 0.07,
+"future_tmc": 0.35,
+"category": "semi_critical",
+"stage_pct": 73.7,
+"extractable_mld": 106.3,
+"extraction_mld": 78.4,
+"future_mld": 27.2
+},
+"217": {
+"units": [
+"Alamela",
+"Sindagi"
+],
+"extractable_tmc": 5.54,
+"extraction_tmc": 1.62,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.4,
+"domestic_tmc": 0.21,
+"future_tmc": 3.91,
+"category": "safe",
+"stage_pct": 29.2,
+"extractable_mld": 429.8,
+"extraction_mld": 125.7,
+"future_mld": 303.3
+},
+"218": {
+"units": [
+"Talikote"
+],
+"extractable_tmc": 1.84,
+"extraction_tmc": 0.56,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.46,
+"domestic_tmc": 0.11,
+"future_tmc": 1.27,
+"category": "safe",
+"stage_pct": 30.4,
+"extractable_mld": 142.7,
+"extraction_mld": 43.4,
+"future_mld": 98.5
+},
+"219": {
+"units": [
+"Tikota"
+],
+"extractable_tmc": 2.65,
+"extraction_tmc": 1.46,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.35,
+"domestic_tmc": 0.1,
+"future_tmc": 1.19,
+"category": "safe",
+"stage_pct": 55.1,
+"extractable_mld": 205.6,
+"extraction_mld": 113.3,
+"future_mld": 92.3
+},
+"220": {
+"units": [
+"Bijapur"
+],
+"extractable_tmc": 2.66,
+"extraction_tmc": 1.2,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.82,
+"domestic_tmc": 0.38,
+"future_tmc": 1.45,
+"category": "safe",
+"stage_pct": 45.1,
+"extractable_mld": 206.4,
+"extraction_mld": 93.1,
+"future_mld": 112.5
+},
+"221": {
+"units": [
+"Gurumithakala"
+],
+"extractable_tmc": 1.76,
+"extraction_tmc": 1.58,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 1.48,
+"domestic_tmc": 0.1,
+"future_tmc": 0.18,
+"category": "semi_critical",
+"stage_pct": 89.8,
+"extractable_mld": 136.5,
+"extraction_mld": 122.6,
+"future_mld": 14.0
+},
+"222": {
+"units": [
+"Hunisigi"
+],
+"extractable_tmc": 3.25,
+"extraction_tmc": 0.69,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.56,
+"domestic_tmc": 0.13,
+"future_tmc": 2.55,
+"category": "safe",
+"stage_pct": 21.2,
+"extractable_mld": 252.1,
+"extraction_mld": 53.5,
+"future_mld": 197.8
+},
+"223": {
+"units": [
+"Shahapur"
+],
+"extractable_tmc": 3.44,
+"extraction_tmc": 0.92,
+"industrial_tmc": 0.1,
+"irrigation_tmc": 0.58,
+"domestic_tmc": 0.24,
+"future_tmc": 2.51,
+"category": "safe",
+"stage_pct": 26.7,
+"extractable_mld": 266.9,
+"extraction_mld": 71.4,
+"future_mld": 194.7
+},
+"224": {
+"units": [
+"Shorapur"
+],
+"extractable_tmc": 3.64,
+"extraction_tmc": 0.69,
+"industrial_tmc": 0.01,
+"irrigation_tmc": 0.47,
+"domestic_tmc": 0.21,
+"future_tmc": 2.93,
+"category": "safe",
+"stage_pct": 19.0,
+"extractable_mld": 282.4,
+"extraction_mld": 53.5,
+"future_mld": 227.3
+},
+"225": {
+"units": [
+"Vadagera"
+],
+"extractable_tmc": 2.83,
+"extraction_tmc": 0.48,
+"industrial_tmc": 0.0,
+"irrigation_tmc": 0.38,
+"domestic_tmc": 0.1,
+"future_tmc": 2.34,
+"category": "safe",
+"stage_pct": 17.0,
+"extractable_mld": 219.6,
+"extraction_mld": 37.2,
+"future_mld": 181.5
+},
+"226": {
+"units": [
+"Yadgir"
+],
+"extractable_tmc": 3.16,
+"extraction_tmc": 2.51,
+"industrial_tmc": 0.2,
+"irrigation_tmc": 2.08,
+"domestic_tmc": 0.24,
+"future_tmc": 0.98,
+"category": "semi_critical",
+"stage_pct": 79.4,
+"extractable_mld": 245.2,
+"extraction_mld": 194.7,
+"future_mld": 76.0
+}
+}
+}

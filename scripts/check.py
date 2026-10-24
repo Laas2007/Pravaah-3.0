@@ -42,6 +42,7 @@ ENDPOINTS = [
     ("/api/industry/districts?as_of={d}", ["as_of", "districts", "totals"]),
     ("/api/core/backtest?as_of={d}&idx=210", ["as_of", "available"]),
     ("/api/core/drought?as_of={d}", ["as_of", "in_season"]),
+    ("/api/industry/feasibility?lat=13.14&lon=78.05&demand_kld=2000&as_of={d}", ["verdict", "score", "components", "groundwater"]),
     ("/api/core/drought?as_of=2023-09-01&idx=210", ["in_season", "taluks", "trigger_rule"]),
     ("/api/meta", ["ward_count"]),                      # original Bengaluru model
     ("/api/predict?as_of={d}", ["wards"]),

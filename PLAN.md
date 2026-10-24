@@ -383,6 +383,17 @@ python train/fetch_nwdp.py && python train/clean_nwdp.py
         officially named taluks, 19 alerted by 1 Aug, 22 by 15 Sep. C (2023 order, model trained without 2023):
         1 Sep 135/165 severe and 22/33 moderate alerted (also 20/29 not listed); 1 Aug only 41/165. Cannot tell
         severe from moderate (AUC 0.39–0.58): the official declaration also uses crop-loss surveys the model can't see.
+- [x] 2026-10-25 — **Factory site feasibility check** (Industry page card `platforms/industry/SiteCheck.jsx`,
+      `/api/industry/feasibility?lat&lon&demand_kld[&gw_share&site_area_ha]`, `usecases/industry_site.py`). Pick a point
+      (map click or lat/lon, URL `?site=lat,lon&kld=`) + kL/day → verdict (feasible / conditional / risky / not
+      recommended), 0–100 transparent score with per-component reasons, and the statistics: official CGWB category,
+      stage of extraction and groundwater still available (new: `train/clean_gwra.py` parses the **CGWB/KGWD Dynamic
+      Ground Water Resources of Karnataka 2023** Annexure V B1 → `data/karnataka/gwra_2023.json`, 234 units → 227
+      taluks, checked against the report's district totals; 43 over-exploited, 12 critical, 30 semi-critical, 142 safe),
+      M2 days to stress, wells within 10 km (depth, 3-year trend, 10-year change), M4 reservoir system storage and
+      low-storage chance, rain normal / last 12 months / variability, M1 drought years, ET0 and peak heat, KIADB demand,
+      tanks, reuse and rain-harvesting offsets, recommendations. Over-exploited + mostly groundwater caps the verdict at
+      "risky". Kolar (Narasapura) Mar 2024: risky (161 % extracted, 0 MLD left); Mysuru: feasible with 30 % groundwater.
 - [x] Real drought declarations (M1 labels) — official 2023 + partial 2026
 - [x] M1 drought classifier + 2023 backtest
 - [x] M2 taluk groundwater forecast (see above)
