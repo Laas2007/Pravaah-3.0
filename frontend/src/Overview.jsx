@@ -2,12 +2,12 @@ import { RISK_COLOR, RISK_ICON, RISK_ORDER, fmtDate, rangeText } from './i18n'
 
 const STEPS = {
   en: [
-    ['🌧️', 'Real data in', 'Daily rainfall (ERA5, 2014–today), Cauvery catchment rain, 243 BBMP ward boundaries'],
+    ['🌧️', 'Real data in', 'Daily rainfall (IMD rain gauges, 2014–today), Cauvery catchment rain, 243 BBMP ward boundaries'],
     ['⚖️', 'Water balance per ward', 'Recharge − borewell draw + pipe seepage, simulated every day for every ward'],
     ['📅', 'Forecast + reasons', '30 rainfall scenarios → a days-to-shortage range, and why it is happening'],
   ],
   kn: [
-    ['🌧️', 'ನೈಜ ದತ್ತಾಂಶ', 'ದೈನಂದಿನ ಮಳೆ (ERA5, 2014–ಇಂದು), ಕಾವೇರಿ ಜಲಾನಯನ ಮಳೆ, 243 BBMP ವಾರ್ಡ್ ಗಡಿಗಳು'],
+    ['🌧️', 'ನೈಜ ದತ್ತಾಂಶ', 'ದೈನಂದಿನ ಮಳೆ (IMD ಮಳೆ ಮಾಪಕಗಳು, 2014–ಇಂದು), ಕಾವೇರಿ ಜಲಾನಯನ ಮಳೆ, 243 BBMP ವಾರ್ಡ್ ಗಡಿಗಳು'],
     ['⚖️', 'ಪ್ರತಿ ವಾರ್ಡ್ ಜಲ ಸಮತೋಲನ', 'ಮರುಪೂರಣ − ಕೊಳವೆಬಾವಿ ಬಳಕೆ + ಪೈಪ್ ಸೋರಿಕೆ, ಪ್ರತಿದಿನ ಲೆಕ್ಕಾಚಾರ'],
     ['📅', 'ಮುನ್ಸೂಚನೆ + ಕಾರಣಗಳು', '30 ಮಳೆ ಸನ್ನಿವೇಶಗಳು → ಕೊರತೆಗೆ ದಿನಗಳ ಶ್ರೇಣಿ ಮತ್ತು ಕಾರಣ'],
   ],

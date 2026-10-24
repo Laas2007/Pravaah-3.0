@@ -30,9 +30,17 @@ ENDPOINTS = [
     ("/api/agri/taluk/132?as_of={d}", ["as_of", "model", "risk", "season", "crops"]),
     ("/api/urban/cities?as_of={d}", ["as_of", "model", "cities"]),
     ("/api/urban/cauvery?as_of={d}", ["as_of", "series", "storage_tmc"]),
+    ("/api/urban/wards?as_of={d}", ["as_of", "model", "wards"]),
     ("/api/industry/areas?as_of={d}", ["as_of", "model", "areas"]),
     ("/api/industry/location?lat=13.13&lon=78.13&as_of={d}", ["as_of", "model", "risk"]),
-    ("/api/core/model-card", ["m2", "m1"]),
+    ("/api/core/model-card", ["m2", "m1", "m3", "m4"]),
+    ("/api/agri/crops/210?as_of={d}", ["as_of", "season", "crops"]),
+    ("/api/agri/irrigation/210?crop=Maize&as_of={d}", ["as_of", "events"]),
+    ("/api/agri/sowing/210?crop=Maize&as_of={d}", ["as_of", "weeks"]),
+    ("/api/urban/demand?as_of={d}", ["as_of", "bengaluru", "cities"]),
+    ("/api/urban/leaks/demo", ["leaks", "abnormal_days"]),
+    ("/api/industry/districts?as_of={d}", ["as_of", "districts", "totals"]),
+    ("/api/core/backtest?as_of={d}&idx=210", ["as_of", "available"]),
     ("/api/meta", ["ward_count"]),                      # original Bengaluru model
     ("/api/predict?as_of={d}", ["wards"]),
 ]
@@ -51,7 +59,7 @@ def main_check(skip_frontend):
     print("API endpoints")
     for path, keys in ENDPOINTS:
         for d in DATES if "{d}" in path else [None]:
-            url = path.format(d=d) if d else path.replace("?as_of={d}", "").replace("&as_of={d}", "")
+            url = path.format(d=d) if d else path.replace("?as_of={d}&", "?").replace("?as_of={d}", "").replace("&as_of={d}", "")
             r = c.get(url)
             if r.status_code != 200:
                 fail(f"{url} -> {r.status_code} {r.text[:120]}")

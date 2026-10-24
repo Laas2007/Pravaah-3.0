@@ -18,6 +18,9 @@ from model import FACTORS, Intervention, load_world, predict, risk_level, simula
 app = FastAPI(title="Pravaah – Water Scarcity Prediction Portal")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
+# Import scikit-learn once at startup: lazy first imports from parallel request threads can deadlock.
+import sklearn.ensemble  # noqa: E402,F401
+
 # Karnataka platforms (PLAN.md §3). One line per platform; each module owns its own /api/<name>/* routes.
 from core.router import router as core_router  # noqa: E402
 from usecases import agri, industry, urban  # noqa: E402

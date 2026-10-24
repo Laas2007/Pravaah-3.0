@@ -135,7 +135,7 @@ export default function OfficialView({ wards, detail, onSelect, asOf, meta, t, t
           <h3>Model inputs</h3>
           <table className="inputs">
             <tbody>
-              <tr><td>Rainfall, last 12 months</td><td>{detail.inputs.rain_12m_mm} mm <span className="muted">(normal {detail.inputs.rain_normal_mm})</span></td><td><span className="tag real">real · ERA5</span></td></tr>
+              <tr><td>Rainfall, last 12 months</td><td>{detail.inputs.rain_12m_mm} mm <span className="muted">(normal {detail.inputs.rain_normal_mm})</span></td><td><span className="tag real">real · IMD gauges</span></td></tr>
               <tr><td>Cauvery supply reliability</td><td>{detail.inputs.cauvery_supply_pct}%</td><td><span className="tag real">catchment rain</span></td></tr>
               <tr><td>Cauvery pipe coverage</td><td>{detail.inputs.cauvery_coverage_pct}%</td><td><span className="tag est">estimated</span></td></tr>
               <tr><td>Water demand</td><td>{detail.inputs.demand_mld} MLD</td><td><span className="tag est">estimated</span></td></tr>

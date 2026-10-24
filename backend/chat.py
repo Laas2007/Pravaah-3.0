@@ -26,7 +26,7 @@ How to answer:
   "days" = how many days sooner the shortage arrives because of that factor (counterfactual analysis);
   "prevents": true means without that factor there would be no shortage within a year (a main cause).
 - Days-to-shortage figures are model estimates from a groundwater balance model using real rainfall
-  (ERA5 reanalysis) and estimated demand; say so if asked about accuracy. Do not invent numbers.
+  (IMD rain-gauge data) and estimated demand; say so if asked about accuracy. Do not invent numbers.
 - Practical steps to draw on: rooftop rainwater harvesting, recharge pits/wells, aerators and low-flow fixtures,
   fixing leaks, reusing RO reject and STP-treated water, applying for a BWSSB Cauvery connection, booking tankers early,
   reporting leaks or misuse to the BWSSB helpline 1916, protecting and reviving local lakes.
@@ -210,11 +210,11 @@ class Answer:
 
     def how(self):
         if self.kn:
-            return ["🧠 ಈ ಮುನ್ಸೂಚನೆ ಹೇಗೆ ಮಾಡಲಾಗುತ್ತದೆ:\n• ನೈಜ ದೈನಂದಿನ ಮಳೆ ದತ್ತಾಂಶ (ERA5, 2014–ಇಂದು) ಮತ್ತು ಕಾವೇರಿ ಜಲಾನಯನ ಮಳೆ.\n"
+            return ["🧠 ಈ ಮುನ್ಸೂಚನೆ ಹೇಗೆ ಮಾಡಲಾಗುತ್ತದೆ:\n• ನೈಜ ದೈನಂದಿನ ಮಳೆ ದತ್ತಾಂಶ (IMD ಮಳೆ ಮಾಪಕಗಳು, 2014–ಇಂದು) ಮತ್ತು ಕಾವೇರಿ ಜಲಾನಯನ ಮಳೆ.\n"
                     "• ಪ್ರತಿ ವಾರ್ಡ್‌ಗೆ ಜಲ ಸಮತೋಲನ: ಮಳೆ ಮರುಪೂರಣ − ಕೊಳವೆಬಾವಿ ಬಳಕೆ + ಪೈಪ್ ಸೋರಿಕೆ, ಪ್ರತಿದಿನ.\n"
                     "• 30 ಮಳೆ ಸನ್ನಿವೇಶಗಳಿಂದ ದಿನಗಳ ಶ್ರೇಣಿ; ಪ್ರತಿ ಅಂಶವನ್ನು ತೆಗೆದು ಮತ್ತೆ ಓಡಿಸಿ ಕಾರಣಗಳನ್ನು ಕಂಡುಹಿಡಿಯಲಾಗುತ್ತದೆ.\n"
                     "• 2024 ಬಿಕ್ಕಟ್ಟಿನ ಮೇಲೆ ಪರೀಕ್ಷಿಸಲಾಗಿದೆ. ಬೇಡಿಕೆ ಮತ್ತು ಪೈಪ್ ವ್ಯಾಪ್ತಿ ಅಂದಾಜು ಮೌಲ್ಯಗಳು."]
-        return ["🧠 How this forecast works:\n• Real daily rainfall (ERA5 reanalysis, 2014–today) plus rain in the Cauvery catchment.\n"
+        return ["🧠 How this forecast works:\n• Real daily rainfall (IMD rain-gauge grid, 2014–today) plus rain in the Cauvery catchment.\n"
                 "• A daily water balance for every ward: rain recharge − borewell pumping + pipe seepage.\n"
                 "• 30 rainfall scenarios give the days range; switching each factor off and re-running shows the reasons.\n"
                 "• Tested against the 2024 crisis. Demand and pipe coverage are estimates, clearly labelled in the app."]
@@ -259,5 +259,154 @@ class Answer:
         if "do" in hits and "rwh" not in hits:
             parts += self.todo()
         if not parts:  # unclear question: give the full picture
+            parts = [self.headline()] + self.why() + self.todo()
+        return "\n\n".join(parts)
+
+
+# ------------------------------------------------------------------ taluk chat (Karnataka platforms)
+
+SYSTEM_TALUK = """You are JalaMitra, the assistant inside Pravaah, a water scarcity prediction portal for Karnataka.
+The user is on the {platform} platform and asks about {name} taluk ({district} district).
+
+How to answer:
+- Reply in {language}. Use simple, everyday words. Give a one-line direct answer first, then short sections with "•"
+  bullets (roughly 120-200 words). Plain text only, no markdown symbols like ** or #.
+- Ground every claim in the TALUK DATA below and quote its numbers. "days_*" = days until the taluk's groundwater
+  reaches its stress level (its worst-10% level of 2014-2021) from an ML model trained on 2,698 real monitoring wells;
+  366 means not within the 6-month horizon. Driver "metres" = how much deeper groundwater will be in 3 months because
+  of that factor. Rain comes from IMD rain gauges. Do not invent numbers; say the model under-predicts extremes if
+  asked about accuracy.
+- Tailor advice to the platform: farmers (crop choice, drip/sprinkler, mulching, farm ponds, tank desilting, recharge),
+  residents (saving water, rainwater harvesting, tankers, leaks), industry (water audits, recycling/ZLD, storage,
+  alternative sources, CGWA rules).
+- If the question is unrelated to water, politely steer back.
+
+TALUK DATA:
+{data}
+"""
+
+TIPS = {
+    "agri": {
+        "en": ["Choose short-duration, low-water crops this season (ragi, jowar, pulses) over paddy or sugarcane",
+               "Switch to drip or sprinkler irrigation and mulch the soil to cut evaporation",
+               "Desilt village tanks and build farm ponds / recharge pits before the monsoon",
+               "Irrigate in the early morning or evening, and only when the topsoil is dry"],
+        "kn": ["ಈ ಋತುವಿನಲ್ಲಿ ಭತ್ತ/ಕಬ್ಬಿನ ಬದಲು ಕಡಿಮೆ ನೀರಿನ, ಅಲ್ಪಾವಧಿ ಬೆಳೆಗಳು (ರಾಗಿ, ಜೋಳ, ದ್ವಿದಳ ಧಾನ್ಯ)",
+               "ಹನಿ ಅಥವಾ ತುಂತುರು ನೀರಾವರಿ ಬಳಸಿ, ಮಣ್ಣಿಗೆ ಹೊದಿಕೆ (ಮಲ್ಚಿಂಗ್) ಹಾಕಿ",
+               "ಮುಂಗಾರಿಗೆ ಮುನ್ನ ಕೆರೆಗಳ ಹೂಳೆತ್ತಿ, ಕೃಷಿ ಹೊಂಡ / ಇಂಗು ಗುಂಡಿ ನಿರ್ಮಿಸಿ",
+               "ಮುಂಜಾನೆ ಅಥವಾ ಸಂಜೆ ಮಾತ್ರ, ಮೇಲ್ಮಣ್ಣು ಒಣಗಿದಾಗ ನೀರು ಹಾಯಿಸಿ"]},
+    "urban": {
+        "en": ["Fix leaks and fit aerators / low-flow fixtures (saves 20-30%)",
+               "Harvest rooftop rainwater and recharge borewells",
+               "Reuse RO reject and treated water for flushing and gardens",
+               "Book tankers early in dry months; report misuse"],
+        "kn": ["ಸೋರಿಕೆ ಸರಿಪಡಿಸಿ, ಏರೇಟರ್ / ಕಡಿಮೆ ಹರಿವಿನ ನಲ್ಲಿ ಅಳವಡಿಸಿ (20-30% ಉಳಿತಾಯ)",
+               "ಚಾವಣಿ ಮಳೆನೀರು ಸಂಗ್ರಹಿಸಿ ಕೊಳವೆಬಾವಿ ಮರುಪೂರಣ ಮಾಡಿ",
+               "RO ತ್ಯಾಜ್ಯ ನೀರು ಮತ್ತು ಶುದ್ಧೀಕರಿಸಿದ ನೀರನ್ನು ಶೌಚಾಲಯ, ತೋಟಕ್ಕೆ ಮರುಬಳಸಿ",
+               "ಬೇಸಿಗೆಯಲ್ಲಿ ಟ್ಯಾಂಕರ್ ಮುಂಚಿತವಾಗಿ ಕಾಯ್ದಿರಿಸಿ"]},
+    "industry": {
+        "en": ["Run a water audit and fix the top losses first",
+               "Recycle process and STP water (aim for zero liquid discharge)",
+               "Add on-site storage and rooftop harvesting before the dry months",
+               "Diversify sources (treated wastewater, KIADB supply) and follow CGWA groundwater rules"],
+        "kn": ["ನೀರಿನ ಲೆಕ್ಕಪರಿಶೋಧನೆ ಮಾಡಿ, ಹೆಚ್ಚು ನಷ್ಟವನ್ನು ಮೊದಲು ತಡೆಯಿರಿ",
+               "ಪ್ರಕ್ರಿಯೆ ಮತ್ತು STP ನೀರನ್ನು ಮರುಬಳಸಿ (ಶೂನ್ಯ ದ್ರವ ವಿಸರ್ಜನೆ ಗುರಿ)",
+               "ಬೇಸಿಗೆಗೆ ಮುನ್ನ ಸಂಗ್ರಹ ಸಾಮರ್ಥ್ಯ ಮತ್ತು ಚಾವಣಿ ಮಳೆನೀರು ಸಂಗ್ರಹ ಹೆಚ್ಚಿಸಿ",
+               "ಮೂಲಗಳನ್ನು ವೈವಿಧ್ಯಗೊಳಿಸಿ ಮತ್ತು CGWA ಅಂತರ್ಜಲ ನಿಯಮ ಪಾಲಿಸಿ"]},
+}
+PLATFORM_NAME = {"agri": "Agriculture & Farmers", "urban": "Urban Population", "industry": "Industries & Businesses"}
+DRIVER_KN = {"rain_deficit": "ಇತ್ತೀಚಿನ ತಿಂಗಳುಗಳಲ್ಲಿ ವಾಡಿಕೆಗಿಂತ ಕಡಿಮೆ ಮಳೆ",
+             "groundwater_already_low": "ಅಂತರ್ಜಲ ಈಗಾಗಲೇ ವಾಡಿಕೆಗಿಂತ ಆಳದಲ್ಲಿದೆ",
+             "heat": "ವಾಡಿಕೆಗಿಂತ ಹೆಚ್ಚು ಬಿಸಿ / ಒಣ ಗಾಳಿ"}
+
+
+def reply_taluk(ctx: dict, as_of: str, lang: str, platform: str, messages: list[dict]) -> dict:
+    if _has_credentials():
+        try:
+            client = anthropic.Anthropic()
+            resp = client.messages.create(
+                model=MODEL, max_tokens=1200,
+                system=SYSTEM_TALUK.format(platform=PLATFORM_NAME.get(platform, platform), name=ctx["name"],
+                                           district=ctx["district"],
+                                           language="Kannada (ಕನ್ನಡ)" if lang == "kn" else "English",
+                                           data=json.dumps({**ctx, "as_of": as_of}, ensure_ascii=False, indent=1)),
+                messages=[{"role": m["role"], "content": m["content"]} for m in messages[-12:]])
+            return {"text": "".join(b.text for b in resp.content if b.type == "text"), "source": "claude"}
+        except anthropic.APIError:
+            pass
+    return {"text": TalukAnswer(ctx, lang, platform).respond(messages[-1]["content"]), "source": "builtin"}
+
+
+class TalukAnswer:
+    """Built-in EN/KN answers from a taluk's indicators and M2 forecast (used without an API key)."""
+
+    def __init__(self, ctx, lang, platform):
+        self.c, self.kn, self.p = ctx, lang == "kn", platform if platform in TIPS else "urban"
+
+    def _days(self, d):
+        if d is None:
+            return "–"
+        if d == 0:
+            return "ಈಗಲೇ" if self.kn else "now"
+        if d >= 366:
+            return "6 ತಿಂಗಳಿಗೂ ಹೆಚ್ಚು" if self.kn else "more than 6 months"
+        return f"{round(d)} ದಿನ" if self.kn else f"{round(d)} days"
+
+    def headline(self):
+        c, f = self.c, self.c.get("forecast")
+        risk = RISK[c["risk"]]["kn" if self.kn else "en"]
+        if not f:
+            return (f"{c['name']} ತಾಲೂಕು: ಅಪಾಯ {risk} (ಮಳೆ ಮತ್ತು ಅಂತರ್ಜಲ ಆಧಾರಿತ ತಾತ್ಕಾಲಿಕ ಸೂಚ್ಯಂಕ)." if self.kn
+                    else f"{c['name']} taluk: {risk} risk (provisional index from rain and groundwater; no recent well readings).")
+        rng = f"{self._days(f['days_low'])} – {self._days(f['days_high'])}"
+        if self.kn:
+            return f"📅 {c['name']} ತಾಲೂಕಿನ ಅಂತರ್ಜಲ ಒತ್ತಡ ಮಟ್ಟ ತಲುಪಲು ಸುಮಾರು {self._days(f['days_mid'])} (ವ್ಯಾಪ್ತಿ {rng}). ಅಪಾಯ: {risk}."
+        return (f"📅 {c['name']} taluk's groundwater is expected to reach its stress level in about "
+                f"{self._days(f['days_mid'])} (likely range {rng}). Risk: {risk}.")
+
+    def why(self):
+        c, i = self.c, self.c["indicators"]
+        lines = ["ಕಾರಣಗಳು:" if self.kn else "Why:"]
+        if i.get("rain_365d_dev_pct") is not None:
+            dev = round(i["rain_365d_dev_pct"])
+            lines.append(f"• ಕಳೆದ 12 ತಿಂಗಳ ಮಳೆ {round(i['rain_365d_mm'])} ಮಿ.ಮೀ., ವಾಡಿಕೆಗಿಂತ {dev:+d}%" if self.kn
+                         else f"• Rain over the last 12 months: {round(i['rain_365d_mm'])} mm, {dev:+d}% vs normal (IMD)")
+        if i.get("gw_anom_m") is not None and i.get("gw_depth_m") is not None:
+            lines.append(f"• ಅಂತರ್ಜಲ {i['gw_depth_m']:.1f} ಮೀ. ಆಳದಲ್ಲಿ, ವಾಡಿಕೆಗಿಂತ {i['gw_anom_m']:+.1f} ಮೀ." if self.kn
+                         else f"• Groundwater is {i['gw_depth_m']:.1f} m below ground, {i['gw_anom_m']:+.1f} m vs normal (wells)")
+        for d in (c.get("forecast") or {}).get("drivers", [])[:3]:
+            if abs(d["metres"]) >= 0.05:
+                lab = DRIVER_KN.get(d["key"], d["label"]) if self.kn else d["label"]
+                lines.append(f"• {lab}: 3 ತಿಂಗಳಲ್ಲಿ {d['metres']:+.1f} ಮೀ." if self.kn else f"• {lab}: {d['metres']:+.1f} m in 3 months")
+        return ["\n".join(lines)]
+
+    def todo(self):
+        tips = TIPS[self.p]["kn" if self.kn else "en"]
+        return [("ನೀವು ಮಾಡಬಹುದಾದವು:\n" if self.kn else "What you can do:\n") + "\n".join(f"• {t}" for t in tips)]
+
+    def how(self):
+        if self.kn:
+            return ["🧠 ಮುನ್ಸೂಚನೆ ಹೇಗೆ: 2,698 ಸರ್ಕಾರಿ ಮೇಲ್ವಿಚಾರಣಾ ಬಾವಿಗಳ ಮಾಸಿಕ ದತ್ತಾಂಶದಿಂದ ಕಲಿತ ML ಮಾದರಿ, IMD ಮಳೆ ಮಾಪಕ "
+                    "ದತ್ತಾಂಶ ಮತ್ತು ಹಿಂದಿನ 8 ವರ್ಷಗಳ ಮಳೆಯನ್ನು ಸಂಭಾವ್ಯ ಭವಿಷ್ಯಗಳಾಗಿ ಬಳಸುತ್ತದೆ. 2022–26 ರ ಮೇಲೆ ಪರೀಕ್ಷಿಸಲಾಗಿದೆ; "
+                    "ತೀವ್ರ ಸಂದರ್ಭಗಳನ್ನು ಸ್ವಲ್ಪ ಕಡಿಮೆ ಅಂದಾಜಿಸುತ್ತದೆ."]
+        return ["🧠 How this works: an ML model learned from monthly readings at 2,698 government monitoring wells, uses "
+                "IMD rain-gauge data, and replays the past 8 years' rain as possible futures to give a range. It was "
+                "tested on 2022–26 (years it never saw) and tends to under-predict extremes."]
+
+    def respond(self, question):
+        q = " " + question.lower() + " "
+        hits = [k for k, words in INTENTS.items() if any(wd in q for wd in words)]
+        parts = []
+        if "how" in hits:
+            parts += self.how()
+        if "when" in hits or "safe" in hits or "ground" in hits:
+            parts.append(self.headline())
+        if "why" in hits:
+            if not parts:
+                parts.append(self.headline())
+            parts += self.why()
+        if "do" in hits or "rwh" in hits or "tanker" in hits:
+            parts += self.todo()
+        if not parts:
             parts = [self.headline()] + self.why() + self.todo()
         return "\n\n".join(parts)

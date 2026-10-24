@@ -50,6 +50,23 @@ def api_areas(as_of: str | None = None):
             "note": "Area list and demand are placeholders until the KIADB data is cleaned", "areas": areas}
 
 
+@router.get("/districts")
+def api_districts(as_of: str | None = None):
+    """M7: industrial water-disruption risk per district (KIADB land x M2 groundwater x M4 reservoirs)."""
+    from usecases.industry_m7 import NORM_KL_PER_HA_DAY, districts
+    as_of = clamp_date(as_of)
+    rows = districts(as_of)
+    tot = lambda k: round(sum(r[k] for r in rows), 1)
+    return {"as_of": as_of, "model": "m7-transparent-score", "districts": rows,
+            "totals": {"demand_mld": tot("demand_mld"), "water_at_risk_mld": tot("water_at_risk_mld"),
+                       "reuse_potential_mld": tot("reuse_potential_mld"), "developed_acres": tot("developed_acres")},
+            "assumptions": {"water_norm_kl_per_ha_day": NORM_KL_PER_HA_DAY, "surface_dependence_served": 0.6,
+                            "surface_dependence_unserved": 0.15, "wastewater_share": 0.8, "recyclable_share": 0.7},
+            "sources": {"real": ["KIADB developed land per district", "M2 groundwater forecast (2,698 wells)",
+                                 "M4 reservoir forecast (NWDP dams)"],
+                        "estimated": ["water use per hectare", "surface vs groundwater dependence"]}}
+
+
 @router.get("/location")
 def api_location(lat: float, lon: float, as_of: str | None = None):
     """Water risk for any point: nearest taluk centre (good enough until point-in-polygon is added)."""

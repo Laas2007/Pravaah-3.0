@@ -9,7 +9,7 @@ TODO (PLAN.md §6):
 """
 import datetime as dt
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 
 from core.data import clamp_date, climate, taluk
 from core.indicators import clean, rain_deviation, taluk_indicators
@@ -64,3 +64,37 @@ def api_taluk(idx: int, as_of: str | None = None):
         "crops": {"mock": True, "note": "Ranking logic not built yet (PLAN.md §6 Agri)",
                   "items": [{**cr, "fits_normal_rain": cr["water_need_mm"] <= expected + 200} for cr in CROPS]},
     }
+
+
+@router.get("/crops/{idx}")
+def api_crops(idx: int, as_of: str | None = None):
+    """M3: this season's crops ranked by rainfed yield risk (FAO-56 water balance + FAO-33 Ky, past-years rain)."""
+    from usecases import agri_fao as af
+    as_of = clamp_date(as_of)
+    t = taluk(idx)
+    out = af.crop_outlook(idx, dt.date.fromisoformat(as_of))
+    return {**{k: t[k] for k in ("idx", "name", "district")}, "as_of": as_of, "model": "m3-fao56-ky", **out,
+            "soil_awc_mm_per_m": af.awc_mm_per_m(idx),
+            "sources": {"real": ["IMD daily rain", "ERA5 FAO ET0"],
+                        "published": ["FAO-56 crop coefficients", "FAO-33 yield response Ky"],
+                        "estimated": ["soil available water", "sowing date"]}}
+
+
+@router.get("/irrigation/{idx}")
+def api_irrigation(idx: int, crop: str, as_of: str | None = None):
+    from usecases import agri_fao as af
+    if crop not in af.CROPS:
+        raise HTTPException(404, "unknown crop")
+    as_of = clamp_date(as_of)
+    taluk(idx)
+    return {"as_of": as_of, **af.irrigation_schedule(idx, crop, dt.date.fromisoformat(as_of))}
+
+
+@router.get("/sowing/{idx}")
+def api_sowing(idx: int, crop: str, as_of: str | None = None):
+    from usecases import agri_fao as af
+    if crop not in af.CROPS:
+        raise HTTPException(404, "unknown crop")
+    as_of = clamp_date(as_of)
+    taluk(idx)
+    return {"as_of": as_of, "crop": crop, "weeks": af.sowing_planner(idx, crop, dt.date.fromisoformat(as_of))}

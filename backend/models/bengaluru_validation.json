@@ -1,0 +1,333 @@
+{
+  "wells": 30,
+  "current_params": {
+    "train": {
+      "wells": 12,
+      "median_r": 0.51,
+      "share_positive": 0.92
+    },
+    "test": {
+      "wells": 12,
+      "median_r": 0.16,
+      "share_positive": 0.58
+    },
+    "all": {
+      "wells": 12,
+      "median_r": 0.25,
+      "share_positive": 0.92
+    }
+  },
+  "per_well": [
+    {
+      "code": "10105",
+      "row": 96,
+      "ward": 115,
+      "inside": false,
+      "r_train": 0.36003009348150417,
+      "r_test": 0.15958017696155613,
+      "r_all": 0.2687124602526531
+    },
+    {
+      "code": "10201",
+      "row": 99,
+      "ward": 230,
+      "inside": true,
+      "r_train": 0.27878289770035164,
+      "r_test": -0.024155041742475403,
+      "r_all": 0.0010252063861726473
+    },
+    {
+      "code": "10203",
+      "row": 100,
+      "ward": 60,
+      "inside": true,
+      "r_train": NaN,
+      "r_test": NaN,
+      "r_all": NaN
+    },
+    {
+      "code": "10204",
+      "row": 101,
+      "ward": 74,
+      "inside": true,
+      "r_train": 0.9295651700852865,
+      "r_test": -0.08019770408764551,
+      "r_all": 0.19611489400978846
+    },
+    {
+      "code": "10206",
+      "row": 102,
+      "ward": 5,
+      "inside": false,
+      "r_train": 0.5052759344301746,
+      "r_test": 0.24285001686735527,
+      "r_all": 0.39560724059444063
+    },
+    {
+      "code": "10212",
+      "row": 104,
+      "ward": 4,
+      "inside": true,
+      "r_train": 0.5537840137016842,
+      "r_test": -0.2955069190118545,
+      "r_all": -0.006028984236435823
+    },
+    {
+      "code": "10216",
+      "row": 108,
+      "ward": 203,
+      "inside": true,
+      "r_train": 0.5395125608889078,
+      "r_test": 0.6254322290910997,
+      "r_all": 0.6081343419546785
+    },
+    {
+      "code": "10217",
+      "row": 109,
+      "ward": 63,
+      "inside": true,
+      "r_train": 0.29322759116861574,
+      "r_test": -0.12945336569346733,
+      "r_all": 0.16112102385390545
+    },
+    {
+      "code": "10218",
+      "row": 110,
+      "ward": 11,
+      "inside": true,
+      "r_train": 0.5188145108291318,
+      "r_test": 0.3148273706037459,
+      "r_all": 0.32993129419806944
+    },
+    {
+      "code": "10219",
+      "row": 111,
+      "ward": 135,
+      "inside": true,
+      "r_train": NaN,
+      "r_test": NaN,
+      "r_all": NaN
+    },
+    {
+      "code": "10220",
+      "row": 112,
+      "ward": 119,
+      "inside": true,
+      "r_train": 0.7535481958610732,
+      "r_test": -0.11023552248506803,
+      "r_all": 0.24111045084381866
+    },
+    {
+      "code": "10301",
+      "row": 113,
+      "ward": 221,
+      "inside": true,
+      "r_train": -0.11012471803535734,
+      "r_test": 0.5558668091993154,
+      "r_all": 0.44869763307704025
+    },
+    {
+      "code": "10304",
+      "row": 114,
+      "ward": 216,
+      "inside": false,
+      "r_train": NaN,
+      "r_test": NaN,
+      "r_all": NaN
+    },
+    {
+      "code": "10316",
+      "row": 118,
+      "ward": 77,
+      "inside": true,
+      "r_train": 0.23329031736070655,
+      "r_test": 0.15978217590533253,
+      "r_all": 0.21465923934164413
+    },
+    {
+      "code": "10319",
+      "row": 121,
+      "ward": 113,
+      "inside": true,
+      "r_train": NaN,
+      "r_test": NaN,
+      "r_all": NaN
+    },
+    {
+      "code": "10320",
+      "row": 122,
+      "ward": 238,
+      "inside": false,
+      "r_train": NaN,
+      "r_test": NaN,
+      "r_all": NaN
+    },
+    {
+      "code": "10321",
+      "row": 123,
+      "ward": 49,
+      "inside": false,
+      "r_train": NaN,
+      "r_test": NaN,
+      "r_all": NaN
+    },
+    {
+      "code": "10725",
+      "row": 191,
+      "ward": 174,
+      "inside": false,
+      "r_train": NaN,
+      "r_test": NaN,
+      "r_all": NaN
+    },
+    {
+      "code": "10741",
+      "row": 207,
+      "ward": 204,
+      "inside": false,
+      "r_train": NaN,
+      "r_test": NaN,
+      "r_all": NaN
+    },
+    {
+      "code": "10745",
+      "row": 211,
+      "ward": 174,
+      "inside": false,
+      "r_train": NaN,
+      "r_test": NaN,
+      "r_all": NaN
+    },
+    {
+      "code": "11202",
+      "row": 422,
+      "ward": 206,
+      "inside": true,
+      "r_train": 0.6371221887339173,
+      "r_test": 0.19441727356903402,
+      "r_all": 0.3059766333361922
+    },
+    {
+      "code": "11227",
+      "row": 423,
+      "ward": 163,
+      "inside": true,
+      "r_train": NaN,
+      "r_test": NaN,
+      "r_all": NaN
+    },
+    {
+      "code": "11229",
+      "row": 424,
+      "ward": 209,
+      "inside": false,
+      "r_train": NaN,
+      "r_test": NaN,
+      "r_all": NaN
+    },
+    {
+      "code": "11233",
+      "row": 428,
+      "ward": 238,
+      "inside": true,
+      "r_train": NaN,
+      "r_test": NaN,
+      "r_all": NaN
+    },
+    {
+      "code": "11234",
+      "row": 429,
+      "ward": 64,
+      "inside": true,
+      "r_train": NaN,
+      "r_test": NaN,
+      "r_all": NaN
+    },
+    {
+      "code": "11235",
+      "row": 430,
+      "ward": 212,
+      "inside": false,
+      "r_train": NaN,
+      "r_test": NaN,
+      "r_all": NaN
+    },
+    {
+      "code": "11239",
+      "row": 434,
+      "ward": 3,
+      "inside": false,
+      "r_train": NaN,
+      "r_test": NaN,
+      "r_all": NaN
+    },
+    {
+      "code": "11242",
+      "row": 437,
+      "ward": 0,
+      "inside": false,
+      "r_train": NaN,
+      "r_test": NaN,
+      "r_all": NaN
+    },
+    {
+      "code": "11244",
+      "row": 439,
+      "ward": 158,
+      "inside": true,
+      "r_train": NaN,
+      "r_test": NaN,
+      "r_all": NaN
+    },
+    {
+      "code": "11245",
+      "row": 440,
+      "ward": 211,
+      "inside": true,
+      "r_train": NaN,
+      "r_test": NaN,
+      "r_all": NaN
+    }
+  ],
+  "search": {
+    "grid": {
+      "capacity_mm": [
+        200.0,
+        300.0,
+        450.0
+      ],
+      "lam": [
+        0.011111111111111112,
+        0.006666666666666667,
+        0.0033333333333333335
+      ],
+      "reg_k": [
+        0.5,
+        1.0,
+        1.5
+      ]
+    },
+    "best_params": {
+      "capacity_mm": 200.0,
+      "lam": 0.006666666666666667,
+      "reg_k": 1.5
+    },
+    "best_summary": {
+      "train": {
+        "wells": 12,
+        "median_r": 0.53,
+        "share_positive": 0.92
+      },
+      "test": {
+        "wells": 12,
+        "median_r": 0.15,
+        "share_positive": 0.58
+      },
+      "all": {
+        "wells": 12,
+        "median_r": 0.27,
+        "share_positive": 0.92
+      }
+    }
+  }
+}

@@ -140,7 +140,7 @@ export default function BengaluruApp() {
             tab={officialTab} setTab={setOfficialTab} preset={preset} />}
           {view === 'backtest' && <BacktestView selected={selected} onSelect={onSelect} asOf={asOf} setAsOf={setAsOf} detail={shownDetail} wardsByName={wardsByName} />}
           <div className="data-note">
-            🟢 Real: rainfall (ERA5), ward boundaries · 🟠 Estimated: demand, pipe coverage · 🔵 Simulated: groundwater
+            🟢 Real: rainfall (IMD rain gauges), ward boundaries · 🟠 Estimated: demand, pipe coverage · 🔵 Simulated: groundwater (checked against 30 real wells)
           </div>
         </aside>
       </main>

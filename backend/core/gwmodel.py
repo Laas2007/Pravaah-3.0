@@ -340,3 +340,82 @@ def predict(as_of: str) -> dict | None:
     return {"origin_month": a["months"][k0], "threshold_m": thr, "anom_now": now, "paths": paths,
             "days_low": lo, "days_mid": mid, "days_high": hi, "drivers_m": o["drivers_m"],
             "levels": [level(lo[i], mid[i]) if np.isfinite(mid[i]) else None for i in range(len(mid))]}
+
+
+# ---------------------------------------------------------------- Time Machine (historic testing)
+
+BACKTEST = MODELS / "gw_m2_backtest.npz"
+
+
+@lru_cache(maxsize=1)
+def taluk_anom_matrix() -> np.ndarray:
+    """Actual taluk anomaly per month (months x taluks): median over the taluk's wells with a reading."""
+    a = arrays()
+    A, wt, T = a["anom"], a["wt"], a["T"]
+    out = np.full((A.shape[1], T), np.nan)
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", RuntimeWarning)
+        for t in range(T):
+            m = wt == t
+            if m.any():
+                out[:, t] = np.nanmedian(A[m], axis=0)
+    return out
+
+
+@lru_cache(maxsize=1)
+def _backtest_file():
+    if not BACKTEST.exists():
+        return None
+    z = np.load(BACKTEST)
+    return {"months": [str(m) for m in z["months"]], "trained_until": str(z["trained_until"]),
+            "now": z["now"], "p10": z["p10"], "p50": z["p50"], "p90": z["p90"]}
+
+
+@lru_cache(maxsize=64)
+def backtest(as_of: str) -> dict | None:
+    """Replay the forecast made on as_of and compare it with what the wells actually showed afterwards.
+
+    From 2022 on the forecast comes from models trained only on data up to 2021 (gw_m2_backtest.npz): a genuine test.
+    Earlier dates use the production model, which saw those years ("in-sample")."""
+    a = arrays()
+    k0, d = _origin(as_of)
+    bt = _backtest_file()
+    om = a["months"][k0]
+    if bt is not None and om in bt["months"]:
+        j = bt["months"].index(om)
+        now, paths = bt["now"][j], {10: bt["p10"][j], 50: bt["p50"][j], 90: bt["p90"][j]}
+        mode = f"out-of-sample: model trained only on data up to {bt['trained_until']}"
+    else:
+        o = _origin_data(k0)
+        if o is None:
+            return None
+        now, paths = o["now"], o["paths"]
+        mode = "in-sample: the model was trained on these years"
+    act = taluk_anom_matrix()
+    H = [h for h in HORIZONS if k0 + h < act.shape[0]]
+    if not H:
+        return {"origin_month": om, "mode": mode, "available": False}
+    thr = a["thr"]
+    rows = []
+    for h in H:
+        actual = act[k0 + h]
+        ok = np.isfinite(actual) & np.isfinite(paths[50][:, h - 1]) & np.isfinite(now)
+        if not ok.any():
+            continue
+        rows.append({"h": h, "month": a["months"][k0 + h], "taluks": int(ok.sum()),
+                     "mae_model": float(np.mean(np.abs(paths[50][ok, h - 1] - actual[ok]))),
+                     "mae_no_change": float(np.mean(np.abs(now[ok] - actual[ok]))),
+                     "covered": float(np.mean((actual[ok] >= paths[10][ok, h - 1]) & (actual[ok] <= paths[90][ok, h - 1])))})
+    hl = rows[-1]["h"] if rows else None
+    stress = None
+    if hl:
+        actual = act[k0 + hl]
+        ok = np.isfinite(actual) & np.isfinite(paths[50][:, hl - 1])
+        ah = ok & (actual >= thr)
+        watch = ok & (paths[90][:, hl - 1] >= thr)
+        warn = ok & (paths[50][:, hl - 1] >= thr)
+        stress = {"month": a["months"][k0 + hl], "actual": int(ah.sum()), "taluks": int(ok.sum()),
+                  "watch_flagged": int(watch.sum()), "watch_caught": int((ah & watch).sum()),
+                  "warning_flagged": int(warn.sum()), "warning_caught": int((ah & warn).sum())}
+    return {"origin_month": om, "mode": mode, "available": True, "by_horizon": rows, "stress": stress,
+            "paths": paths, "now": now, "actual": {h: act[k0 + h] for h in H}, "threshold": thr}

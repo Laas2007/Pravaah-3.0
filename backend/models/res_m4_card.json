@@ -1,0 +1,310 @@
+{
+  "model": "M4 reservoir storage forecast (quantile gradient boosting + past-years catchment rain)",
+  "version": "m4-v1",
+  "trained": "2026-10-25",
+  "sklearn": "1.9.1",
+  "dams": [
+    "K.R.Sagara Dam",
+    "Kabini Dam",
+    "Harangi Dam",
+    "Hemavathy Dam",
+    "Tungabhadra Dam",
+    "Bhadra Dam",
+    "Almatti Dam",
+    "Hidkal Dam",
+    "Malaprabha Dam"
+  ],
+  "catchment_taluks": {
+    "K.R.Sagara Dam": [
+      "Madikeri",
+      "Somvarpet",
+      "Virajpet",
+      "Sakleshpur",
+      "Mudigere"
+    ],
+    "Kabini Dam": [
+      "Heggadadevankote",
+      "@wayanad_kabini"
+    ],
+    "Harangi Dam": [
+      "Madikeri",
+      "Somvarpet"
+    ],
+    "Hemavathy Dam": [
+      "Sakleshpur",
+      "Mudigere",
+      "Belur"
+    ],
+    "Tungabhadra Dam": [
+      "Tirthahalli",
+      "Sringeri",
+      "Koppa",
+      "Narasimharajapura",
+      "Mudigere",
+      "Shivamogga"
+    ],
+    "Bhadra Dam": [
+      "Koppa",
+      "Narasimharajapura",
+      "Mudigere",
+      "Chikkamagaluru",
+      "Sringeri"
+    ],
+    "Almatti Dam": [
+      "Chikodi",
+      "Athni",
+      "Nippani",
+      "Raybag"
+    ],
+    "Hidkal Dam": [
+      "Khanapur",
+      "Belagavi",
+      "Hukeri"
+    ],
+    "Malaprabha Dam": [
+      "Khanapur",
+      "Belagavi"
+    ]
+  },
+  "features": [
+    "dam",
+    "s_frac",
+    "ds7",
+    "ds30",
+    "inflow7",
+    "release7",
+    "rain_dev_30",
+    "rain_dev_90",
+    "rain_dev_365",
+    "rain_30_mm",
+    "fut_dev",
+    "fut_norm",
+    "doy_sin",
+    "doy_cos",
+    "horizon"
+  ],
+  "rows": 36524,
+  "label": "Change in gross storage (fraction of design capacity) over 15-180 days, NWDP daily records",
+  "validation": {
+    "split": "train targets <= 2021-12-31, test origins after",
+    "by_horizon": {
+      "15": {
+        "model_pct_cap": 4.6,
+        "no_change_pct_cap": 6.7,
+        "seasonal_pct_cap": 5.2,
+        "coverage_10_90": 0.85,
+        "n": 522
+      },
+      "30": {
+        "model_pct_cap": 5.8,
+        "no_change_pct_cap": 11.6,
+        "seasonal_pct_cap": 6.6,
+        "coverage_10_90": 0.85,
+        "n": 522
+      },
+      "60": {
+        "model_pct_cap": 9.1,
+        "no_change_pct_cap": 21.5,
+        "seasonal_pct_cap": 9.4,
+        "coverage_10_90": 0.83,
+        "n": 513
+      },
+      "90": {
+        "model_pct_cap": 11.0,
+        "no_change_pct_cap": 29.9,
+        "seasonal_pct_cap": 11.5,
+        "coverage_10_90": 0.83,
+        "n": 504
+      },
+      "120": {
+        "model_pct_cap": 12.4,
+        "no_change_pct_cap": 36.2,
+        "seasonal_pct_cap": 12.8,
+        "coverage_10_90": 0.81,
+        "n": 495
+      },
+      "150": {
+        "model_pct_cap": 13.1,
+        "no_change_pct_cap": 39.9,
+        "seasonal_pct_cap": 13.7,
+        "coverage_10_90": 0.8,
+        "n": 486
+      },
+      "180": {
+        "model_pct_cap": 13.0,
+        "no_change_pct_cap": 41.1,
+        "seasonal_pct_cap": 15.2,
+        "coverage_10_90": 0.84,
+        "n": 477
+      }
+    }
+  },
+  "event_krs_2023": [
+    {
+      "origin": "2023-06-01",
+      "storage_now_tmc": 10.7,
+      "points": [
+        {
+          "days": 15,
+          "actual_tmc": 11.6,
+          "p10_tmc": 9.8,
+          "p50_tmc": 11.0,
+          "p90_tmc": 18.1
+        },
+        {
+          "days": 30,
+          "actual_tmc": 10.0,
+          "p10_tmc": 10.3,
+          "p50_tmc": 14.0,
+          "p90_tmc": 27.3
+        },
+        {
+          "days": 60,
+          "actual_tmc": 34.9,
+          "p10_tmc": 14.1,
+          "p50_tmc": 32.0,
+          "p90_tmc": 47.1
+        },
+        {
+          "days": 90,
+          "actual_tmc": 24.1,
+          "p10_tmc": 20.2,
+          "p50_tmc": 35.7,
+          "p90_tmc": 49.6
+        },
+        {
+          "days": 120,
+          "actual_tmc": 21.0,
+          "p10_tmc": 20.4,
+          "p50_tmc": 36.0,
+          "p90_tmc": 49.7
+        },
+        {
+          "days": 150,
+          "actual_tmc": 22.4,
+          "p10_tmc": 18.3,
+          "p50_tmc": 37.1,
+          "p90_tmc": 49.6
+        },
+        {
+          "days": 180,
+          "actual_tmc": 21.2,
+          "p10_tmc": 18.5,
+          "p50_tmc": 36.9,
+          "p90_tmc": 49.3
+        }
+      ]
+    },
+    {
+      "origin": "2023-08-01",
+      "storage_now_tmc": 35.2,
+      "points": [
+        {
+          "days": 15,
+          "actual_tmc": 32.8,
+          "p10_tmc": 28.4,
+          "p50_tmc": 42.4,
+          "p90_tmc": 50.4
+        },
+        {
+          "days": 30,
+          "actual_tmc": 23.6,
+          "p10_tmc": 28.1,
+          "p50_tmc": 43.1,
+          "p90_tmc": 50.4
+        },
+        {
+          "days": 60,
+          "actual_tmc": 21.1,
+          "p10_tmc": 27.2,
+          "p50_tmc": 42.8,
+          "p90_tmc": 50.1
+        },
+        {
+          "days": 90,
+          "actual_tmc": 22.4,
+          "p10_tmc": 28.1,
+          "p50_tmc": 40.2,
+          "p90_tmc": 49.7
+        },
+        {
+          "days": 120,
+          "actual_tmc": 21.1,
+          "p10_tmc": 24.6,
+          "p50_tmc": 37.1,
+          "p90_tmc": 48.8
+        },
+        {
+          "days": 150,
+          "actual_tmc": 20.4,
+          "p10_tmc": 22.7,
+          "p50_tmc": 33.5,
+          "p90_tmc": 46.1
+        },
+        {
+          "days": 180,
+          "actual_tmc": 17.1,
+          "p10_tmc": 20.2,
+          "p50_tmc": 29.8,
+          "p90_tmc": 43.5
+        }
+      ]
+    },
+    {
+      "origin": "2023-10-01",
+      "storage_now_tmc": 21.3,
+      "points": [
+        {
+          "days": 15,
+          "actual_tmc": 23.8,
+          "p10_tmc": 17.1,
+          "p50_tmc": 24.1,
+          "p90_tmc": 28.0
+        },
+        {
+          "days": 30,
+          "actual_tmc": 22.4,
+          "p10_tmc": 15.6,
+          "p50_tmc": 23.2,
+          "p90_tmc": 28.8
+        },
+        {
+          "days": 60,
+          "actual_tmc": 20.9,
+          "p10_tmc": 12.7,
+          "p50_tmc": 19.2,
+          "p90_tmc": 27.4
+        },
+        {
+          "days": 90,
+          "actual_tmc": 20.4,
+          "p10_tmc": 10.9,
+          "p50_tmc": 15.5,
+          "p90_tmc": 24.1
+        },
+        {
+          "days": 120,
+          "actual_tmc": 17.1,
+          "p10_tmc": 9.5,
+          "p50_tmc": 14.4,
+          "p90_tmc": 21.1
+        },
+        {
+          "days": 150,
+          "actual_tmc": 16.1,
+          "p10_tmc": 8.3,
+          "p50_tmc": 11.8,
+          "p90_tmc": 19.3
+        },
+        {
+          "days": 180,
+          "actual_tmc": 13.7,
+          "p10_tmc": 6.2,
+          "p50_tmc": 8.5,
+          "p90_tmc": 18.1
+        }
+      ]
+    }
+  ],
+  "low_threshold": "15% of design capacity"
+}

@@ -54,8 +54,8 @@ borewell draw = demand − Cauvery piped supply
 | Input | Status | Source |
 |---|---|---|
 | Ward boundaries (243) | real | BBMP via datameet/Municipal_Spatial_Data |
-| Daily rainfall 2014–now, 16 grid points over the city | real | ERA5 reanalysis via Open-Meteo archive |
-| Cauvery catchment rainfall (Kodagu→KRS, Wayanad→Kabini) | real | ERA5 via Open-Meteo |
+| Daily rainfall 2014–now, 16 grid points over the city | real | IMD 0.25° gauge-based grid (QC-filled), `backend/train/build_bengaluru_rain.py`; ERA5 only after IMD's last published year |
+| Cauvery catchment rainfall (Kodagu→KRS, Wayanad→Kabini) | real | IMD gauge grid (as above) |
 | Stage V Cauvery commissioning (Oct 2024) | real event | public announcements |
 | Ward population | estimated | 2011 census ÷ 243 (delimitation basis) × distance-based growth |
 | Cauvery pipe coverage per ward | estimated | higher in the core, lower in the 110 villages merged in 2007 |

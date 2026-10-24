@@ -300,7 +300,62 @@ python train/fetch_nwdp.py && python train/clean_nwdp.py
       earlier "105/117" event figure came from a buggy experiment (wrong month normal) and is void.
       Risk levels now: critical = at stress / likely ≤ 90 d, high = likely ≤ 6 months, medium = watch, low.
       Drivers are metres (effect on groundwater in 3 months). Forecasts are precomputed per month (API ~instant).
-- [ ] Real drought declarations (M1 labels), crop yields, KIADB cleaning
+- [x] 2026-10-25 — **Bengaluru ward-level inside the platforms** (user: pinpointing is a core USP, keep data authentic).
+      Only 18 NWDP wells lie inside BBMP (9 before 2023; nearest well ~2.6 km from a ward centre), so ward detail can't
+      honestly come from wells: wards keep the ward water-balance model (`model.py`), with authentic inputs:
+      - **Rain → IMD** (`train/build_bengaluru_rain.py` rewrites `data/rainfall.json`; old ERA5 copy in `_downloads/`):
+        IMD 0.25° gauge grid bilinear to the 16 city + 2 Cauvery-catchment points, after QC (`train/imd_qc.py`: 14
+        cell-years + 55 cell-months around Karnataka filled from neighbours, e.g. east Bengaluru 2024). City rain now
+        2017: 1,294 mm, 2022: 1,695 mm (ERA5 had 965 / 1,113). IMD 2024 = 821 mm (ERA5 said 1,059), kept as measured.
+      - **Checked against real wells** (`train/validate_bengaluru.py` → `models/bengaluru_validation.json`): simulated
+        ward groundwater vs 12 long-record wells in/near the city, median r 0.51 (2015–21) but 0.16 (2022+). A 27-point
+        parameter search on 2015–21 didn't improve 2022+ (0.13–0.21), so Params are unchanged. Shown in the model card.
+      - Wards on Mar 2024: 54 short now / 67 critical; Jan 2023: 1 short. Backtest cache regenerated with IMD rain.
+      - UI: `/api/urban/wards`, ward overlay on the Karnataka map (landing, Urban, Industry) with Karnataka/Bengaluru zoom
+        buttons, `WardCard` → full ward view, "Bengaluru, ward by ward" summary; links `?w=<ward idx>`, `?zoom=blr`.
+      - Not yet: Karnataka taluk rain (`climate.npz`) still uses the older taluk-level IMD patch, not `imd_qc.py`
+        (switching needs M2 retrain + precompute, ~25 min); assimilating the 30 city wells into ward model state.
+- [x] 2026-10-25 — **Original site features brought to the 3 platforms:**
+      - **Kannada:** `shared/lang.js` (`useLang`, `useTr` → `tr('English', 'ಕನ್ನಡ')` inline), `?lang=kn` in the URL,
+        language button in every header + landing; all shared components and platform pages translated.
+      - **Time Machine (historic testing):** `train/precompute_backtest.py` → `models/gw_m2_backtest.npz` = forecasts
+        from validation models trained only to 2021, for every origin from 2022-01 (dates before 2022 use the production
+        model and are labelled "in-sample"). `gwmodel.backtest()` + `/api/core/backtest?as_of=&idx=` compare the
+        forecast with later well readings (MAE vs no-change, range coverage, stress caught). `shared/TimeMachine.jsx`
+        in every taluk panel + statewide card. Out-of-sample checks: from 2023-11 → 1.99 m vs 2.25 m, 91 % covered,
+        watch 18/20; from 2023-07 → 1.48 vs 3.15 m.
+      - **Timeline slider with play** in the date bar (2-weekly steps).
+      - **Guided tour** (`shared/Tour.jsx`, `?tour=n`): 7 steps across platforms (Agri map → Basavana Bagevadi
+        forecast → Time Machine → Bengaluru wards Mar 2024 → Cauvery outlook → Industry → Kannada + chatbot).
+      - **JalaMitra chatbot** on all platforms (`shared/PlatformChat.jsx`): taluks via new `/api/core/chat`
+        (`chat.reply_taluk`, Claude if a key is set, else built-in EN/KN answers with platform-specific tips),
+        Bengaluru wards via the existing `/api/chat`.
+- [x] 2026-10-25 — **M3–M7 built** (M1 left to the user: needs genuine drought orders).
+      - **M4 reservoir forecast** (`core/reservoir_model.py`, `train/train_reservoir.py`, `models/res_m4*.joblib`,
+        `res_m4_card.json`): quantile GBM on 9 dams' daily NWDP records + IMD catchment-taluk rain, past-years rain as
+        futures. Test 2022+: error 4.6/9.1/13.0 % of capacity at 15/60/180 days vs 6.7/21.5/41.1 no-change and
+        5.2/9.4/15.2 seasonal; 80–85 % inside 10–90 % range. KRS from Oct 2023 inside range; from Aug 2023 missed
+        the drop (court-ordered releases to Tamil Nadu aren't predictable from rain). `core.reservoirs.forecast_storage()`
+        implements the contract (dams combined draw by draw; replays of 2022+ use the validation model). Urban Cauvery
+        card shows the fan + "supply outlook".
+      - **M3 crop water stress & yield risk** (`usecases/agri_fao.py`): FAO-56 daily root-zone balance + FAO-33 Ky on
+        IMD rain / ERA5 ET0, past-years rain for the rest of the season; crop ranking, irrigation schedule, sowing
+        planner (`/api/agri/crops|irrigation|sowing/{idx}`, `platforms/agri/CropAdvisor.jsx`). Checked vs DES 2024-25
+        district yields (`train/validate_crops.py` → `models/m3_card.json`): rainfed crops follow the model (urad
+        ρ −0.65, gram −0.44, kharif jowar −0.43, moong −0.34); irrigated crops (rice +0.50, ragi +0.70, maize ~0)
+        don't, pooled −0.01. DES has one year only, so no trained yield model; soil water and sowing dates estimated.
+      - **M7 industrial disruption** (`usecases/industry_m7.py`, `/api/industry/districts`): KIADB acreage (real) ×
+        20 kL/ha/day (estimated) → 703 MLD; exposure from M2 (groundwater) + M4 (reservoir system per district);
+        transparent score (no labels exist). Mar 2024: Tungabhadra districts critical. Industry page map + table.
+      - **M5 urban demand & tankers** (`usecases/urban_demand.py`, `/api/urban/demand`): estimated (no metered demand
+        to train on): ward model demand, piped vs borewell, tanker need in wards at/near shortage (upper bound),
+        6-month outlook with +2 %/°C heat factor. Mar 2024: 67 wards (Hagadur, Kadugodi, Whitefield, Belathur top).
+      - **M6 leak detection** (`usecases/urban_leaks.py`, `/api/urban/leaks/demo|check`): night-minimum rule +
+        IsolationForest on SYNTHETIC meters (120 meters, 20 planted leaks, night sump filling): 14/20 leaks, 100 %
+        precision, misses only 2–4 L/h drips; CSV upload check. `platforms/urban/UrbanModels.jsx`.
+      - `main.py` imports sklearn at startup (lazy imports from parallel request threads deadlocked → 500s).
+      - Model card lists every model with its data type and test.
+- [ ] Real drought declarations (M1 labels) — user is sourcing them
 - [ ] M1 drought classifier + 2023 backtest
 - [x] M2 taluk groundwater forecast (see above)
 - [ ] M4 Cauvery storage forecast → Urban supply outlook
