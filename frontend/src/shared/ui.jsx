@@ -20,8 +20,17 @@ export function MockBanner({ children }) {
   return <div className="ps-mock">🧪 <b>Placeholder data</b> · {children}</div>
 }
 
-/** Shown wherever risk comes from the provisional index rather than a trained model. */
-export function ProvisionalNote() {
+/** Explains where the risk level comes from (ML forecast or the provisional index). */
+export function ProvisionalNote({ model }) {
+  if (model && model.startsWith('m2')) {
+    return (
+      <div className="ps-note">
+        Risk = <b>ML groundwater forecast</b> from 2,698 real monitoring wells. Critical: at stress now or likely within
+        90 days · High: likely within 6 months · Medium (watch): possible within 6 months in a dry year.{' '}
+        <a href="/#model">How accurate is it?</a>
+      </div>
+    )
+  }
   return (
     <div className="ps-note">
       Risk = provisional index from <b>real</b> rainfall (IMD) and groundwater wells (NWDP).

@@ -3,3 +3,5 @@ uvicorn[standard]
 numpy
 httpx
 anthropic
+scikit-learn==1.9.1  # must match the version models/*.joblib were trained with
+joblib

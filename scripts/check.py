@@ -32,6 +32,7 @@ ENDPOINTS = [
     ("/api/urban/cauvery?as_of={d}", ["as_of", "series", "storage_tmc"]),
     ("/api/industry/areas?as_of={d}", ["as_of", "model", "areas"]),
     ("/api/industry/location?lat=13.13&lon=78.13&as_of={d}", ["as_of", "model", "risk"]),
+    ("/api/core/model-card", ["m2", "m1"]),
     ("/api/meta", ["ward_count"]),                      # original Bengaluru model
     ("/api/predict?as_of={d}", ["wards"]),
 ]

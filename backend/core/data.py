@@ -65,9 +65,14 @@ class Groundwater:
     wells: np.ndarray       # wells reporting
 
     def latest(self, as_of: str, idx: int | None = None, max_age: int = 6):
-        """Most recent monthly value on or before as_of (at most max_age months old) per taluk."""
-        m = min(self.months.index(as_of[:7]) if as_of[:7] in self.months else len(self.months) - 1,
-                len(self.months) - 1)
+        """Most recent monthly value from a month that had fully ended before as_of (at most max_age months old).
+
+        Readings are stamped with their month (01-MM), so the as_of month itself may not be known yet: no look-ahead."""
+        last = last_complete_month(as_of)
+        m = self.months.index(last) if last in self.months else (len(self.months) - 1 if last > self.months[-1] else -1)
+        if m < 0:
+            nan = np.full(self.depth.shape[1], np.nan, dtype=np.float32)
+            return (nan[idx], nan[idx], "") if idx is not None else (nan, nan.copy(), np.full(len(nan), "", dtype=object))
         depth = np.full(self.depth.shape[1], np.nan, dtype=np.float32)
         anom = depth.copy()
         month = np.full(self.depth.shape[1], "", dtype=object)
@@ -77,6 +82,12 @@ class Groundwater:
         if idx is not None:
             return depth[idx], anom[idx], month[idx]
         return depth, anom, month
+
+
+def last_complete_month(as_of: str) -> str:
+    """'YYYY-MM' of the month before as_of's month (the latest month whose readings are fully known on as_of)."""
+    d = dt.date.fromisoformat(as_of).replace(day=1) - dt.timedelta(days=1)
+    return d.strftime("%Y-%m")
 
 
 @lru_cache(maxsize=1)

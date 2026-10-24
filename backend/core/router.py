@@ -2,7 +2,7 @@
 from fastapi import APIRouter
 from fastapi.responses import Response
 
-from .data import climate, clamp_date, geojson_bytes, groundwater, regions, taluk
+from .data import climate, clamp_date, geojson_bytes, groundwater, last_complete_month, regions, taluk
 from .indicators import clean, taluk_indicators
 from .risk import taluk_risk
 
@@ -51,9 +51,35 @@ def api_indicators(as_of: str | None = None):
     score, levels = rk["score"], rk["levels"]
     return {
         "as_of": as_of, "model": rk["model"],
-        "taluks": [{"idx": r["idx"], "risk": levels[i], "stress": clean(score[i]),
+        "taluks": [{"idx": r["idx"], "risk": levels[i], "stress": clean(score[i]), "source": rk["source"][i],
+                    "days_mid": clean(rk["days_mid"][i]) if rk["days_mid"] is not None else None,
                     **{k: clean(v[i]) for k, v in ind.items()}} for i, r in enumerate(regions())],
     }
+
+
+def forecast_for(rk: dict, idx: int, as_of: str) -> dict | None:
+    """M2 forecast block for one taluk (None when the taluk falls back to the provisional index)."""
+    if rk["days_mid"] is None or rk["source"][idx] != "m2":
+        return None
+    om = rk["origin_month"]
+    y, mo = int(om[:4]), int(om[5:7])
+    path = []
+    for j in range(rk["gw_paths"][50].shape[1]):
+        m = mo - 1 + j + 1
+        path.append({"month": f"{y + m // 12}-{m % 12 + 1:02d}",
+                     **{f"p{p}": clean(rk["gw_paths"][p][idx, j]) for p in (10, 50, 90)}})
+    return {"days_low": clean(rk["days_low"][idx]), "days_mid": clean(rk["days_mid"][idx]),
+            "days_high": clean(rk["days_high"][idx]), "threshold_m": clean(rk["gw_threshold_m"][idx]),
+            "anom_now_m": clean(rk["gw_anom_now_m"][idx]), "origin_month": om, "path": path,
+            "drivers": rk["drivers"][idx], "horizon_days": 183,
+            "meaning": "days until the taluk's groundwater reaches its worst-10% level (stress); 366 = not within 6 months. "
+                       "Driver metres = how much deeper groundwater will be in 3 months because of that factor."}
+
+
+@router.get("/model-card")
+def model_card():
+    from .gwmodel import card
+    return {"m2": card(), "m1": {"status": "waiting for genuine drought-declaration labels"}}
 
 
 @router.get("/taluk/{idx}")
@@ -65,6 +91,7 @@ def api_taluk(idx: int, as_of: str | None = None):
     score, levels = rk["score"], rk["levels"]
     g = groundwater()
     hist = [{"month": m, "depth": clean(g.depth[k, idx]), "anom": clean(g.anom[k, idx]), "wells": int(g.wells[k, idx])}
-            for k, m in enumerate(g.months) if m >= "2014-01" and m <= as_of[:7]]
+            for k, m in enumerate(g.months) if "2014-01" <= m <= last_complete_month(as_of)]
     return {**t, "as_of": as_of, "model": rk["model"], "risk": levels[idx], "stress": clean(score[idx]),
+            "source": rk["source"][idx], "forecast": forecast_for(rk, idx, as_of),
             "indicators": {k: clean(v[idx]) for k, v in ind.items()}, "groundwater_history": hist}

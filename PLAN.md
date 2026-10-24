@@ -284,10 +284,25 @@ python train/fetch_nwdp.py && python train/clean_nwdp.py
       **Cauvery supply outlook** card (`/api/urban/cauvery`, KRS+Kabini+Harangi+Hemavathy; 1 Oct 2023: 59.9 vs 97.4 TMC
       normal, −39 %). Landing shows 3 cards. Verified: build OK, endpoints 200, removed API routes 404, screenshots OK.
       **Mock (labelled in UI):** crop ranking, city population/supply, industrial area list/demand.
-- [ ] Team split decided (§7)
-- [ ] Drought list / crop yields / KIADB cleaned (waiting for user files)
+- [x] 2026-10-24 — **Team split + AGENTS.md** (rules for 5 people with different AI agents), `core/risk.py`
+      `taluk_risk()` contract, `core/reservoirs.forecast_storage()` stub (M4), `scripts/check.py`. Pushed to GitHub.
+- [x] 2026-10-24 — **Drought file rejected as labels.** `data/raw/drought/karnataka_drought_taluks_detailed (1).xlsx`
+      is not genuine: years are nested prefixes of one list in identical order (2019 ⊂ 2018 ⊂ 2016 ⊂ 2023), 2016
+      contains taluks created in 2017–18, Koppa/Sringeri listed every year, 2019 lists Belagavi (+26 % monsoon rain,
+      floods) but not Kolar (−27 %). M1 waits for real government orders.
+- [x] 2026-10-24 — **M2 groundwater forecast trained** (`core/gwmodel.py`, `train/train_gw.py`,
+      `train/precompute_gw.py`, `models/gw_m2.joblib`, `models/gw_m2_card.json`, `models/gw_m2_forecasts.npz`).
+      Well-level quantile GBM (5/50/95 %) on 1.34 M real well-change examples (2,698 NWDP wells); future rain replayed
+      from the 8 previous years; taluk = median of wells. Validation (train ≤ 2021, test 2022–26): taluk MAE 2.06 m vs
+      2.22 m no-change, 10–90 % range covers 86 %; 2023 drought (Oct 2023 → Apr 2024, 20 taluks at stress): watch tier
+      (pessimistic path) caught 18/20 but flags ~168, warning tier (likely path) 4/20 at 33 % precision. Ranks well
+      (ρ 0.71), under-predicts extremes. First attempt (taluk-median panel) was worse than no-change and was dropped; an
+      earlier "105/117" event figure came from a buggy experiment (wrong month normal) and is void.
+      Risk levels now: critical = at stress / likely ≤ 90 d, high = likely ≤ 6 months, medium = watch, low.
+      Drivers are metres (effect on groundwater in 3 months). Forecasts are precomputed per month (API ~instant).
+- [ ] Real drought declarations (M1 labels), crop yields, KIADB cleaning
 - [ ] M1 drought classifier + 2023 backtest
-- [ ] M2 taluk days-to-shortage (calibrated to wells)
+- [x] M2 taluk groundwater forecast (see above)
 - [ ] M4 Cauvery storage forecast → Urban supply outlook
 - [ ] Agri MUSTs · Urban MUSTs · Industry MUSTs
 - [ ] Deploy to Vercel; README updated with Karnataka data table

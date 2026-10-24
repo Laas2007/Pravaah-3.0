@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { core } from './api'
 import { RISK_COLOR, RISK_ORDER } from './i18n'
 import KarnatakaMap from './shared/KarnatakaMap'
+import ModelCard from './shared/ModelCard'
 import { RiskLegend } from './shared/PlatformShell'
 import { getMeta, useLoad } from './shared/hooks'
 import { PLATFORMS } from './shared/platforms'
@@ -28,7 +29,7 @@ export default function Landing() {
             <div className="landing-now">
               Today ({meta.climate_until}):{' '}
               {RISK_ORDER.map((r) => <span key={r} style={{ color: RISK_COLOR[r] }}><b>{counts[r]}</b> {r} </span>)}
-              <small> (provisional index)</small>
+              <small> ({ind.model.startsWith('m2') ? 'ML groundwater forecast' : 'provisional index'})</small>
             </div>
           )}
         </div>
@@ -47,6 +48,7 @@ export default function Landing() {
           </Link>
         ))}
       </div>
+      <div className="landing-model"><ModelCard /></div>
       <footer className="landing-foot">
         🟢 Real: IMD rainfall, NWDP groundwater wells & reservoirs, LGD boundaries · 🟠 Estimated: demand, supply ·
         🔵 Simulated: daily groundwater between readings

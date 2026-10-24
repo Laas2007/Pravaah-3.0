@@ -1,9 +1,10 @@
 // 🌾 Agriculture & Farmers. TODO list: backend/usecases/agri.py
-import { useState } from 'react'
 import { core } from '../../api'
 import KarnatakaMap from '../../shared/KarnatakaMap'
+import TalukDetail from '../../shared/TalukDetail'
+import { platform } from '../../shared/platforms'
 import PlatformShell from '../../shared/PlatformShell'
-import { useAsOf, useLoad } from '../../shared/hooks'
+import { useAsOf, useLoad, useTalukSel } from '../../shared/hooks'
 import { ErrorBox, Loading, MockBanner, RiskBadge, Stat, m, pct } from '../../shared/ui'
 import { agriApi } from './api'
 
@@ -20,7 +21,7 @@ function devColor(v) {
 
 export default function AgriPlatform() {
   const [asOf, setAsOf, meta] = useAsOf()
-  const [sel, setSel] = useState(null)
+  const [sel, setSel] = useTalukSel()
   const ind = useLoad(() => (asOf ? core.indicators(asOf) : Promise.resolve(null)), [asOf]).data
   const byIdx = ind ? ind.taluks : []
 
@@ -36,7 +37,7 @@ export default function AgriPlatform() {
     <PlatformShell which="agri" asOf={asOf} setAsOf={setAsOf} meta={meta} map={map}>
       {sel == null
         ? <div className="ps-empty">👆 Click your taluk on the map to see season rainfall, water stress and crop advice.</div>
-        : <Detail idx={sel} asOf={asOf} />}
+        : <><TalukDetail idx={sel} asOf={asOf} color={platform('agri').color} onClose={() => setSel(null)} /><Detail idx={sel} asOf={asOf} /></>}
     </PlatformShell>
   )
 }

@@ -1,0 +1,131 @@
+{
+  "model": "M2 groundwater forecast: well-level quantile gradient boosting + past-years rain ensemble",
+  "version": "m2-wells-v2",
+  "trained": "2026-10-24",
+  "sklearn": "1.9.1",
+  "label": "Change in depth to water over 1-6 months at 2,698 NWDP monitoring wells (real readings)",
+  "features": [
+    "depth_now",
+    "d3",
+    "d12",
+    "anom_now",
+    "seas",
+    "rain_dev_30",
+    "rain_dev_90",
+    "rain_dev_365",
+    "et0_dev_90",
+    "fut_dev",
+    "fut_norm",
+    "horizon",
+    "target_month"
+  ],
+  "quantiles": [
+    0.05,
+    0.5,
+    0.95
+  ],
+  "rows": 1338958,
+  "train_rows_used": 1200000,
+  "origins": [
+    "2015-01",
+    "2026-09"
+  ],
+  "stress_definition": "taluk median well anomaly >= taluk's own 90th percentile of 2014-2021 (>= 1 m deeper than normal)",
+  "validation": {
+    "split": "train targets <= 2021-12, test origins >= 2022-01",
+    "well_level_mae_m": {
+      "1": {
+        "model_actual_rain": 2.18,
+        "no_change": 2.24,
+        "seasonal": 2.42
+      },
+      "3": {
+        "model_actual_rain": 4.32,
+        "no_change": 4.92,
+        "seasonal": 4.87
+      },
+      "6": {
+        "model_actual_rain": 5.59,
+        "no_change": 6.63,
+        "seasonal": 6.38
+      }
+    },
+    "taluk_level": {
+      "origins": 18,
+      "pairs": 23942,
+      "mae_model_m": 2.06,
+      "mae_no_change_m": 2.22,
+      "coverage_10_90": 0.86
+    }
+  },
+  "event_2023": {
+    "origin": "2023-10",
+    "target": "2024-04",
+    "taluks": 222,
+    "spearman": 0.71,
+    "actual_in_stress": 20,
+    "flagged": 12,
+    "correct": 4,
+    "recall": 0.2,
+    "precision": 0.33,
+    "mae_m": 1.99,
+    "mae_no_change_m": 2.25
+  },
+  "importance": {
+    "seas": 0.614,
+    "anom_now": 0.332,
+    "fut_dev": 0.219,
+    "target_month": 0.159,
+    "fut_norm": 0.118,
+    "depth_now": 0.113,
+    "horizon": 0.088,
+    "d3": 0.079,
+    "d12": 0.01,
+    "rain_dev_30": 0.008,
+    "et0_dev_90": 0.002,
+    "rain_dev_365": -0.002,
+    "rain_dev_90": -0.004
+  },
+  "warning_tiers": {
+    "note": "Validation models (trained on targets <= 2021-12). A tier 'flags' a taluk if that forecast path is at/above the stress level in the target month.",
+    "events": [
+      {
+        "origin": "2023-10",
+        "target": "2024-04",
+        "actual_in_stress": 20,
+        "taluks": 222,
+        "watch_pessimistic": {
+          "flagged": 168,
+          "correct": 18,
+          "recall": 0.9,
+          "precision": 0.11
+        },
+        "warning_likely": {
+          "flagged": 12,
+          "correct": 4,
+          "recall": 0.2,
+          "precision": 0.33
+        }
+      },
+      {
+        "origin": "2023-07",
+        "target": "2023-10",
+        "actual_in_stress": 24,
+        "taluks": 224,
+        "watch_pessimistic": {
+          "flagged": 70,
+          "correct": 19,
+          "recall": 0.79,
+          "precision": 0.27
+        },
+        "warning_likely": {
+          "flagged": 3,
+          "correct": 3,
+          "recall": 0.12,
+          "precision": 1.0
+        }
+      }
+    ]
+  },
+  "risk_levels": "critical: at stress now or middle path within 90 days; high: middle path within 6 months; medium (watch): pessimistic path within 6 months; low: otherwise"
+}

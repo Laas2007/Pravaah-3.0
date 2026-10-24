@@ -1,13 +1,12 @@
 // 🏙️ Urban Population. TODO list: backend/usecases/urban.py
 // The full Bengaluru ward model lives in ./BengaluruApp.jsx (route /urban/bengaluru).
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Area, CartesianGrid, ComposedChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import { RISK_COLOR } from '../../i18n'
 import KarnatakaMap from '../../shared/KarnatakaMap'
 import PlatformShell, { RiskLegend } from '../../shared/PlatformShell'
 import TalukDetail from '../../shared/TalukDetail'
-import { useAsOf, useLoad } from '../../shared/hooks'
+import { useAsOf, useLoad, useTalukSel } from '../../shared/hooks'
 import { platform } from '../../shared/platforms'
 import { ErrorBox, Loading, MockBanner, ProvisionalNote, RiskBadge, Stat, m, pct } from '../../shared/ui'
 import { urbanApi } from './api'
@@ -16,7 +15,7 @@ const COLOR = platform('urban').color
 
 export default function UrbanPlatform() {
   const [asOf, setAsOf, meta] = useAsOf()
-  const [sel, setSel] = useState(null)
+  const [sel, setSel] = useTalukSel()
   const res = useLoad(() => (asOf ? urbanApi.cities(asOf) : Promise.resolve(null)), [asOf])
   const cities = res.data?.cities || []
 
@@ -38,7 +37,7 @@ export default function UrbanPlatform() {
       {sel != null && <TalukDetail idx={sel} asOf={asOf} color={COLOR} onClose={() => setSel(null)} />}
       {asOf && <CauveryOutlook asOf={asOf} />}
       <h2>Cities across Karnataka</h2>
-      <ProvisionalNote />
+      <ProvisionalNote model={res.data?.model} />
       <MockBanner>Population and supply (MLD) are rough estimates until city data is added.</MockBanner>
       {res.error && <ErrorBox error={res.error} />}
       {!res.data ? <Loading what="cities" /> : (

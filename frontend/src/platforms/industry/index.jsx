@@ -1,17 +1,16 @@
 // 🏭 Industries & Businesses. TODO list: backend/usecases/industry.py
-import { useState } from 'react'
 import { core } from '../../api'
 import { RISK_COLOR } from '../../i18n'
 import KarnatakaMap from '../../shared/KarnatakaMap'
 import PlatformShell, { RiskLegend } from '../../shared/PlatformShell'
 import TalukDetail from '../../shared/TalukDetail'
-import { useAsOf, useLoad } from '../../shared/hooks'
+import { useAsOf, useLoad, useTalukSel } from '../../shared/hooks'
 import { ErrorBox, Loading, MockBanner, ProvisionalNote, RiskBadge, m, pct } from '../../shared/ui'
 import { industryApi } from './api'
 
 export default function IndustryPlatform() {
   const [asOf, setAsOf, meta] = useAsOf()
-  const [sel, setSel] = useState(null)
+  const [sel, setSel] = useTalukSel()
   const ind = useLoad(() => (asOf ? core.indicators(asOf) : Promise.resolve(null)), [asOf]).data
   const res = useLoad(() => (asOf ? industryApi.areas(asOf) : Promise.resolve(null)), [asOf])
   const areas = res.data?.areas || []
@@ -31,7 +30,7 @@ export default function IndustryPlatform() {
       <div className="ps-empty">📍 Click any taluk on the map to get a water-risk report for a business location.</div>
       {sel != null && <TalukDetail idx={sel} asOf={asOf} onClose={() => setSel(null)} />}
       <h2>Industrial areas</h2>
-      <ProvisionalNote />
+      <ProvisionalNote model={res.data?.model} />
       <MockBanner>Area list, sectors and demand are placeholders until the KIADB data is cleaned.</MockBanner>
       {res.error && <ErrorBox error={res.error} />}
       {!res.data ? <Loading what="industrial areas" /> : (

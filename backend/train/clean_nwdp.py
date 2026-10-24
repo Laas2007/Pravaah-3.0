@@ -129,6 +129,15 @@ def groundwater():
     covered = (nwell[-24:] > 0).any(axis=0).sum()
     print(f"  wrote gw_taluk.npz ({len(months)} months x {T} taluks); {covered}/{T} taluks have wells in the last 2 years")
 
+    # well x month depth matrix (cleaned readings) for the well-level M2 model
+    wcode = list(wells.well)
+    wi = {c: j for j, c in enumerate(wcode)}
+    W = np.full((len(wcode), len(months)), np.nan, dtype=np.float32)
+    W[d.well.map(wi).values, d.month.map(mi).values] = d.depth.values
+    np.savez_compressed(OUT / "gw_well_monthly.npz", months=np.array([str(m) for m in months]),
+                        wells=np.array(wcode), taluk=wells.taluk.values.astype(np.int16), depth=W)
+    print(f"  wrote gw_well_monthly.npz ({W.shape[0]} wells x {W.shape[1]} months, {np.isfinite(W).mean():.0%} filled)")
+
     dump(OUT / "gw_wells.json", {
         "source": "NWDP Ground Water Level Manual Monthly Karnataka (Karnataka Ground Water Directorate)",
         "units": "depth to water, m below ground level",

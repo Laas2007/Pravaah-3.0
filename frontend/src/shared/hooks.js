@@ -22,6 +22,15 @@ export function useLoad(loader, deps) {
   return state
 }
 
+/** Selected taluk idx, kept in the URL (?taluk=132) so demo links can open a taluk directly. */
+export function useTalukSel() {
+  const [params, setParams] = useSearchParams()
+  const raw = params.get('taluk')
+  const sel = raw == null || raw === '' || Number.isNaN(Number(raw)) ? null : Number(raw)
+  const setSel = (i) => setParams((p) => { if (i == null) p.delete('taluk'); else p.set('taluk', String(i)); return p }, { replace: true })
+  return [sel, setSel]
+}
+
 /** The shared "as of" date lives in the URL (?as_of=YYYY-MM-DD) so it survives switching platforms. */
 export function useAsOf() {
   const [params, setParams] = useSearchParams()

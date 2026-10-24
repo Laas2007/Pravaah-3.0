@@ -67,6 +67,19 @@
 .ps-hero-link > span { font-size: 26px; }
 .ps-hero-link > div { flex: 1; }
 
+/* M2 forecast block (TalukDetail) */
+.ps-forecast { display: flex; align-items: center; gap: 14px; background: #fff6f3; border: 1px solid #f6d3c7; border-radius: 12px; padding: 12px 14px; margin: 12px 0 4px; }
+.ps-forecast-big { font-size: 30px; font-weight: 800; letter-spacing: -.02em; color: #b33a1f; white-space: nowrap; }
+.ps-why { display: flex; flex-direction: column; gap: 8px; }
+.ps-why-row { display: grid; grid-template-columns: minmax(0, 1fr) 90px auto; gap: 10px; align-items: center; font-size: 13px; }
+.ps-why-row b { font-size: 12px; white-space: nowrap; }
+.ps-why-bar { height: 8px; background: #eef1f5; border-radius: 99px; overflow: hidden; }
+.ps-why-bar i { display: block; height: 100%; border-radius: 99px; }
+.ps-modelcard { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; }
+.ps-modelcard p { color: var(--ink-2); font-size: 14px; }
+.landing-model { padding: 0 32px 8px; }
+@media (max-width: 900px) { .landing-model { padding: 0 16px 8px; } }
+
 /* reservoirs (no map: two columns) */
 .ps-two { display: grid; grid-template-columns: minmax(300px, 420px) minmax(0, 1fr); gap: 22px; max-width: 1300px; }
 .ps-res-list { display: flex; flex-direction: column; gap: 8px; }
