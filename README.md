@@ -1,6 +1,7 @@
 # Pravaah - Error 404 - Laasya Deepak, Niharika Singh, Keerthi Virupapura, K Mahalakshmi, Jyothsna Sivakumar
 
-# Pravaah: water scarcity forecasts for Karnataka
+
+# Pravaah: water scarcity forecasting for Karnataka
 
 Pravaah forecasts how many days each of Karnataka's **227 taluks** and Bengaluru's **243 wards** have before
 groundwater reaches stress, and explains why. It is built on public government records (rain gauges, monitoring
