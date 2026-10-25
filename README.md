@@ -1,4 +1,4 @@
-#Pravaah - Error 404 - Laasya Deepak, Niharika Singh, Keerthi Virupapura, K Mahalakshmi, Jyothsna Sivakumar
+# Pravaah - Error 404 - Laasya Deepak, Niharika Singh, Keerthi Virupapura, K Mahalakshmi, Jyothsna Sivakumar
 
 # Pravaah: water scarcity forecasts for Karnataka
 
