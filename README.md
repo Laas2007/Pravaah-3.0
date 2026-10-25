@@ -8,7 +8,10 @@ wells, reservoirs) and serves three groups through separate platforms: **farmers
 **industry**. The whole site works in **English and Kannada**. Every number is labelled real, estimated or simulated,
 and every model shows how it scored on years it never saw.
 
-SDG 6 (Clean Water and Sanitation). A short feature summary is in [FEATURES.md](FEATURES.md).
+SDG 11 (Sustainable Cities and Communities)
+SDG 12 (Responsible Consumption and Production)
+SDG 13 (Climate Action)
+. A short feature summary is in [FEATURES.md](FEATURES.md).
 
 ---
 
