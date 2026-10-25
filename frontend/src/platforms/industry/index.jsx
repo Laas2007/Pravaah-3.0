@@ -47,7 +47,7 @@ export default function IndustryPlatform() {
 
   return (
     <PlatformShell which="industry" asOf={asOf} setAsOf={setAsOf} meta={meta} map={map}>
-      {sel == null && wsel == null && <SiteCheck asOf={asOf} picking={picking} setPicking={setPicking} />}
+      <SiteCheck asOf={asOf} picking={picking} setPicking={setPicking} />
       <div className="ps-empty">{tr('Map colour = industrial water-disruption risk per district. Click any taluk, or any Bengaluru ward (zoom in), for a site-level water report.',
         'ನಕ್ಷೆಯ ಬಣ್ಣ = ಜಿಲ್ಲೆಯ ಕೈಗಾರಿಕಾ ನೀರಿನ ಅಡಚಣೆ ಅಪಾಯ. ಸ್ಥಳ ವರದಿಗಾಗಿ ತಾಲೂಕು ಅಥವಾ ಬೆಂಗಳೂರು ವಾರ್ಡ್ ಕ್ಲಿಕ್ ಮಾಡಿ.')}</div>
       {wsel != null && wards && <WardCard ward={wards.wards[wsel]} asOf={wards.as_of} onClose={() => setWard(null)} />}
